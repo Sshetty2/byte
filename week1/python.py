@@ -40,29 +40,45 @@
 #             num -=1
 
 
-def compute_divisors(num):
-    counter = num
-    divisors = []
-    while num > 0:
-        counter -= 1
-        if counter == 0:
-            break
-        elif num % counter == 0:
-            divisors.append(counter)
-    return divisors
+# def compute_divisors(num):
+#     counter = num
+#     divisors = []
+#     while num > 0:
+#         counter -= 1
+#         if counter == 0:
+#             break
+#         elif num % counter == 0:
+#             divisors.append(counter)
+#     return divisors
 
 
-print(compute_divisors(10))
+# print(compute_divisors(10))
 
-def sum_of_divisors(num):
-	pass
+# def sum_of_divisors(num):
+# 	pass
 
-def divisor_count(num):
-	pass
+# def divisor_count(num):
+# 	pass
 
-def get_totatives(num):
-	pass
+# def get_totatives(num):
+# 	pass
 
-def totient(num):
-	pass
+# def totient(num):
+# 	pass
+
+
+file_object = open('article.txt', 'r') # r = read, w = write, a = append 
+line = file_object.readline()
+print(line)
+file_object.close()
+
+with open("article.txt", "r") as file_object:
+    newArr = []
+    newArr2 = []
+    for line in file_object:
+        for i in line.split():
+            newArr.append(i)
+    print(newArr)
+    
+            
 
