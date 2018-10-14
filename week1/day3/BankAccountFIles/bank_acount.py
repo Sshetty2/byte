@@ -33,9 +33,24 @@ def logIn():
         while logIn_userID not in masterUserAccts:
            logIn_userID = input("Please input valid user id: ")
            return logIn()
-        print(f"Hello, {masterUserAccts[logIn_userID]['User First Name']} {masterUserAccts[logIn_userID]['User Last Name']} \n\nlogin menu.\n\n1. Check Balance \n\n2. Make Deposit\n\n3. Make Withdrawal\n\n4. Log out\n\n")
+        print(f"Hello, {masterUserAccts[logIn_userID]['User First Name']} {masterUserAccts[logIn_userID]['User Last Name']} \n\nLogin Menu:\n\n1. Check Balance\n2. Make Deposit\n3. Make Withdrawal\n4. Log out\n5. Return to Main Menu\n\n")
         logIninput = input("What would you like to do? ")
-
+        while logIninput not in ["1","2","3","4","5"]:
+            logIninput = input("Please enter valid input")
+        if logIninput == "1":
+            checkBalance(logIn_userID)
+        if logIninput == "2":
+            depositAmount = input("How much would you like to deposit?: ")
+            makeDeposit(logIn_userID, depositAmount)
+        if logIninput == "3":
+            makeWithdrawal()
+        if logIninput == "4":
+            print("Logging out .. \n\n\n Goodbye!! \n\n\n")
+            quit()
+        if logIninput == "5":
+            return inputTerminal()
+        
+           
 
 def createAccount():
     userName = input("input user name: ")
@@ -47,7 +62,6 @@ def createAccount():
     PIN = input("please input new 4-digit pin number: ")
     while len(PIN) != 4:
         PIN = input("please input 4-digit pin: ")
-    masterUserAccts["UserID"] = userID
     masterUserAccts[userID] = {}
     masterUserAccts[userID]["User First Name"] = userFirstName.capitalize()
     masterUserAccts[userID]["User Last Name"] = userLastName.capitalize()
@@ -63,7 +77,23 @@ def createAccount():
     return inputTerminal()
 
 #queries server for balance information
-# def checkBalance():
+def checkBalance(logIn_userID):
+    print(f"your account balance is currently: {masterUserAccts[logIn_userID]['Balance']}\n\n")
+    command = input("Return to main menu(Y/N)?: \n\n")
+    while command not in ["Y", "y"]:
+        return checkBalance(logIn_userID)
+    inputTerminal()
+
+def makeDeposit(logIn_userID, depositAmount):
+    masterUserAccts[logIn_userID]['Balance']= depositAmount
+    with open("Account_Info_JSON.json", "w") as file_object:
+        json.dump(masterUserAccts, file_object, indent=2)
+    print(f"New Balance: {masterUserAccts[logIn_userID]['Balance']}\n")
+    command = input("Return to main menu(Y/N)?: \n\n")
+    while command not in ["Y", "y"]:
+        return checkBalance(logIn_userID)
+    inputTerminal()
+
 
 
 #retreives x dollars from bank account
