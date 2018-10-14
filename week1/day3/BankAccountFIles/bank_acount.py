@@ -2,29 +2,42 @@ import random
 import json
 from randomCC import completed_number 
 from card_validation import cardValidation
+from pprint import pprint
+import os
+ 
+if os.stat("Account_Info_JSON.json").st_size == 0:
+        masterUserAccts = {}
+        with open("Account_Info_JSON.json", "w") as file_object:
+            json.dump(masterUserAccts, file_object, indent=2)
+
+with open("Account_Info_JSON.json", "r") as file_object:
+    masterUserAccts = json.load(file_object)
+
 
 def inputTerminal():
-    optionsMenu = input("Please select from the following options.. \n 1. Create Account \n 2. Log In \n 3. Quit \n input: ")
-    while optionsMenu not in ["1","2","3"]:
+    optionsMenu = input("Please select from the following options.. \n\n 1. Create Account \n 2. Log In \n 3. Quit \n\n input:")
+    while optionsMenu not in ["1","2","3", 1, 2, 3]:
         optionsMenu = input("Please input correct value \n input: ")
-    if optionsMenu == "1":
+        return inputTerminal()
+    if optionsMenu == "1" or optionsMenu == 1:
         createAccount()
-    if optionsMenu == "2":
+    if optionsMenu == "2" or optionsMenu == 2:
         logIn()
-    if optionsMenu == "3":
+    if optionsMenu == "3" or optionsMenu == 3:
         print("goodbye")
         quit()
 
 
-#designate login procedures
 def logIn():
-    print('not created yet')
-    quit()
-
+        logIn_userID = input("Please input user id: ")
+        while logIn_userID not in masterUserAccts:
+           logIn_userID = input("Please input valid user id: ")
+           return logIn()
+        print(f"Hello, {masterUserAccts[logIn_userID]['User First Name']} {masterUserAccts[logIn_userID]['User Last Name']} \n\nlogin menu.\n\n1. Check Balance \n\n2. Make Deposit\n\n3. Make Withdrawal\n\n4. Log out\n\n")
+        logIninput = input("What would you like to do? ")
 
 
 def createAccount():
-    masterUserAccts = {}
     userName = input("input user name: ")
     while len(userName.split()) != 2:
         userName = input("please input only first and last name \n try again: ")
@@ -36,15 +49,17 @@ def createAccount():
         PIN = input("please input 4-digit pin: ")
     masterUserAccts["UserID"] = userID
     masterUserAccts[userID] = {}
-    masterUserAccts[userID]["User First Name"] = userFirstName
-    masterUserAccts[userID]["User Last Name"] = userLastName
+    masterUserAccts[userID]["User First Name"] = userFirstName.capitalize()
+    masterUserAccts[userID]["User Last Name"] = userLastName.capitalize()
     masterUserAccts[userID]["PIN"] = PIN
-    masterUserAccts[userID]["Balance"] = 00
+    masterUserAccts[userID]["Balance"] = "00"
     #  A new card number is added to the masterUserAccts object generated from randomCC
     # The new credit card number is first referenced with existing credit card numbers before being
     masterUserAccts[userID]["Credit Card Number"] = completed_number(['3', '3'], 16)
-    print(masterUserAccts)
-    print("new account created! \n ... Porting back to main menu")
+    with open("Account_Info_JSON.json", "w") as file_object:
+        json.dump(masterUserAccts, file_object, indent=2)
+    pprint(masterUserAccts)
+    print(f'\n\nNew account created! \n\n you\'re new user ID is {userID}\n\n... Porting back to main menu\n\n')
     return inputTerminal()
 
 #queries server for balance information
@@ -55,9 +70,13 @@ def createAccount():
 # def makeWithdrawal():
 
 
+
 # Master run function 
 def run():
     inputTerminal()
+
+
+
 ##################
 
 run()
