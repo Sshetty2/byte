@@ -1,0 +1,23 @@
+{
+  "sshetty": {
+    "User First Name": "Sachit",
+    "User Last Name": "Shetty",
+    "PIN": "7669",
+    "Balance": "400",
+    "Credit Card Number": 3364982076839960
+  },
+  "kshetty": {
+    "User First Name": "Krish",
+    "User Last Name": "Shetty",
+    "PIN": "7447",
+    "Balance": "1200",
+    "Credit Card Number": 3393205545596360
+  },
+  "lhacker": {
+    "User First Name": "Laura",
+    "User Last Name": "Hacker",
+    "PIN": "4141",
+    "Balance": "200",
+    "Credit Card Number": 3394721468211610
+  }
+}
