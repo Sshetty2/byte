@@ -28,7 +28,6 @@ def inputTerminal():
         logIn_PIN = input("Please input PIN: ")
         while logIn_PIN != masterUserAccts[logIn_userID]['PIN']:
             logIn_PIN = input("Please input valid pin: ")
-        print(f"Hello, {masterUserAccts[logIn_userID]['User First Name']} {masterUserAccts[logIn_userID]['User Last Name']} \n\nLogin Menu:\n\n1. Check Balance\n2. Make Deposit\n3. Make Withdrawal\n4. Log out\n5. Make a Transfer\n6. Return to Main Menu\n")
         logIn(logIn_userID)
     if optionsMenu == "3" or optionsMenu == 3:
         print("goodbye")
@@ -36,6 +35,7 @@ def inputTerminal():
 
 
 def logIn(logIn_userID):
+        print(f"Hello, {masterUserAccts[logIn_userID]['User First Name']} {masterUserAccts[logIn_userID]['User Last Name']} \n\nLogin Menu:\n\n1. Check Balance\n2. Make Deposit\n3. Make Withdrawal\n4. Log out\n5. Make a Transfer\n6. Return to Main Menu\n")
         logIninput = input("What would you like to do? ")
         while logIninput not in ["1","2","3","4","5"]:
             logIninput = input("Please enter valid input")
@@ -46,6 +46,8 @@ def logIn(logIn_userID):
             makeDeposit(logIn_userID, depositAmount)
         if logIninput == "3":
             withdrawalAmount = input("How much would you like to withdraw?: ")
+            while int(withdrawalAmount) > int(masterUserAccts[logIn_userID]['Balance']):
+                withdrawalAmount = input("Insufficient Funds -- Please enter valid amount: ")
             makeWithdrawal(logIn_userID, withdrawalAmount)
         if logIninput == "4":
             print("Logging out .. \n\n\n Goodbye!! \n\n\n")
@@ -91,37 +93,25 @@ def createAccount():
     masterUserAccts[userID]["Credit Card Number"] = completed_number(['3', '3'], 16)
     with open("Account_Info_JSON.json", "w") as file_object:
         json.dump(masterUserAccts, file_object, indent=2)
-    pprint(masterUserAccts)
-    print(f'\n\nNew account created! \n\n you\'re new user ID is {userID}\n\n... Porting back to main menu\n\n')
-    return logIn(logIn_userID)
+    print(f'\n---------------------\nNew account created! \n\n you\'re new user ID is {userID}\n\n... Porting back to main menu\n\n')
+    return inputTerminal()
 
 def checkBalance(logIn_userID):
-    print(f"your account balance is currently: {masterUserAccts[logIn_userID]['Balance']}\n\n")
-    command = input("Return to main menu(Y/N)?: \n\n")
-    while command not in ["Y", "y"]:
-        return checkBalance(logIn_userID)
+    print(f"\n---------------------\nyour account balance is currently: {masterUserAccts[logIn_userID]['Balance']}\n---------------------\n")
     return logIn(logIn_userID)
 
 def makeDeposit(logIn_userID, depositAmount):
     masterUserAccts[logIn_userID]['Balance']= depositAmount
     with open("Account_Info_JSON.json", "w") as file_object:
         json.dump(masterUserAccts, file_object, indent=2)
-    print(f"New Balance: {masterUserAccts[logIn_userID]['Balance']}\n")
-    command = input("Return to main menu(Y/N)?: \n\n")
-    while command not in ["Y", "y"]:
-        return checkBalance(logIn_userID)
+    print(f"\n---------------------\nNew Balance: {masterUserAccts[logIn_userID]['Balance']}\n---------------------\n")
     return logIn(logIn_userID)
 
-def makeWithdrawal(logIn_userID, withdrawalAmount):
-    masterUserAccts[logIn_userID]['Balance']= withdrawalAmount
+def makeWithdrawal(logIn_userID, withdrawalAmount): 
+    masterUserAccts[logIn_userID]['Balance']= str(int(masterUserAccts[logIn_userID]['Balance']) - int(withdrawalAmount))
     with open("Account_Info_JSON.json", "w") as file_object:
         json.dump(masterUserAccts, file_object, indent=2)
-    print(f"New Balance: {masterUserAccts[logIn_userID]['Balance']}\n")
-    command = input("Return to main menu(Y/N)?: \n\n")
-    while command not in ["Y", "y", "n", "N"]:
-        command = input("Return to main menu(Y/N)?: \n\n")
-    if command in ["n", "N"]:
-        return makeWithdrawal(logIn_userID, withdrawalAmount)
+    print(f"\n---------------------\nNew Balance: {masterUserAccts[logIn_userID]['Balance']}\n---------------------\n")
     return logIn(logIn_userID)
 
 def transfer(logIn_userID, target_userID, transferAmt):
@@ -129,8 +119,8 @@ def transfer(logIn_userID, target_userID, transferAmt):
     masterUserAccts[target_userID]['Balance']= str(int(masterUserAccts[target_userID]['Balance']) + int(transferAmt))
     with open("Account_Info_JSON.json", "w") as file_object:
         json.dump(masterUserAccts, file_object, indent=2)
-    print(f"\nSuccessful transaction!! \n\nNew Balance: {masterUserAccts[logIn_userID]['Balance']}\n\n Porting Back to main menu ... \n")
-    return inputTerminal()    
+    print(f"\n---------------------\nSuccessful transaction!! \n\nNew Balance: {masterUserAccts[logIn_userID]['Balance']}\n\n Porting Back to main menu ...\n---------------------\n")
+    return logIn(logIn_userID)    
 
 
 
