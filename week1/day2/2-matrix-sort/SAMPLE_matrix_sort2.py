@@ -1,5 +1,5 @@
 
-# from tabulate import tabulate
+from tabulate import tabulate
 
 def matrix_sort(matrix_doc):
     with open(matrix_doc, 'r') as f:
@@ -57,7 +57,7 @@ def matrix_sort(matrix_doc):
     #return sorted_by_column
 
     print ("Sorted by row: ")
-    print ((sorted_by_row))
+    print (tabulate(sorted_by_row))
     #for i in sorted_by_row:
         #print (i)
 
