@@ -5,12 +5,21 @@ from card_validation import cardValidation
 from pprint import pprint
 import os
  
+<<<<<<< HEAD
 if os.stat("Account_Info_JSON.json".st_size == 0):
         masterUserAccts = {}
         with open(Account_Info_JSON, "w") as file_object:
             json.dump(masterUserAccts, file_object, indent=2)
 
 with open(Account_Info_JSON, "r") as file_object:
+=======
+if os.stat("Account_Info_JSON.json").st_size == 0:
+        masterUserAccts = {}
+        with open("Account_Info_JSON.json", "w") as file_object:
+            json.dump(masterUserAccts, file_object, indent=2)
+
+with open("Account_Info_JSON.json", "r") as file_object:
+>>>>>>> eac3dc8176443cde17f1204c5066600a43e29b0e
     masterUserAccts = json.load(file_object)
 
 
