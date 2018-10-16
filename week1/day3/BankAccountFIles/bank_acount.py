@@ -37,7 +37,7 @@ def inputTerminal():
 def logIn(logIn_userID):
         print(f"Hello, {masterUserAccts[logIn_userID]['User First Name']} {masterUserAccts[logIn_userID]['User Last Name']} \n\nLogin Menu:\n\n1. Check Balance\n2. Make Deposit\n3. Make Withdrawal\n4. Log out\n5. Make a Transfer\n6. Return to Main Menu\n")
         logIninput = input("What would you like to do? ")
-        while logIninput not in ["1","2","3","4","5"]:
+        while logIninput not in ["1","2","3","4","5","6"]:
             logIninput = input("Please enter valid input")
         if logIninput == "1":
             checkBalance(logIn_userID)
@@ -101,7 +101,7 @@ def checkBalance(logIn_userID):
     return logIn(logIn_userID)
 
 def makeDeposit(logIn_userID, depositAmount):
-    masterUserAccts[logIn_userID]['Balance']= depositAmount
+    masterUserAccts[logIn_userID]['Balance']= str(int(masterUserAccts[logIn_userID]['Balance']) + int(depositAmount)) 
     with open("Account_Info_JSON.json", "w") as file_object:
         json.dump(masterUserAccts, file_object, indent=2)
     print(f"\n---------------------\nNew Balance: {masterUserAccts[logIn_userID]['Balance']}\n---------------------\n")
