@@ -119,7 +119,7 @@ def transfer(logIn_userID, target_userID, transferAmt):
     masterUserAccts[target_userID]['Balance']= str(int(masterUserAccts[target_userID]['Balance']) + int(transferAmt))
     with open("Account_Info_JSON.json", "w") as file_object:
         json.dump(masterUserAccts, file_object, indent=2)
-    print(f"\n---------------------\nSuccessful transaction!! \n\nNew Balance: {masterUserAccts[logIn_userID]['Balance']}\n\n Porting Back to main menu ...\n---------------------\n")
+    print(f"\n---------------------\nSuccessful transaction!! \n\nNew Balance: {masterUserAccts[logIn_userID]['Balance']}\\n---------------------\nSuccessful transaction!! \nn\n Porting Back to main menu ...\n---------------------\n")
     return logIn(logIn_userID)    
 
 

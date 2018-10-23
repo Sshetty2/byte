@@ -181,28 +181,38 @@ import json
 # def run():
 #     masterUserAccts = {}
 
-validCardNumber = "6011001620"
-invalidCardNumber = "343125645896542"
+# validCardNumber = "6011001620"
+# invalidCardNumber = "343125645896542"
 
-def cardLuhnChecksumIsValid(card_number):
-    """ checks to make sure that the card passes a luhn mod-10 checksum """
-    sum = 0
-    num_digits = len(card_number)
-    oddeven = num_digits & 1
+# def cardLuhnChecksumIsValid(card_number):
+#     """ checks to make sure that the card passes a luhn mod-10 checksum """
+#     sum = 0
+#     num_digits = len(card_number)
+#     oddeven = num_digits & 1
 
-    for count in range(0, num_digits):
-        digit = int(card_number[count])
+#     for count in range(0, num_digits):
+#         digit = int(card_number[count])
 
-        if not (( count & 1 ) ^ oddeven ):
-            digit = digit * 2
-        if digit > 9:
-            digit = digit - 9
+#         if not (( count & 1 ) ^ oddeven ):
+#             digit = digit * 2
+#         if digit > 9:
+#             digit = digit - 9
 
-        sum = sum + digit
+#         sum = sum + digit
 
-    return ((sum % 10) == 0)
+#     return ((sum % 10) == 0)
 
-cardLuhnChecksumIsValid(validCardNumber)
+# cardLuhnChecksumIsValid(validCardNumber)
 # cardValidation()
 # cardLuhnChecksumIsValid(validCardNumber)
+def namesplit(name):
 
+    newstring = []
+
+    for i  in name : 
+        if i not in ['*', '\\']:
+            newstring.append(i)
+        else: 
+            return ''.join(newstring)
+
+print(namesplit('Emmitt Smith*\SmitEm00'))
