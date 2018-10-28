@@ -55,7 +55,7 @@
 ##### Part 2 - SQL Foriegn Keys
 
 * Foreign Keys allow us to reference one table to another.
-* A Foreign Key is an extra `colomn` in a table
+* A Foreign Key is an extra `column` in a table
 * This column will be located/entered in the `child table` and will `reference` the parent
 
 ***Example Code Along***
@@ -93,6 +93,17 @@ GYMS = [
   ["Blink", "New York", 20],
 ]
 
+<!-- 
+INSERT INTO GYMS (name, city, rate) 
+    VALUES 
+                  ("Golds Gym", "Los Angeles", 40),
+                  ("Equinox", "New York", 150),
+                  ("Planet Fitness", "New Jersey", 15),
+                  ("Blink", "New York", 20); -->
+
+
+
+
 MEMBERS = [
   [2, "Wade", "Wilson", 50],
   [2, "James", "Howlett", 324],
@@ -104,6 +115,22 @@ MEMBERS = [
   [3, "Natasha", "Romenov", 38],
   [2, "Maria", "Hill", 32],
 ]
+
+
+INSERT INTO MEMBERS (gym_id, first_name, last_name, age) 
+    VALUES 
+                  (2, "Wade", "Wilson", 50),
+                  (2, "James", "Howlett", 324),
+                  (4, "Peter", "Parker", 21),
+                  (1, "Steve", "Rogers", 87),
+                  (3, "Scott", "Summers", 35),
+                  (1, "Jean", "Grey", 30),
+                  (4, "Kitty", "Pride", 20),
+                  (3, "Natasha", "Romenov", 38),
+                  (2, "Maria", "Hill", 32);
+
+
+
 ```
 * Lets make sure we got everything right here
 
@@ -157,9 +184,7 @@ members_of_gym = SELECT * FROM members WHERE gym_id=(SELECT id FROM gyms WHERE n
 
 ```
 members_of_gym = '''
-  SELECT *
-  FROM member, gyms
-  WHERE members.gym_id=gyms.id AND gyms.name='Equinox';
+  SELECT * FROM members, gyms WHERE members.gym_id=gyms.id AND gyms.name='Equinox';
 '''
 ```
 

@@ -15,22 +15,25 @@ Take a look here at Python's sqlite driver [documentation](https://docs.python.o
 You need to establish a database and a cursor object.
 ```py
 import sqlite3
-conn = sqlite3.connect('mydb.db')
-c = conn.cursor()
+
+### connect to the database and open the cursor 
+
+sqlite3.connect('mydb.db').cursor()
 ```
 To create a table:
 ```py
-c.execute("CREATE TABLE 'users' (
+sqlite3.connect('mydb.db').cursor().execute("CREATE TABLE 'users' (
 'id' INTEGER,
 'name' VARCHAR,
 'account' VARCHAR,
 'balance' REAL,
 PRIMARY KEY ('id')
 )")
+
 ```
 To insert a row of data:
 ```py
-c.execute("INSERT INTO users(name, account, balance) VALUES(?,?,?)", (name, account, balance))
+sqlite3.connect('mydb.db').cursor().execute("INSERT INTO users(name, account, balance) VALUES(?,?,?)", (name, account, balance))
 ```
 **Note: ** You must specify the columns names otherwise sqlite3 will default to all columns. 
 
