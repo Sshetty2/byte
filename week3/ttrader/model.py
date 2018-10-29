@@ -263,7 +263,7 @@ class Account:
     
     def increase_position(self, ticker, amount):
         pos = self.getposition(ticker)
-        if not pos:
+        if not pos or amount > self.balance:
             pos = Position(account_pk = self.pk, ticker = ticker, amount = 0)
         pos.amount += amount
         pos.save()
@@ -280,7 +280,7 @@ class Account:
             SQL = """
             SELECT * FROM trades WHERE account_pk = ?;
             """
-            cur.execute(SQL, (self.account_pk,))
+            cur.execute(SQL, (self.pk,))
             rows = cur.fetchall()
             results = []
             for row in rows: 
@@ -319,7 +319,7 @@ class Account:
         if price is None:
             price = apiget(ticker)
         try:
-            self.increase_position(ticker, amount = volume)
+            self.increase_position(ticker, volume)
         except ValueError: 
             return None
         trade = Trade(pk = None, account_pk = self.pk, ticker = ticker, volume=volume, price=price, time=None)

@@ -6,7 +6,7 @@ def login_terminal():
     options_menu = input()
     while options_menu not in ["1","2","3", 1, 2, 3]:
         view.invalid_input()
-        return input_terminal()
+        return login_terminal()
     if options_menu == "1" or options_menu == 1:
         create_account()
         view.create_confirm()
@@ -14,7 +14,8 @@ def login_terminal():
     if options_menu == "2" or options_menu == 2:
         login()
     if options_menu == "3" or options_menu == 3:
-        exitprogram()
+        view.goodbye()
+        quit()
 
 def create_account():
     view.create_account_username()
@@ -50,9 +51,44 @@ def login():
 
 def login_menu(user_login):
     view.login_menu(user_login)
-
-
-
+    login_input = input()
+    while login_input not in ["1","2","3","4","5","6","7"]:
+        view.invalidinput()
+        login_input = input()
+    if login_input == "1":
+        view.check_balance(user_login)
+        return login_menu(user_login)
+    if login_input == "2":
+        all_positions = user_login.getpositions()
+        view.check_all_positions(user_login, all_positions)
+        return login_menu(user_login)
+    if login_input == "3":
+        view.ticker_selection_buy()
+        ticker_buy = input().upper()
+        view.volume_amount_buy()
+        volume_amount_buy = int(input())
+        user_login.buy(ticker_buy, volume_amount_buy)
+        updated_position_value = user_login.getposition(ticker_buy)
+        view.updated_position_value(updated_position_value)
+        return login_menu(user_login)
+    if login_input == "4":
+        view.ticker_selection_sell()
+        ticker_sell = input().upper()
+        view.volume_amount_sell()
+        volume_amount_sell = int(input())
+        user_login.sell(ticker_sell, volume_amount_sell)
+        updated_position_value = user_login.getposition(ticker_sell)
+        view.updated_position_value(updated_position_value)
+        return login_menu(user_login)
+    if login_input == "5":
+        all_trades = user_login.gettrades()
+        view.see_all_trades(user_login, all_trades)
+        return login_menu(user_login)
+    if login_input == "6":
+        return login()
+    if login_input == "7":
+        view.goodbye()
+        quit()
 
 
 
@@ -60,6 +96,8 @@ def run():
     """ Main flow of the program. """
     view.welcome_message()
     login_terminal() 
+    view.goodbye()
+    quit()
 #    if not userID:
  #       exitprogram()
 

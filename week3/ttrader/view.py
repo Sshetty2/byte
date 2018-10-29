@@ -29,4 +29,31 @@ def invalid_password():
     print("\n------------------------------------------------\nERROR: Invalid Password.\n")
 
 def login_menu(user_login):
-    print(f"\n------------------------------------------------\n\nWelcome User {user_login.username}, \n\nLogin Menu:\n\n1. Check Balance\n2. Make Deposit\n3. Make Withdrawal\n4. Make a Transfer\n5. Log out\n6. Quit\n")
+    print(f"\nWelcome User {user_login.username}, \n\nLogin Menu:\n\n1. Check Balance\n2. See all positions\n3. Buy Shares\n4. Sell Shares\n5. See All Trades\n6. Log out\n7. Quit\n\nInput:", end = " ")
+
+def check_balance(user_login):
+    print(f"\n------------------------------------------------\nUser {user_login.username} Account Balance : {user_login.balance}\n ------------------------------------------------\n")
+
+def check_all_positions(user_login, all_positions):
+    print(f"\n------------------------------------------------\nHello User {user_login.username}, here is a current snapshot of all of your current positions\n{all_positions}")
+
+def ticker_selection_buy():
+    print("------------------------------------------------\nOk, please enter the ticker symbol of the stock that you'd like to purchase!\n\nTicker Symbol:", end = " ")
+
+def volume_amount_buy():
+    print("------------------------------------------------\nOk, how much would you like to buy?\n\nVolume Amt:", end = " ")
+
+def updated_position_value(updated_position_value):
+    print(f"\n------------------------------------------------\nYour new position amount is {updated_position_value}\n------------------------------------------------\n")
+
+def ticker_selection_sell():
+    print("------------------------------------------------\nOk, please enter the ticker symbol of the stock that you'd like to sell!\n\nTicker Symbol:", end = " ")
+
+def volume_amount_sell():
+    print("------------------------------------------------\nOk, how much would you like to sell?\n\nVolume Amt:", end = " ")
+
+def see_all_trades(user_login, all_positions):
+    print(f"\n------------------------------------------------\nHello User {user_login.username}, here is a current snapshot of all of your trades\n{all_positions}")
+
+def goodbye():
+    print("\n------------------------------------------------\nThanks for using Terminal Trader!! \n\n Goodbye!!\n------------------------------------------------\n")
