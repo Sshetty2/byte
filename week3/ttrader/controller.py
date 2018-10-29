@@ -21,7 +21,7 @@ def create_account():
     view.create_account_username()
     username = input()
     new_user = model.Account(username)
-    while new_user.check_username():
+    while new_user.check_set_username():
         view.already_exists()
         return login_terminal()
     view.enter_password()
@@ -30,14 +30,13 @@ def create_account():
     new_user.pass_hash = hashed_pw
     new_user.balance = 0 
     new_user.type = "USER"
-    print(new_user)
     new_user.save()
     
 def login():
     view.login()
     login_id = input()
     new_login = model.Account(login_id)
-    while not new_login.check_username():
+    while not new_login.check_set_username():
         view.does_not_exist()
         return login_terminal()
     new_login = new_login.set_from_username(login_id)
@@ -52,10 +51,11 @@ def login():
 def login_menu(user_login):
     view.login_menu(user_login)
     login_input = input()
-    while login_input not in ["1","2","3","4","5","6","7"]:
+    while login_input not in ["1","2","3","4","5","6","7","8"]:
         view.invalidinput()
         login_input = input()
     if login_input == "1":
+        print(user_login)
         view.check_balance(user_login)
         return login_menu(user_login)
     if login_input == "2":
@@ -89,7 +89,12 @@ def login_menu(user_login):
     if login_input == "7":
         view.goodbye()
         quit()
-
+    if login_input == "8":
+        view.set_funds_amount()
+        amt_of_funds = input()
+        user_login.set_balance(amt_of_funds)
+        return login_menu(user_login)
+        quit()
 
 
 def run():

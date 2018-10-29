@@ -1,14 +1,12 @@
-from time import time
 from random import randint
 import sqlite3
 import werkzeug
 import requests
 import hashlib
-import hashlib
 import uuid
+import time
 
 DBNAME = "ttrader.db"
-
 
 def apiget(tick, url= "https://api.iextrading.com/1.0/stock/{}/quote"):
     URL = url.format(tick)
@@ -21,7 +19,6 @@ def apiget(tick, url= "https://api.iextrading.com/1.0/stock/{}/quote"):
 
 def getprice(symbol):
     return randint(5000, 20000) / 100
-
 
 
 class OpenCursor:
@@ -93,7 +90,7 @@ class Trade:
 
     def save(self):
         if self.time is None:
-            self.time = int(time())
+            self.time = time.asctime(time.localtime(time.time()))
         with OpenCursor() as cur:
             if not self.pk:
                 SQL = """
@@ -148,7 +145,7 @@ class Account:
             return True
         return False
 
-    def check_username(self):
+    def check_set_username(self):
         with OpenCursor() as cur: 
             SQL = """
             SELECT * FROM accounts WHERE username = ?;
@@ -174,16 +171,16 @@ class Account:
         
 
 
-    def set_from_credentials(self, username, password):
-        with OpenCursor() as cur: 
-            SQL = """
-            SELECT * FROM accounts WHERE username = ?;
-            """
+    # def set_from_credentials(self, username, password):
+    #     with OpenCursor() as cur: 
+    #         SQL = """
+    #         SELECT * FROM accounts WHERE username = ?;
+    #         """
 
-            #self.set from row 
+    #         #self.set from row 
 
-        if not row:
-            return False
+        # if not row:
+        #     return False
 
 
 
@@ -251,7 +248,7 @@ class Account:
     def getposition(self, ticker):
         with OpenCursor() as cur: 
             SQL = """
-            SELECT * FROM positions WHERE account_pk = ? AND ticker=? 
+            SELECT * FROM positions WHERE account_pk = ? AND ticker=?;
             """
             cur.execute(SQL, (self.pk, ticker))
             row = cur.fetchone()
@@ -262,18 +259,29 @@ class Account:
     
     
     def increase_position(self, ticker, amount):
-        pos = self.getposition(ticker)
-        if not pos or amount > self.balance:
+        pos = self.getposition(str(ticker))
+        if (apiget(ticker) * amount) > self.balance:
+            raise ValueError("insufficient funds")
+        elif not pos:
             pos = Position(account_pk = self.pk, ticker = ticker, amount = 0)
         pos.amount += amount
         pos.save()
     
     def decrease_position(self, ticker, amount):
         pos = self.getposition(ticker)
-        if not pos or pos.amount < amount:
-            raise ValueError("Position doesn't exist or insufficient amount")
-        pos.amount -= amount
-        pos.save()
+        if not pos:
+            raise ValueError("Position doesn't exist")
+        elif pos.amount < amount:
+            raise ValueError("You do not own enough shares")
+        if pos.amount == amount:
+            with OpenCursor() as cur: 
+                SQL = """
+                DELETE FROM positions WHERE ticker = ? AND account_pk = ?;
+                """
+                cur.execute(SQL, (ticker, self.pk))
+        else: 
+            pos.amount -= amount
+            pos.save()
 
     def gettrades(self):
         with OpenCursor() as cur:
@@ -327,3 +335,15 @@ class Account:
         trade.save()
         self.save()
         
+    def set_balance(self, amt_of_funds):
+        try:
+            with OpenCursor() as cur:
+                SQL = """
+                UPDATE accounts SET balance = ? WHERE pk = ?;
+                """
+                cur.execute(SQL, (amt_of_funds, self.pk))
+            self.balance = amt_of_funds
+        except:
+            print('could not update balance')
+        return self
+
