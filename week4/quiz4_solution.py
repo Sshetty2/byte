@@ -1,5 +1,6 @@
 import sqlite3
-
+import hashlib
+import uuid
 
 connection = sqlite3.connect("quiz.db")
 cursor = connection.cursor()
@@ -12,7 +13,16 @@ SQL_set_user = """
 INSERT INTO users(username, pass_hash) VALUES(?,?);
 """
 
-def find_insert_user(username, hashed_pw):
+def calculatehash(password):
+    hashobject = hashlib.sha256()
+    salt = uuid.uuid4().hex
+    saltedstring = password.encode() + salt.encode()
+    hashobject.update(saltedstring)
+    return hashobject.hexdigest() + ':' + salt
+
+
+def find_insert_user(username, password):
+    hashed_pw = calculatehash(password)
     cursor.execute(SQL_find_user, (username, ))
     row=cursor.fetchone()
     if not row:
@@ -23,8 +33,5 @@ def find_insert_user(username, hashed_pw):
     connection.commit()
     cursor.close()
     connection.close()
-
-find_insert_user('sshetty', 565242526)
-
 
         
