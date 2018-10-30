@@ -260,7 +260,7 @@ class Account:
     
     def increase_position(self, ticker, amount):
         pos = self.getposition(str(ticker))
-        if (apiget(ticker) * amount) > self.balance:
+        if (apiget(ticker) * int(amount)) > self.balance:
             raise ValueError("insufficient funds")
         elif not pos:
             pos = Position(account_pk = self.pk, ticker = ticker, amount = 0)

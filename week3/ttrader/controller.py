@@ -51,7 +51,7 @@ def login():
 def login_menu(user_login):
     view.login_menu(user_login)
     login_input = input()
-    while login_input not in ["1","2","3","4","5","6","7","8"]:
+    while login_input not in ["1","2","3","4","5","6","7","8","9"]:
         view.invalidinput()
         login_input = input()
     if login_input == "1":
@@ -63,7 +63,12 @@ def login_menu(user_login):
         view.check_all_positions(user_login, all_positions)
         return login_menu(user_login)
     if login_input == "3":
-        view.ticker_selection_buy()
+        view.ticker_query()
+        ticker = input().upper()
+        price = model.apiget(ticker)
+        view.ticker_check_price(ticker, price)
+        return login_menu(user_login)
+    if login_input == "4":
         ticker_buy = input().upper()
         view.volume_amount_buy()
         volume_amount_buy = int(input())
@@ -71,7 +76,7 @@ def login_menu(user_login):
         updated_position_value = user_login.getposition(ticker_buy)
         view.updated_position_value(updated_position_value)
         return login_menu(user_login)
-    if login_input == "4":
+    if login_input == "5":
         view.ticker_selection_sell()
         ticker_sell = input().upper()
         view.volume_amount_sell()
@@ -80,16 +85,16 @@ def login_menu(user_login):
         updated_position_value = user_login.getposition(ticker_sell)
         view.updated_position_value(updated_position_value)
         return login_menu(user_login)
-    if login_input == "5":
+    if login_input == "6":
         all_trades = user_login.gettrades()
         view.see_all_trades(user_login, all_trades)
         return login_menu(user_login)
-    if login_input == "6":
-        return login()
     if login_input == "7":
+        return login()
+    if login_input == "8":
         view.goodbye()
         quit()
-    if login_input == "8":
+    if login_input == "9":
         view.set_funds_amount()
         amt_of_funds = input()
         user_login.set_balance(amt_of_funds)
@@ -108,7 +113,6 @@ def run():
 
 #    mainloop(userID)
  #   exitprogram()
-
 
 if __name__ == "__main__":
     run()

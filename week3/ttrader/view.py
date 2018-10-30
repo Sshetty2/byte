@@ -29,7 +29,7 @@ def invalid_password():
     print("\n------------------------------------------------\nERROR: Invalid Password.\n")
 
 def login_menu(user_login):
-    print(f"\nWelcome User {user_login.username}, \n\nLogin Menu:\n\n1. Check Balance\n2. See all positions\n3. Buy Shares\n4. Sell Shares\n5. See All Trades\n6. Log out\n7. Quit\n8. Set account balance (Admin)\n\nInput:", end = " ")
+    print(f"\nWelcome User {user_login.username}, \n\nLogin Menu:\n\n1. Check Balance\n2. See all positions\n3. Check Stock Price\n4. Buy Shares\n5. Sell Shares\n6. See All Trades\n7. Log out\n8. Quit\n9. Set account balance (Admin)\n\nInput:", end = " ")
 
 def check_balance(user_login):
     print(f"\n------------------------------------------------\nUser {user_login.username} Account Balance : {user_login.balance}\n ------------------------------------------------\n")
@@ -60,3 +60,9 @@ def set_funds_amount():
 
 def goodbye():
     print("\n------------------------------------------------\nThanks for using Terminal Trader!! \n\n Goodbye!!\n------------------------------------------------\n")
+
+def ticker_query():
+    print("------------------------------------------------\nOk, Enter the ticker symbol of the stock you'd like to get the price of\n\nTicker Symbol:", end = " ")
+
+def ticker_check_price(ticker,ticker_price):
+    print(f"\n------------------------------------------------\nThe price of ticker symbol {ticker} is {ticker_price}\n------------------------------------------------\n")
