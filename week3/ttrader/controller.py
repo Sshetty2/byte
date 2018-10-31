@@ -2,7 +2,7 @@ import model
 import view
 
 import getpass
-
+import re
 
 def login_terminal():
     view.input_terminal()
@@ -27,8 +27,18 @@ def create_account():
     while new_user.check_set_username():
         view.already_exists()
         return login_terminal()
-    view.enter_password()
-    password = getpass.getpass()
+    while True:
+        view.enter_password()
+        password = getpass.getpass()
+        if len(password) < 8:
+            view.pass_length()
+        elif re.search('[0-9]',password) is None:
+            view.number_req()
+        elif re.search('[A-Z]',password) is None: 
+            view.upper_req()
+        else:
+            break
+    
     hashed_pw = new_user.calculatehash(password)
     new_user.pass_hash = hashed_pw
     new_user.balance = 0 
@@ -48,7 +58,7 @@ def login():
     while not new_login.check_password((new_login.pass_hash), password):
         view.invalid_password()
         view.enter_password()
-        password = input()
+        password = getpass.getpass()
     login_menu(new_login)
 
 def login_menu(user_login):
