@@ -1,6 +1,9 @@
 import model
 import view
 
+import getpass
+
+
 def login_terminal():
     view.input_terminal()
     options_menu = input()
@@ -25,7 +28,7 @@ def create_account():
         view.already_exists()
         return login_terminal()
     view.enter_password()
-    password = input()
+    password = getpass.getpass()
     hashed_pw = new_user.calculatehash(password)
     new_user.pass_hash = hashed_pw
     new_user.balance = 0 
@@ -41,7 +44,7 @@ def login():
         return login_terminal()
     new_login = new_login.set_from_username(login_id)
     view.enter_password()
-    password = input()
+    password = getpass.getpass()
     while not new_login.check_password((new_login.pass_hash), password):
         view.invalid_password()
         view.enter_password()
@@ -55,7 +58,6 @@ def login_menu(user_login):
         view.invalidinput()
         login_input = input()
     if login_input == "1":
-        print(user_login)
         view.check_balance(user_login)
         return login_menu(user_login)
     if login_input == "2":
@@ -66,31 +68,46 @@ def login_menu(user_login):
         view.ticker_query()
         ticker = input().upper()
         price = model.apiget(ticker)
+        while price == None:
+            print("Not a valid ticker!")
+            view.ticker_query()
+            ticker = input().upper()
+            price = model.apiget(ticker)
         view.ticker_check_price(ticker, price)
         return login_menu(user_login)
     if login_input == "4":
+        view.ticker_selection_buy()
         ticker_buy = input().upper()
         view.volume_amount_buy()
         volume_amount_buy = int(input())
-        user_login.buy(ticker_buy, volume_amount_buy)
-        updated_position_value = user_login.getposition(ticker_buy)
-        view.updated_position_value(updated_position_value)
+        try:
+            user_login.buy(ticker_buy, volume_amount_buy)
+            updated_position_value = user_login.getposition(ticker_buy)
+            view.updated_position_value(updated_position_value)
+        except:   
+            view.transaction_failed() 
+            view.not_enough_funds()
         return login_menu(user_login)
     if login_input == "5":
         view.ticker_selection_sell()
         ticker_sell = input().upper()
         view.volume_amount_sell()
         volume_amount_sell = int(input())
-        user_login.sell(ticker_sell, volume_amount_sell)
-        updated_position_value = user_login.getposition(ticker_sell)
-        view.updated_position_value(updated_position_value)
+        try:
+            user_login.sell(ticker_sell, volume_amount_sell)
+            updated_position_value = user_login.getposition(ticker_sell)
+            view.updated_position_value(updated_position_value)
+        except:
+            view.transaction_failed()
+            view.not_enough_shares()
         return login_menu(user_login)
     if login_input == "6":
         all_trades = user_login.gettrades()
         view.see_all_trades(user_login, all_trades)
         return login_menu(user_login)
     if login_input == "7":
-        return login()
+        view.goodbye()
+        return login_terminal()
     if login_input == "8":
         view.goodbye()
         quit()

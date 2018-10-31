@@ -14,7 +14,7 @@ def create_account_username():
     print("------------------------------------------------\nOk, lets get started!\n\nEnter User ID:", end = " " )
 
 def create_confirm():
-    print("\n------------------------------------------------\nUser Account successfully created!\n ------------------------------------------------\n")
+    print("\n\n------------------------------------------------\nUser Account successfully created!\n ------------------------------------------------\n")
 
 def enter_password():
     print("Enter Password:", end = " ")
@@ -38,31 +38,41 @@ def check_all_positions(user_login, all_positions):
     print(f"\n------------------------------------------------\nHello User {user_login.username}, here is a current snapshot of all of your current positions\n{all_positions}")
 
 def ticker_selection_buy():
-    print("------------------------------------------------\nOk, please enter the ticker symbol of the stock that you'd like to purchase!\n\nTicker Symbol:", end = " ")
+    print("\n------------------------------------------------\nOk, please enter the ticker symbol of the stock that you'd like to purchase!\n\nTicker Symbol:", end = " ")
 
 def volume_amount_buy():
-    print("------------------------------------------------\nOk, how much would you like to buy?\n\nVolume Amt:", end = " ")
+    print("\n------------------------------------------------\nOk, how much would you like to buy?\n\nVolume Amt:", end = " ")
+
+def transaction_failed():
+    print("\n------------------------------------------------\nERROR: Transaction Failed. ", end = " ")
+
+def not_enough_funds():
+    print("You do not have enough funds! \n------------------------------------------------\n")
 
 def updated_position_value(updated_position_value):
     print(f"\n------------------------------------------------\nYour new position amount is {updated_position_value}\n------------------------------------------------\n")
 
 def ticker_selection_sell():
-    print("------------------------------------------------\nOk, please enter the ticker symbol of the stock that you'd like to sell!\n\nTicker Symbol:", end = " ")
+    print("\n------------------------------------------------\nOk, please enter the ticker symbol of the stock that you'd like to sell!\n\nTicker Symbol:", end = " ")
 
 def volume_amount_sell():
-    print("------------------------------------------------\nOk, how much would you like to sell?\n\nVolume Amt:", end = " ")
+    print("\n------------------------------------------------\nOk, how much would you like to sell?\n\nVolume Amt:", end = " ")
+
+def not_enough_shares():
+    print("You do not own enough shares! \n------------------------------------------------\n")
 
 def see_all_trades(user_login, all_positions):
     print(f"\n------------------------------------------------\nHello User {user_login.username}, here is a current snapshot of all of your trades\n{all_positions}")
 
 def set_funds_amount():
-    print("------------------------------------------------\nAccount Balance you'd like to set?\n\nAccount Balance:", end = " ")
+    print("\n------------------------------------------------\nAccount Balance you'd like to set?\n\nAccount Balance:", end = " ")
 
 def goodbye():
-    print("\n------------------------------------------------\nThanks for using Terminal Trader!! \n\n Goodbye!!\n------------------------------------------------\n")
+    print("\n\n------------------------------------------------\nThanks for using Terminal Trader!! \n\n Goodbye!!\n------------------------------------------------\n\n\n")
 
 def ticker_query():
-    print("------------------------------------------------\nOk, Enter the ticker symbol of the stock you'd like to get the price of\n\nTicker Symbol:", end = " ")
+    print("\n------------------------------------------------\nOk, Enter the ticker symbol of the stock you'd like to get the price of\n\nTicker Symbol:", end = " ")
 
 def ticker_check_price(ticker,ticker_price):
     print(f"\n------------------------------------------------\nThe price of ticker symbol {ticker} is {ticker_price}\n------------------------------------------------\n")
+

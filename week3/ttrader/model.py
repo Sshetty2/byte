@@ -1,10 +1,15 @@
 from random import randint
 import sqlite3
-import werkzeug
 import requests
 import hashlib
 import uuid
 import time
+
+import os.path
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+db_path = os.path.join(BASE_DIR, "ttrader.db")
+
 
 DBNAME = "ttrader.db"
 
@@ -22,7 +27,7 @@ def getprice(symbol):
 
 
 class OpenCursor:
-    def __init__(self, db=DBNAME, *args, **kwargs):
+    def __init__(self, db=db_path, *args, **kwargs):
         self.conn = sqlite3.connect(db, *args, **kwargs)
         self.conn.row_factory = sqlite3.Row  # access fetch results by col name
         self.cursor = self.conn.cursor()
@@ -317,7 +322,7 @@ class Account:
         try:
             self.decrease_position(ticker, amount = volume)
         except ValueError:
-            return None
+            raise ValueError("insufficient funds")
         trade = Trade(pk = None, account_pk = self.pk, ticker= ticker, volume=volume*-1, price=price, time=None)
         self.balance += volume * price
         trade.save()
@@ -329,7 +334,7 @@ class Account:
         try:
             self.increase_position(ticker, volume)
         except ValueError: 
-            return None
+            raise
         trade = Trade(pk = None, account_pk = self.pk, ticker = ticker, volume=volume, price=price, time=None)
         self.balance -= volume * price
         trade.save()
