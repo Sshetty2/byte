@@ -10,6 +10,14 @@ import os.path
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, "ttrader.db")
 
+CONFIG = {
+    'SALT': "!$33gl3d33g",
+    'DBNAME': db_path,
+    "APIURL": "https://api.iextrading.com/1.0/stock/{}/quote",
+    'FAKEPRICE': {
+        'stck': 50.25
+    }
+}
 
 DBNAME = "ttrader.db"
 
@@ -25,10 +33,20 @@ def apiget(tick, url= "https://api.iextrading.com/1.0/stock/{}/quote"):
 def getprice(symbol):
     return randint(5000, 20000) / 100
 
+def print_gettrades(results_from_gettrades):
+    for i in results_from_gettrades:
+        print(i)
 
 class OpenCursor:
-    def __init__(self, db=db_path, *args, **kwargs):
-        self.conn = sqlite3.connect(db, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        # update:
+        if 'dbname' in kwargs:
+            self.dbname = kwargs['dbname']
+            del(kwargs['dbname'])
+        else:
+            self.dbname = CONFIG['DBNAME']
+
+        self.conn = sqlite3.connect(self.dbname, *args, **kwargs)
         self.conn.row_factory = sqlite3.Row  # access fetch results by col name
         self.cursor = self.conn.cursor()
 
@@ -301,7 +319,8 @@ class Account:
                 trade.set_from_row(row)
                 results.append(trade)
             return results
-    
+
+
     def gettradesfor(self, ticker):
         with OpenCursor() as cur: 
             SQL = """
@@ -334,11 +353,12 @@ class Account:
         try:
             self.increase_position(ticker, volume)
         except ValueError: 
-            raise
+            raise ValueError("insufficient funds")
         trade = Trade(pk = None, account_pk = self.pk, ticker = ticker, volume=volume, price=price, time=None)
         self.balance -= volume * price
         trade.save()
         self.save()
+        return True
         
     def set_balance(self, amt_of_funds):
         try:

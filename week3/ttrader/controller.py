@@ -86,34 +86,13 @@ def login_menu(user_login):
         view.ticker_check_price(ticker, price)
         return login_menu(user_login)
     if login_input == "4":
-        view.ticker_selection_buy()
-        ticker_buy = input().upper()
-        view.volume_amount_buy()
-        volume_amount_buy = int(input())
-        try:
-            user_login.buy(ticker_buy, volume_amount_buy)
-            updated_position_value = user_login.getposition(ticker_buy)
-            view.updated_position_value(updated_position_value)
-        except:   
-            view.transaction_failed() 
-            view.not_enough_funds()
-        return login_menu(user_login)
+        buy(user_login)
     if login_input == "5":
-        view.ticker_selection_sell()
-        ticker_sell = input().upper()
-        view.volume_amount_sell()
-        volume_amount_sell = int(input())
-        try:
-            user_login.sell(ticker_sell, volume_amount_sell)
-            updated_position_value = user_login.getposition(ticker_sell)
-            view.updated_position_value(updated_position_value)
-        except:
-            view.transaction_failed()
-            view.not_enough_shares()
-        return login_menu(user_login)
+        sell(user_login)
     if login_input == "6":
         all_trades = user_login.gettrades()
-        view.see_all_trades(user_login, all_trades)
+        view.see_all_trades(user_login)
+        formatted_trades = model.print_gettrades(all_trades)
         return login_menu(user_login)
     if login_input == "7":
         view.goodbye()
@@ -127,6 +106,53 @@ def login_menu(user_login):
         user_login.set_balance(amt_of_funds)
         return login_menu(user_login)
         quit()
+
+
+def buy(user_login):
+    view.ticker_selection_buy()
+    ticker_buy = input().upper()
+    ticker_check = model.apiget(ticker_buy)
+    while ticker_check == None:
+        print("Not a valid ticker!")
+        view.ticker_selection_buy()
+        ticker_buy = input().upper()
+        ticker_check = model.apiget(ticker_buy)   
+    view.volume_amount_buy()
+    try:
+        volume_amount_buy = int(input())
+    except ValueError:
+        view.invalid_input()
+        return buy()
+    try:
+        user_login.buy(ticker_buy, volume_amount_buy)
+        updated_position_value = user_login.getposition(ticker_buy)
+        view.updated_position_value(updated_position_value)
+    except:   
+        view.transaction_failed() 
+        view.not_enough_funds()
+    return login_menu(user_login)
+
+
+def sell(user_login):
+        view.ticker_selection_sell()
+        ticker_sell = input().upper()
+        view.volume_amount_sell()
+        try:
+            volume_amount_sell = int(input())
+        except ValueError:
+            view.invalid_input()
+            return sell(user_login)
+        try:
+            user_login.sell(ticker_sell, volume_amount_sell)
+            updated_position_value = user_login.getposition(ticker_sell)
+            view.updated_position_value(updated_position_value)
+        except:
+            view.transaction_failed()
+            view.not_enough_shares()
+        return login_menu(user_login)
+
+
+
 
 
 def run():

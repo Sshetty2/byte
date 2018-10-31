@@ -20,7 +20,8 @@ def run():
     VALUES(?, ?, ?, ?);"""
     pw_hash = werkzeug.generate_password_hash("password")
     CUR.execute(SQL, ("carter", pw_hash, 10000.0, 'USER'))
-   
+    CUR.execute(SQL, ("gordon", pw_hash, 10000.0, 'USER'))
+
     SQL = "DELETE FROM trades;"
     CUR.execute(SQL)
 
