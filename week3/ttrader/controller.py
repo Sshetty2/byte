@@ -27,6 +27,9 @@ def create_account():
     while new_user.check_set_username():
         view.already_exists()
         return login_terminal()
+    pass_prompt(new_user)
+
+def pass_prompt(new_user):
     while True:
         view.enter_password()
         password = getpass.getpass()
@@ -38,12 +41,19 @@ def create_account():
             view.upper_req()
         else:
             break
-    
+    view.reenter_pass()
+    password_check = getpass.getpass()
+    if password_check != password:
+        view.pass_error()
+        password = None
+        return pass_prompt(new_user)
     hashed_pw = new_user.calculatehash(password)
     new_user.pass_hash = hashed_pw
     new_user.balance = 0 
     new_user.type = "USER"
     new_user.save()
+    
+
     
 def login():
     view.login()

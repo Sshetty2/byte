@@ -28,6 +28,12 @@ def number_req():
 def upper_req():
     print("\nMake sure your password has a capital letter in it\n------------------------------------------------\n")
 
+def reenter_pass():
+    print("Please re-type your password for verification")
+
+def pass_error():
+    print("Passwords do not match. Please try again")
+
 def login():
     print("\nOk! please enter your username\nUser ID:", end = " ")
 
