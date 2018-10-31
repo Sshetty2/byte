@@ -1,0 +1,9 @@
+ticker error
+trades output format
+retry password input
+
+pandas/numpy
+schemas
+grokking algos
+	binary search
+	bubble sort

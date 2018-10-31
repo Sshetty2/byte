@@ -49,8 +49,8 @@ def login_menu(user_login):
 def check_balance(user_login):
     print(f"\n------------------------------------------------\nUser {user_login.username} Account Balance : {user_login.balance}\n -----------------------------------------------\n")
 
-def check_all_positions(user_login, all_positions):
-    print(f"\n------------------------------------------------\nHello User {user_login.username}, here is a current snapshot of all of your current positions\n{all_positions}")
+def check_all_positions(user_login):
+    print(f"\n------------------------------------------------\nHello User {user_login.username}, here is a current snapshot of all of your current positions\n")
 
 def ticker_selection_buy():
     print("\n------------------------------------------------\nOk, please enter the ticker symbol of the stock that you'd like to purchase!\n\nTicker Symbol:", end = " ")

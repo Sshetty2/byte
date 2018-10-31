@@ -82,7 +82,8 @@ def login_menu(user_login):
         return login_menu(user_login)
     if login_input == "2":
         all_positions = user_login.getpositions()
-        view.check_all_positions(user_login, all_positions)
+        view.check_all_positions(user_login)
+        model.print_gettrades(all_positions)
         return login_menu(user_login)
     if login_input == "3":
         view.ticker_query()
