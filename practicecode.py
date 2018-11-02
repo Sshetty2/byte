@@ -72,19 +72,14 @@ def binary_search_squared(n):
     high = n
     mid = (low+high)*.5
     while low <= high:
-        guess = mid
         if mid*mid == n:
             print(mid)
             print("found num")
             return mid
         if mid*mid > n:
             high = mid
-            print('high set to mid')
-            print(mid)
         else:
             low = mid
-            print('low set to mid')
-            print(mid)
         mid = (low+high)*.5
     return None
 

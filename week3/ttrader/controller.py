@@ -75,7 +75,7 @@ def login_menu(user_login):
     view.login_menu(user_login)
     login_input = input()
     while login_input not in ["1","2","3","4","5","6","7","8","9"]:
-        view.invalidinput()
+        view.invalid_input()
         login_input = input()
     if login_input == "1":
         view.check_balance(user_login)
@@ -103,7 +103,7 @@ def login_menu(user_login):
     if login_input == "6":
         all_trades = user_login.gettrades()
         view.see_all_trades(user_login)
-        formatted_trades = model.print_gettrades(all_trades)
+        model.print_gettrades(all_trades)
         return login_menu(user_login)
     if login_input == "7":
         view.goodbye()
@@ -116,7 +116,6 @@ def login_menu(user_login):
         amt_of_funds = input()
         user_login.set_balance(amt_of_funds)
         return login_menu(user_login)
-        quit()
 
 
 def buy(user_login):
@@ -133,7 +132,7 @@ def buy(user_login):
         volume_amount_buy = int(input())
     except ValueError:
         view.invalid_input()
-        return buy()
+        return buy(user_login)
     try:
         user_login.buy(ticker_buy, volume_amount_buy)
         updated_position_value = user_login.getposition(ticker_buy)
