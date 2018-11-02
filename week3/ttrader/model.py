@@ -37,6 +37,10 @@ def print_gettrades(results_from_gettrades):
     for i in results_from_gettrades:
         print(i)
 
+def print_all_accounts(all_accounts):
+    for i in all_accounts:
+        print(i)
+
 class OpenCursor:
     def __init__(self, *args, **kwargs):
         # update:
@@ -98,7 +102,10 @@ class Position:
     def __repr__(self):
         display ="<Position PK = {}: Stock = {}, amount = {}, Account PK = {}, >".format(self.pk, self.ticker, self.amount, self.account_pk)
         return display
-    #def getposition(self, pk):
+
+    def __str__(self):
+        display = "Stock = {}, amount = {}, Account PK = {}".format(self.ticker, self.amount, self.account_pk)
+        return display
 
 
 class Trade:
@@ -142,6 +149,10 @@ class Trade:
     
     def __repr__(self):
         display ="<Trade: pk = {}, Account pk = {}, Stock = {}, Volume = {}, Price = {}, Time = {} >".format(self.pk, self.account_pk, self.ticker, self.volume, self.price, self.time)
+        return display
+
+    def __repr__(self):
+        display ="Stock = {}, Volume = {}, Price = {}, Time = {}".format(self.ticker, self.volume, self.price, self.time)
         return display
 
 
@@ -231,12 +242,17 @@ class Account:
     def __repr__(self):
         display ="<Account PK = {}, Username = {}, PW Hash = {}, Balance = {} >".format(self.pk, self.username, self.pass_hash, self.balance)
         return display
+    
+    def __str__(self):
+        display ="Account PK = {}, Username = {}, PW Hash = {}, Balance = {} ".format(self.pk, self.username, self.pass_hash, self.balance)
+        return display
 
     def set_from_row(self, row):
         self.pk = row["pk"]
         self.username = row["username"]
         self.pass_hash = row["pass_hash"]
         self.balance = row["balance"]
+        self.type = row["type"]
         return self
 
     def set_from_pk(self, pk):
@@ -268,6 +284,21 @@ class Account:
                 results.append(pos)
             return results
     
+    def get_all_accounts(self):
+        with OpenCursor() as cur:
+            SQL = """
+            SELECT * FROM accounts;
+            """
+            cur.execute(SQL)
+            rows = cur.fetchall()
+            results = []
+            for row in rows: 
+                acc = Account()
+                acc.set_from_row(row)
+                results.append(acc)
+            return results
+
+
     def getposition(self, ticker):
         with OpenCursor() as cur: 
             SQL = """
@@ -283,6 +314,7 @@ class Account:
     
     def increase_position(self, ticker, amount):
         pos = self.getposition(str(ticker))
+        print(pos)
         if (apiget(ticker) * int(amount)) > self.balance:
             raise ValueError("insufficient funds")
         elif not pos:
@@ -371,4 +403,11 @@ class Account:
         except:
             print('could not update balance')
         return self
+
+    def check_admin(self):
+        if self.type == "ADMIN":
+            return True
+        return False
+
+
 
