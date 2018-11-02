@@ -54,7 +54,7 @@ def pass_prompt(new_user):
     new_user.save()
     
 
-    
+
 def login():
     view.login()
     login_id = input()
@@ -72,49 +72,110 @@ def login():
     login_menu(new_login)
 
 def login_menu(user_login):
-    view.login_menu(user_login)
-    login_input = input()
-    while login_input not in ["1","2","3","4","5","6","7","8","9"]:
-        view.invalid_input()
+    if user_login.type == "ADMIN":
+        view.login_menu_admin(user_login)
         login_input = input()
-    if login_input == "1":
-        view.check_balance(user_login)
-        return login_menu(user_login)
-    if login_input == "2":
-        all_positions = user_login.getpositions()
-        view.check_all_positions(user_login)
-        model.print_gettrades(all_positions)
-        return login_menu(user_login)
-    if login_input == "3":
-        view.ticker_query()
-        ticker = input().upper()
-        price = model.apiget(ticker)
-        while price == None:
-            print("Not a valid ticker!")
+        while login_input not in ["1","2","3","4","5","6","7","8","9","10", "11"]:
+            view.invalid_input()
+            login_input = input()
+        if login_input == "1":
+            view.check_balance(user_login)
+            return login_menu(user_login)
+        if login_input == "2":
+            all_positions = user_login.getpositions()
+            view.check_all_positions(user_login)
+            model.print_gettrades(all_positions)
+            return login_menu(user_login)
+        if login_input == "3":
             view.ticker_query()
             ticker = input().upper()
             price = model.apiget(ticker)
-        view.ticker_check_price(ticker, price)
-        return login_menu(user_login)
-    if login_input == "4":
-        buy(user_login)
-    if login_input == "5":
-        sell(user_login)
-    if login_input == "6":
-        all_trades = user_login.gettrades()
-        view.see_all_trades(user_login)
-        model.print_gettrades(all_trades)
-        return login_menu(user_login)
-    if login_input == "7":
-        view.goodbye()
-        return login_terminal()
-    if login_input == "8":
-        view.goodbye()
-        quit()
-    if login_input == "9":
-        view.set_funds_amount()
-        amt_of_funds = input()
-        user_login.set_balance(amt_of_funds)
+            while price == None:
+                print("Not a valid ticker!")
+                view.ticker_query()
+                ticker = input().upper()
+                price = model.apiget(ticker)
+            view.ticker_check_price(ticker, price)
+            return login_menu(user_login)
+        if login_input == "4":
+            buy(user_login)
+        if login_input == "5":
+            sell(user_login)
+        if login_input == "6":
+            all_trades = user_login.gettrades()
+            view.see_all_trades(user_login)
+            model.print_gettrades(all_trades)
+            return login_menu(user_login)
+        if login_input == "7":
+            view.goodbye()
+            return login_terminal()
+        if login_input == "8":
+            view.goodbye()
+            quit()
+        if login_input == "9":
+            view.set_funds_amount()
+            amt_of_funds = input()
+            user_login.set_balance(amt_of_funds)
+            return login_menu(user_login)
+        if login_input == "10":
+            view.see_all_accounts_one()
+            all_accounts = user_login.get_all_accounts()
+            model.print_all_accounts(all_accounts)
+            return login_menu(user_login)
+
+
+    else:
+        view.login_menu_user(user_login)
+        login_input = input()
+        while login_input not in ["1","2","3","4","5","6","7","8","9"]:
+            view.invalid_input()
+            login_input = input()
+        if login_input == "1":
+            view.check_balance(user_login)
+            return login_menu(user_login)
+        if login_input == "2":
+            all_positions = user_login.getpositions()
+            view.check_all_positions(user_login)
+            model.print_gettrades(all_positions)
+            return login_menu(user_login)
+        if login_input == "3":
+            view.ticker_query()
+            ticker = input().upper()
+            price = model.apiget(ticker)
+            while price == None:
+                print("Not a valid ticker!")
+                view.ticker_query()
+                ticker = input().upper()
+                price = model.apiget(ticker)
+            view.ticker_check_price(ticker, price)
+            return login_menu(user_login)
+        if login_input == "4":
+            buy(user_login)
+        if login_input == "5":
+            sell(user_login)
+        if login_input == "6":
+            all_trades = user_login.gettrades()
+            view.see_all_trades(user_login)
+            model.print_gettrades(all_trades)
+            return login_menu(user_login)
+        if login_input == "7":
+            view.goodbye()
+            return login_terminal()
+        if login_input == "8":
+            view.goodbye()
+            quit()
+        if login_input == "9":
+            view.deposit_amount()
+        try:
+            deposit_amount = int(input())
+        except ValueError:
+            view.invalid_input()
+            return login_menu(user_login)
+        while deposit_amount < 0:
+            view.invalid_input
+            deposit_amount= input()
+        user_login.deposit_funds(deposit_amount)
+        view.depsosit_successful()
         return login_menu(user_login)
 
 

@@ -43,8 +43,8 @@ def does_not_exist():
 def invalid_password():
     print("\n------------------------------------------------\nERROR: Invalid Password.\n")
 
-def login_menu(user_login):
-    print(f"\n------------------------------------------------\n\nWelcome User {user_login.username}, \n\nLogin Menu:\n\n1. Check Balance\n2. See all positions\n3. Check Stock Price\n4. Buy Shares\n5. Sell Shares\n6. See All Trades\n7. Log out\n8. Quit\n9. Set account balance (Admin)\n\nInput:", end = " ")
+def login_menu_user(user_login):
+    print(f"\n\nWelcome User {user_login.username}, \n\nLogin Menu:\n\n1. Check Balance\n2. See all positions\n3. Check Stock Price\n4. Buy Shares\n5. Sell Shares\n6. See All Trades\n7. Log out\n8. Quit\n9. Deposit Funds\n\nInput:", end = " ")
 
 def check_balance(user_login):
     print(f"\n------------------------------------------------\nUser {user_login.username} Account Balance : {user_login.balance}\n -----------------------------------------------\n")
@@ -91,3 +91,17 @@ def ticker_query():
 def ticker_check_price(ticker,ticker_price):
     print(f"\n------------------------------------------------\nThe price of ticker symbol {ticker} is {ticker_price}\n------------------------------------------------\n")
 
+def ticker_check_price(ticker,ticker_price):
+    print(f"\n------------------------------------------------\nThe price of ticker symbol {ticker} is {ticker_price}\n------------------------------------------------\n")
+
+def login_menu_admin(user_login):
+    print(f"\n------------------------------------------------\n\nWelcome User {user_login.username}, \n\nLogin Menu:\n\n1. Check Balance\n2. See all positions\n3. Check Stock Price\n4. Buy Shares\n5. Sell Shares\n6. See All Trades\n7. Log out\n8. Quit\n9. Set account balance (Admin)\n10. View All User Accounts\n\nInput:", end = " ")
+
+def deposit_amount():
+    print("\n------------------------------------------------\nOk, how much would you like to deposit?\n\nDeposit Amount:", end = " ")
+
+def depsosit_successful():
+    print("\n------------------------------------------------\nDeposit Successful\n ------------------------------------------------\n")
+
+def see_all_accounts_one():
+    print(f"\n------------------------------------------------\nHere is a list of all of the User Accounts:\n")

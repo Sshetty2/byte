@@ -55,6 +55,12 @@ class TestCursor(unittest.TestCase):
             rows = cur.fetchall()
             self.assertEqual(len(rows), 1, "raised exception prevents INSERT commitment.")
 
+    
+    def testCheckAdmin(self):
+        ac = model.Account().set_from_pk(2)
+        userType = ac.type 
+        self.assertTrue("ADMIN" == ac.type, "user type is set to Admin")
+
     def testAPI(self):
         price = model.apiget("AAPL")
         self.assertEqual(type(price), float, "getprice returns a float")
@@ -135,10 +141,10 @@ class TestCursor(unittest.TestCase):
         ftr = ac.gettradesfor("TSLA")
         self.assertEqual(2, len(ftr), "sell creates trade")
         self.assertEqual(-3, ftr[1].volume, "sell sets negative trade volume")
-   
+
         # reset balance for other tests
-        ac.balance = 10000.0
-        ac.save()
+        #ac.balance = 10000.0
+        #ac.save()
 
     # def testBadTrades(self):
     #     ac = model.Account().set_from_pk(2)

@@ -37,6 +37,11 @@ def print_gettrades(results_from_gettrades):
     for i in results_from_gettrades:
         print(i)
 
+def print_all_accounts(all_accounts):
+    for i in all_accounts:
+        print(i)
+
+
 class OpenCursor:
     def __init__(self, *args, **kwargs):
         # update:
@@ -96,7 +101,7 @@ class Position:
         return self.amount * apiget(self.ticker)
 
     def __repr__(self):
-        display ="<Position PK = {}: Stock = {}, amount = {}, Account PK = {}, >".format(self.pk, self.ticker, self.amount, self.account_pk)
+        display ="Position PK = {}: Stock = {}, amount = {}, Account PK = {} ".format(self.pk, self.ticker, self.amount, self.account_pk)
         return display
     #def getposition(self, pk):
 
@@ -141,7 +146,7 @@ class Trade:
         return self
     
     def __repr__(self):
-        display ="<Trade: pk = {}, Account pk = {}, Stock = {}, Volume = {}, Price = {}, Time = {} >".format(self.pk, self.account_pk, self.ticker, self.volume, self.price, self.time)
+        display ="Trade: pk = {}, Account pk = {}, Stock = {}, Volume = {}, Price = {}, Time = {}".format(self.pk, self.account_pk, self.ticker, self.volume, self.price, self.time)
         return display
 
 
@@ -229,7 +234,7 @@ class Account:
                 cur.execute(SQL, (self.username, self.pass_hash, self.balance,
                                   self.pk))
     def __repr__(self):
-        display ="<Account PK = {}, Username = {}, PW Hash = {}, Balance = {} >".format(self.pk, self.username, self.pass_hash, self.balance)
+        display ="Account PK = {}, Username = {}, PW Hash = {}, Balance = {}".format(self.pk, self.username, self.pass_hash, self.balance)
         return display
 
     def set_from_row(self, row):
@@ -237,6 +242,7 @@ class Account:
         self.username = row["username"]
         self.pass_hash = row["pass_hash"]
         self.balance = row["balance"]
+        self.type = row["type"]
         return self
 
     def set_from_pk(self, pk):
@@ -268,6 +274,20 @@ class Account:
                 results.append(pos)
             return results
     
+    def get_all_accounts(self):
+        with OpenCursor() as cur:
+            SQL = """
+            SELECT * FROM accounts;
+            """
+            cur.execute(SQL)
+            rows = cur.fetchall()
+            results = []
+            for row in rows: 
+                acc = Account()
+                acc.set_from_row(row)
+                results.append(acc)
+            return results
+
     def getposition(self, ticker):
         with OpenCursor() as cur: 
             SQL = """
@@ -370,5 +390,19 @@ class Account:
             self.balance = amt_of_funds
         except:
             print('could not update balance')
+        self.save()
+        return self
+    
+    def deposit_funds(self, amt_of_funds):
+        try:
+            with OpenCursor() as cur:
+                SQL = """
+                UPDATE accounts SET balance = ? WHERE pk = ?;
+                """
+                cur.execute(SQL, (amt_of_funds, self.pk))
+            self.balance = amt_of_funds + self.balance
+        except:
+            print('could not update balance')
+        self.save()
         return self
 

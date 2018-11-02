@@ -1,6 +1,7 @@
 import sqlite3
 from time import time
-import werkzeug
+import hashlib
+import uuid
 
 CON = None
 CUR = None
@@ -12,15 +13,31 @@ def setup(dbname="ttrader.db"):
     CUR = CON.cursor()
 
 
+def calculatehash(password):
+    hashobject = hashlib.sha256()
+    salt = uuid.uuid4().hex
+    saltedstring = password.encode() + salt.encode()
+    hashobject.update(saltedstring)
+    return hashobject.hexdigest() + ':' + salt
+
+    
+
 def run():
+
+    pw_hash = calculatehash("password")
+
     SQL = "DELETE FROM accounts;"
+    CUR.execute(SQL)
+
+    SQL = "DELETE FROM sqlite_sequence where NAME='accounts';"
     CUR.execute(SQL)
 
     SQL = """INSERT INTO accounts(username, pass_hash, balance, type)
     VALUES(?, ?, ?, ?);"""
-    pw_hash = werkzeug.generate_password_hash("password")
+    
     CUR.execute(SQL, ("carter", pw_hash, 10000.0, 'USER'))
-   
+    CUR.execute(SQL, ("Admin", pw_hash, 10000.0, 'ADMIN'))
+
     SQL = "DELETE FROM trades;"
     CUR.execute(SQL)
 
