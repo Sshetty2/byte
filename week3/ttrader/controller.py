@@ -57,7 +57,7 @@ def pass_prompt(new_user):
 
 def login():
     view.login()
-    login_id = input()
+    login_id = input().lower()
     new_login = model.Account(login_id)
     while not new_login.check_set_username():
         view.does_not_exist()
@@ -188,12 +188,19 @@ def buy(user_login):
         view.ticker_selection_buy()
         ticker_buy = input().upper()
         ticker_check = model.apiget(ticker_buy)   
-    view.volume_amount_buy()
+    view.volume_amount_buy(ticker_buy, ticker_check)
     try:
         volume_amount_buy = int(input())
     except ValueError:
         view.invalid_input()
         return buy(user_login)
+    view.buy_confirm(ticker_buy, ticker_check, volume_amount_buy)
+    buy_confirmation = input()
+    while buy_confirmation not in ["Y","y","N","n"]:
+        view.invalid_input()
+        buy_confirmation = input()
+    if buy_confirmation in ["N", "n"]:
+        return login_menu(user_login)
     try:
         user_login.buy(ticker_buy, volume_amount_buy)
         updated_position_value = user_login.getposition(ticker_buy)
@@ -207,12 +214,25 @@ def buy(user_login):
 def sell(user_login):
         view.ticker_selection_sell()
         ticker_sell = input().upper()
-        view.volume_amount_sell()
+        ticker_sell_price = model.apiget(ticker_sell)
+        while ticker_sell_price == None:
+            print("Not a valid ticker!")
+            view.ticker_selection_sell()
+            ticker_sell = input().upper()
+            ticker_sell_price = model.apiget(ticker_sell) 
+        view.volume_amount_sell(ticker_sell, ticker_sell_price)
         try:
             volume_amount_sell = int(input())
         except ValueError:
             view.invalid_input()
             return sell(user_login)
+        view.sell_confirm(ticker_sell, ticker_sell_price, volume_amount_sell)
+        sell_confirmation = input()
+        while sell_confirmation not in ["Y","y","N","n"]:
+            view.invalid_input()
+            sell_confirmation = input()
+        if sell_confirmation in ["N", "n"]:
+            return login_menu(user_login)        
         try:
             user_login.sell(ticker_sell, volume_amount_sell)
             updated_position_value = user_login.getposition(ticker_sell)

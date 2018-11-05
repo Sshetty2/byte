@@ -10,10 +10,10 @@ CUR = None
 
 def calculatehash(password):
     hashobject = hashlib.sha256()
-    salt = uuid.uuid4().hex
+    salt = "!$33gl3d33g"
     saltedstring = password.encode() + salt.encode()
     hashobject.update(saltedstring)
-    return hashobject.hexdigest() + ':' + salt
+    return hashobject.hexdigest()
 
 
 def setup(dbname="ttrader.db"):
@@ -34,6 +34,7 @@ def run():
     VALUES(?, ?, ?, ?);"""
     pw_hash = calculatehash("password")
     CUR.execute(SQL, ("carter", pw_hash, 10000.0, 'USER'))
+    CUR.execute(SQL, ("admin", pw_hash, 10000.0, 'ADMIN'))
    
     SQL = "DELETE FROM trades;"
     CUR.execute(SQL)

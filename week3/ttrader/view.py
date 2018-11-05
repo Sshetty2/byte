@@ -50,13 +50,16 @@ def check_balance(user_login):
     print(f"\n------------------------------------------------\nUser {user_login.username} Account Balance : {user_login.balance}\n -----------------------------------------------\n")
 
 def check_all_positions(user_login):
-    print(f"\n------------------------------------------------\nHello User {user_login.username}, here is a current snapshot of all of your current positions\n")
+    print(f"\n------------------------------------------------\nHello User {user_login.username}, here is a current snapshot of all of your current positions\n------------------------------------------------\n")
 
 def ticker_selection_buy():
     print("\n------------------------------------------------\nOk, please enter the ticker symbol of the stock that you'd like to purchase!\n\nTicker Symbol:", end = " ")
 
-def volume_amount_buy():
-    print("\n------------------------------------------------\nOk, how much would you like to buy?\n\nVolume Amt:", end = " ")
+def volume_amount_buy(ticker, ticker_price):
+    print(f"\n------------------------------------------------\nOk, how much {ticker} would you like to buy at {round(ticker_price, 2)}?\n\nVolume Amt:", end = " ")
+
+def buy_confirm(ticker, ticker_price, ticker_volume):
+    print(f"\n------------------------------------------------\nAre you sure you want to buy {ticker_volume} shares of {ticker} at a total price of {round(ticker_price*ticker_volume, 2)}?\n\n (Y/N):", end = " ")
 
 def transaction_failed():
     print("\n------------------------------------------------\nERROR: Transaction Failed. ", end = " ")
@@ -70,8 +73,11 @@ def updated_position_value(updated_position_value):
 def ticker_selection_sell():
     print("\n------------------------------------------------\nOk, please enter the ticker symbol of the stock that you'd like to sell!\n\nTicker Symbol:", end = " ")
 
-def volume_amount_sell():
-    print("\n------------------------------------------------\nOk, how much would you like to sell?\n\nVolume Amt:", end = " ")
+def volume_amount_sell(ticker, ticker_price):
+    print(f"\n------------------------------------------------\nOk, how much {ticker} would you like to sell at {round(ticker_price,2)}?\n\nVolume Amt:", end = " ")
+
+def sell_confirm(ticker, ticker_price, ticker_volume):
+    print(f"\n------------------------------------------------\nAre you sure you want to sell {ticker_volume} shares of {ticker} at a total price of {round(ticker_price*ticker_volume,2)}?\n\n (Y/N):", end = " ")
 
 def not_enough_shares():
     print("You do not own enough shares! \n------------------------------------------------\n")
@@ -92,7 +98,7 @@ def ticker_check_price(ticker,ticker_price):
     print(f"\n------------------------------------------------\nThe price of ticker symbol {ticker} is {ticker_price}\n------------------------------------------------\n")
 
 def login_menu_admin(user_login):
-    print(f"\n------------------------------------------------\n\nWelcome User {user_login.username}, \n\nLogin Menu:\n\n1. Check Balance\n2. See all positions\n3. Check Stock Price\n4. Buy Shares\n5. Sell Shares\n6. See All Trades\n7. Log out\n8. Quit\n9. Set account balance (Admin)\n10. View All User Accounts\n\nInput:", end = " ")
+    print(f"\n\nWelcome User {user_login.username}, \n\nLogin Menu:\n\n1. Check Balance\n2. See all positions\n3. Check Stock Price\n4. Buy Shares\n5. Sell Shares\n6. See All Trades\n7. Log out\n8. Quit\n9. Set account balance (Admin)\n10. View All User Accounts\n\nInput:", end = " ")
 
 def deposit_amount():
     print("\n------------------------------------------------\nOk, how much would you like to deposit?\n\nDeposit Amount:", end = " ")

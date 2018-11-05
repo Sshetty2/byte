@@ -105,7 +105,7 @@ class Position:
         return display
 
     def __str__(self):
-        display ="Stock = {}, Number of Shares = {}, Position Value = {}".format(self.ticker, self.amount, self.getvalue())
+        display ="Stock = {}, Number of Shares = {}, Position Value = {}".format(self.ticker, self.amount, int(self.getvalue()))
         return display
     #def getposition(self, pk):
 
@@ -154,7 +154,7 @@ class Trade:
         return display
     
     def __str__(self):
-        display ="Stock = {}, Volume = {}, Price = {}, Time = {}".format(self.ticker, self.volume, self.price, self.time)
+        display ="Stock = {}, Volume = {}, Price = {}, Time = {}".format(self.ticker, self.volume, round(self.price, 2), self.time)
         return display
 
 
@@ -170,14 +170,17 @@ class Account:
     def calculatehash(self, password):
         hashobject = hashlib.sha256()
         salt = CONFIG['SALT']
-        saltedstring = password.encode()
+        saltedstring = password.encode() + salt.encode()
         hashobject.update(saltedstring)
-        return hashobject.hexdigest() + ':' + salt
-    
+        return hashobject.hexdigest()
+
     def check_password(self, hashed_password, user_password):
-        password, salt = hashed_password.split(':')
-        new_hashed_pw = hashlib.sha256((user_password.encode()+ salt.encode())).hexdigest()
-        if password == new_hashed_pw:
+        hashobject = hashlib.sha256()
+        salt = CONFIG['SALT']
+        new_salted_string = user_password.encode() + salt.encode()
+        hashobject.update(new_salted_string)
+        new_hashed_pw = hashobject.hexdigest()
+        if hashed_password == new_hashed_pw:
             return True
         return False
 
