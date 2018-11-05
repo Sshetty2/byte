@@ -103,6 +103,10 @@ class Position:
     def __repr__(self):
         display ="Position PK = {}: Stock = {}, amount = {}, Account PK = {} ".format(self.pk, self.ticker, self.amount, self.account_pk)
         return display
+
+    def __str__(self):
+        display ="Stock = {}, Number of Shares = {}, Position Value = {}".format(self.ticker, self.amount, self.getvalue())
+        return display
     #def getposition(self, pk):
 
 
@@ -148,6 +152,10 @@ class Trade:
     def __repr__(self):
         display ="Trade: pk = {}, Account pk = {}, Stock = {}, Volume = {}, Price = {}, Time = {}".format(self.pk, self.account_pk, self.ticker, self.volume, self.price, self.time)
         return display
+    
+    def __str__(self):
+        display ="Stock = {}, Volume = {}, Price = {}, Time = {}".format(self.ticker, self.volume, self.price, self.time)
+        return display
 
 
 class Account:
@@ -161,8 +169,8 @@ class Account:
 
     def calculatehash(self, password):
         hashobject = hashlib.sha256()
-        salt = uuid.uuid4().hex
-        saltedstring = password.encode() + salt.encode()
+        salt = CONFIG['SALT']
+        saltedstring = password.encode()
         hashobject.update(saltedstring)
         return hashobject.hexdigest() + ':' + salt
     

@@ -91,9 +91,6 @@ def ticker_query():
 def ticker_check_price(ticker,ticker_price):
     print(f"\n------------------------------------------------\nThe price of ticker symbol {ticker} is {ticker_price}\n------------------------------------------------\n")
 
-def ticker_check_price(ticker,ticker_price):
-    print(f"\n------------------------------------------------\nThe price of ticker symbol {ticker} is {ticker_price}\n------------------------------------------------\n")
-
 def login_menu_admin(user_login):
     print(f"\n------------------------------------------------\n\nWelcome User {user_login.username}, \n\nLogin Menu:\n\n1. Check Balance\n2. See all positions\n3. Check Stock Price\n4. Buy Shares\n5. Sell Shares\n6. See All Trades\n7. Log out\n8. Quit\n9. Set account balance (Admin)\n10. View All User Accounts\n\nInput:", end = " ")
 
