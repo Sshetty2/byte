@@ -105,7 +105,7 @@ class Position:
         return display
 
     def __str__(self):
-        display ="Stock = {}, Number of Shares = {}, Position Value = {}".format(self.ticker, self.amount, int(self.getvalue()))
+        display ="Stock = {}, Number of Shares = {}, Position Value = {}".format(self.ticker, self.amount, round(self.getvalue(),2))
         return display
     #def getposition(self, pk):
 

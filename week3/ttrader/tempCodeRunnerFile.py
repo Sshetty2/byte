@@ -1,1 +1,2 @@
-pass_prompt(new_user)
+
+ #       exitprogram()
