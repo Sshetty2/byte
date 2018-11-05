@@ -1,0 +1,3 @@
+[submodule "benchmarks/c++/benchmark"]
+	path = benchmarks/c++/benchmark
+	url = https://github.com/google/benchmark
