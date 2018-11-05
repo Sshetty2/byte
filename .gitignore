@@ -1,3 +1,4 @@
 *.pyc
 venv
 .vscode
+week5/day1/run/lib/
