@@ -1,0 +1,9 @@
+different 1xx, 2xx, 3xx
+http status codes
+
+design pattern
+circuit breaker pattern
+
+open visual trace route
+
+/r out of the loop
