@@ -62,7 +62,7 @@ def login():
     while not new_login.check_set_username():
         view.does_not_exist()
         return login_terminal()
-    new_login = new_login.set_from_username(login_id)
+    new_login = new_login.set_from_username()
     view.enter_password()
     password = getpass.getpass()
     while not new_login.check_password((new_login.pass_hash), password):

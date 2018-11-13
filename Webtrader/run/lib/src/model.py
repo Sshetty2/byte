@@ -8,7 +8,7 @@ import time
 import os.path
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(BASE_DIR, "ttrader.db")
+db_path = os.path.join(BASE_DIR, "wtrader.db")
 
 CONFIG = {
     'SALT': "!$33gl3d33g",

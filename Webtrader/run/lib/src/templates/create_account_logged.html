@@ -1,14 +1,14 @@
-{% extends "structure.html" %}
+{% extends "structure_logged.html" %}
 {% block main %}
-<form action="/login" method="post" class="form-signin">
-    <img src="/static/Bulbasaur.png" alt="Bulbasaur" width="200" height="200">
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+<form action="/create_account" method="post" class="form-signin">
+    <img src="/static/Charizard.png" alt="Charizard" width="200" height="200">
+    <h1 class="h3 mb-3 font-weight-normal">Create New Account</h1>
     {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        {% for message in messages %}
-            <h5>{{message}}</h5>
-        {% endfor %}
-    {% endif %}
+        {% if messages %}
+            {% for message in messages %}
+                <h5>{{message}}</h5>
+            {% endfor %}
+        {% endif %}
     {% endwith %}
     <label for="username" class="sr-only">Username</label>
     <input name="username" type="text" id="username" class="form-control" placeholder="Username" required"" autofocus"">
@@ -16,7 +16,7 @@
     <input name="password" type="password" id="password" class="form-control" placeholder="Password" required"">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 </form>
-<form action="/create_account">
-    <input type="submit" value="Create New Account" />
+<form action="/login">
+    <input type="submit" value="Login" />
 </form>
 {% endblock main %}
