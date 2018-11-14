@@ -1,0 +1,13 @@
+<html lang="en">
+        <body>
+            <div>
+                {% if message %}
+                    <ul>
+                    {% for m in message %}
+                        <li><p><span style="color:red;">#{{ m[0] }}</span><strong>{{ m[1] }}</strong></p></li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </body>
+</html>

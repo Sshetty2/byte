@@ -3,6 +3,13 @@
 <form action="/create_account" method="post" class="form-signin">
     <img src="/static/Charizard.png" img class = "center" alt="Charizard" width="200" height="200">
     <h1 class="h3 mb-3 font-weight-normal">Create New Account</h1>
+    <h5>
+        <ul>
+            <li>Your password must contain at least 8 characters</li>
+            <li>Your password must contain at least one digit</li>
+            <li>Your password must contain at least one capital letter</li>
+          </ul> 
+    </h5>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}

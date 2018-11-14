@@ -27,7 +27,7 @@ def login():
         if new_user.check_password(new_user.pass_hash, password):
             session['username'] = username
             flash(f'User {username} successfully logged in!')
-            return render_template('login_logged.html')
+            return redirect('/login')
         else:
             flash("Invalid Login")
             return redirect('/login')
@@ -64,8 +64,6 @@ def create_new_account():
         new_user.balance = 0
         new_user.type = "USER"
         new_user.save()
-        session['username'] = username
-        session['password'] = password
         flash('User Account Successfully Created')
         return redirect('/login')
 
@@ -107,7 +105,36 @@ def check_stock_price_logged():
         flash(f'The Price of {ticker_symbol} is currently ${price}')
         return redirect('/check_stock_price_logged')
     
+@app.route('/buy', methods=['GET', 'POST'])
+def buy():
+    if request.method == 'GET':
+        if 'username' in session:
+            return render_template('buy.html')
+        else:
+            flash('You will need to log in before you can make purchases')    
+            return redirect('/login')
+    else:
+        #TODO: add buy logic
+        ticker_symbol = request.form['ticker_symbol'].upper()
+        price = model.apiget(ticker_symbol)
+        flash(f'The Price of {ticker_symbol} is currently ${price}')
+        return redirect('/check_stock_price')
 
+@app.route('/sell', methods=['GET', 'POST'])
+def sell():
+    if request.method == 'GET':
+        if 'username' in session:
+            return render_template('sell.html')
+        else:
+            flash('You will need to log in before you can sell your holdings')    
+            return redirect('/login')
+            
+    else:
+        #TODO: add sell logic
+        ticker_symbol = request.form['ticker_symbol'].upper()
+        price = model.apiget(ticker_symbol)
+        flash(f'The Price of {ticker_symbol} is currently ${price}')
+        return redirect('/check_stock_price')
 
 
 
