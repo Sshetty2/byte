@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Calc App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+    <h1 class="h3 mb-3 font-weight-normal">Calculator App</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <h5>{{message}}</h5>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/addition">
+        <input type="submit" value="addition" />
+    </form>
+    <form action="/subtraction">
+        <input type="submit" value="subtraction" />
+    </form>
+    <form action="/division">
+        <input type="submit" value="division" />
+    </form>
+    <form action="/multiplication">
+        <input type="submit" value="multiplication" />
+    </form>
+    <form action="/modulus_division">
+        <input type="submit" value="modulus_division" />
+    </form>
+
+
+</body>
+</html>

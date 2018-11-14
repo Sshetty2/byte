@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Calc App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+<form action="/addition" method="post" class="form-signin">
+    <h1 class="h3 mb-3 font-weight-normal">Calculator App</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <h3>{{message}}</h3>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <input name="input_one" type="text" id="ticker symbol" class="form-control" placeholder="input_one" required autofocus"">
+    <input name="input_two" type="text" id="ticker symbol" class="form-control" placeholder="input_two" required autofocus"">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+</form>
+<br>
+<form action="/homepage">
+    <input type="submit" value="back to homepage" />
+</form>
+
+</body>
+</html>
