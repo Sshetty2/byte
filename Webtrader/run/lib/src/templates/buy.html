@@ -1,0 +1,18 @@
+{% extends "structure_logged.html" %}
+<!-- a new template is created because we're logged in  -->
+{% block main %}
+<form action="/check_stock_price" method="post" class="form-signin">
+    <img src="/static/Squirtle" img class = "center" alt="Squirtle" width="300" height="200">
+    <h1 class="h3 mb-3 font-weight-normal">Buy Stocks</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <h5>{{message}}</h5>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <label for="ticker" class="sr-only">Ticker Symbol</label>
+    <input name="ticker_symbol" type="text" id="ticker symbol" class="form-control" placeholder="Ticker Symbol" required autofocus"">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Check Price</button>
+</form>
+{% endblock main %}

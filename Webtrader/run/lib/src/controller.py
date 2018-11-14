@@ -9,9 +9,6 @@ app.secret_key = 'the session needs this'
 
 @app.route('/', methods=['GET'])
 def send_to_login():
-    if 'username' in session:    
-        return redirect('/homepage')
-    else:
         return redirect('/login')
 
 @app.route('/login', methods=['GET', 'POST'])
