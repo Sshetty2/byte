@@ -31,6 +31,12 @@
       padding: 15px;
     }
     
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
       .sidenav {
@@ -39,6 +45,12 @@
       }
       .row.content {height:auto;} 
     }
+
+    .sidebar-image {
+      width: 160px;
+      height: 160px;
+    }
+
   </style>
 </head>
 <body>
@@ -51,13 +63,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+      <img src="/static/i-amheart-WT.jpg" alt="Logo" width="130" height="50">
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
-        <li><a href="#">Projects</a></li>
+        <li><a href="#">Portfolio</a></li>
         <li><a href="#">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -70,9 +82,9 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
-      <p><a href="#">Link</a></p>
+      <p><a href="#">Buy</a></p>
+      <p><a href="#">Sell</a></p>
+      <p><a href="/check_stock_price">Check Stock Price</a></p>
     </div>
     <div class="col-sm-8 text-left"> 
         {% block main %}
@@ -80,17 +92,17 @@
     </div>
     <div class="col-sm-2 sidenav">
       <div class="well">
-        <p>ADS</p>
+        <img src="/static/down-arrow.jpg" alt="down arrow" img class= "sidebar-image">
       </div>
       <div class="well">
-        <p>ADS</p>
+        <img src="/static/Meowth-money.jpg" alt="Meowth-money" img class = "sidebar-image">
       </div>
     </div>
   </div>
 </div>
 
 <footer class="container-fluid text-center">
-  <p>Footer Text</p>
+  <p>Webtrader &#169 2018 Byte Academy - SShetty</p>
 </footer>
 
 </body>

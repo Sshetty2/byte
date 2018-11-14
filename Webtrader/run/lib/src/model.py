@@ -19,7 +19,7 @@ CONFIG = {
     }
 }
 
-DBNAME = "ttrader.db"
+DBNAME = "wtrader.db"
 
 def apiget(tick, url= "https://api.iextrading.com/1.0/stock/{}/quote"):
     URL = url.format(tick)

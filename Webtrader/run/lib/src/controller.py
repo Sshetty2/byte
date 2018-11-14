@@ -9,7 +9,6 @@ app.secret_key = 'the session needs this'
 
 @app.route('/', methods=['GET'])
 def send_to_login():
-    print(session)
     if 'username' in session:    
         return redirect('/homepage')
     else:
@@ -30,6 +29,7 @@ def login():
         print(new_user.pass_hash)
         if new_user.check_password(new_user.pass_hash, password):
             session['username'] = username
+            flash(f'User {username} successfully logged in!')
             return render_template('login_logged.html')
         else:
             flash("Invalid Login")
@@ -69,8 +69,8 @@ def create_new_account():
         new_user.save()
         session['username'] = username
         session['password'] = password
-        return render_template('login.html', message = 'Account Successfully Created')
-
+        flash('User Account Successfully Created')
+        return redirect('/login')
 
 @app.route('/homepage', methods=['GET'])
 def show_homepage():
@@ -78,21 +78,41 @@ def show_homepage():
 
 @app.route('/logout', methods=['GET'])
 def log_out():
-    print(session)
-    session.pop('username', None)
     session.clear()
-    print(session)
+    flash(f'User logged out')
     return redirect('/login')
 
-# def check_user(username, password):
-#     """Usually this would be more complicated database logic, we should take
-#     security seriously in actual applications.
 
-#     For now, Username and Password are both "Greg"
-#     """
-#     if username == 'Greg' and password == 'Greg':
-#         return True
-#     return False
+
+@app.route('/check_stock_price', methods=['GET', 'POST'])
+def check_stock_price():
+    if request.method == 'GET':
+        if 'username' in session:    
+            return redirect('/check_stock_price_logged')
+        else:
+            return render_template('check_stock_price.html')
+    else:
+        ticker_symbol = request.form['ticker_symbol'].upper()
+        price = model.apiget(ticker_symbol)
+        flash(f'The Price of {ticker_symbol} is currently ${price}')
+        return redirect('/check_stock_price')
+
+@app.route('/check_stock_price_logged', methods=['GET', 'POST'])
+def check_stock_price_logged():
+    if request.method == 'GET':    
+        if 'username' in session:    
+            return render_template('check_stock_price_logged.html')
+        else:
+            return redirect('/check_stock_price')
+    else:
+        ticker_symbol = request.form['ticker_symbol']
+        price = model.apiget(ticker_symbol).upper()
+        flash(f'The Price of {ticker_symbol} is currently ${price}')
+        return redirect('/check_stock_price_logged')
+    
+
+
+
 
 if __name__=='__main__':
     app.debug = True
