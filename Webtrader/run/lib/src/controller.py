@@ -128,6 +128,16 @@ def sell():
         else:
             flash('You will need to log in before you can sell your holdings')    
             return redirect('/login')
+
+@app.route('/portfolio', methods=['GET', 'POST'])
+def portfolio():
+    if request.method == 'GET':
+        if 'username' in session:
+            xs = [['a'], ['b'], ['c'], ['d'], ['e']]
+            return render_template('portfolio.html', message = xs)
+        else:
+            flash('You will need to log in before you can sell your holdings')    
+            return redirect('/login')
             
     else:
         #TODO: add sell logic
