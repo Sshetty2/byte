@@ -12,7 +12,7 @@ def send_to_login():
         return redirect('/login')
 
 @app.route('/login', methods=['GET', 'POST'])
-def login():
+def login():    
     if request.method == 'GET':
         print(session)
         if 'username' in session:
