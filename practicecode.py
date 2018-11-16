@@ -13,31 +13,31 @@
 # print(likes(["Max", "John", "Mark"] ))
 
 #def bubble_sort(arr):
-#     # for i in arr:
-#     #     if curr = None:
-#     #         curr = i
-#     #     for j in newArr:
-#     #         if newArr == None:
-#     #             newArr.append(i)
-#     #         if i > j:
-#     #             curr = i 
+    # for i in arr:
+    #     if curr = None:
+    #         curr = i
+    #     for j in newArr:
+    #         if newArr == None:
+    #             newArr.append(i)
+    #         if i > j:
+    #             curr = i 
 
-# # s1 = ['2','3','5','6','4']
-# # s2 = ['j','k','d','w','r']
+# s1 = ['2','3','5','6','4']
+# s2 = ['j','k','d','w','r']
 
-# # lst = [j + k for j in s1 for k in s2]
-
-
-
-# # ex_arr = [2,3,6,5,8,9,7,6,7,7,7,7,7,5,6,2,1,3]
-# # mylist=['a','b','c','d','e']
+# lst = [j + k for j in s1 for k in s2]
 
 
-# #myorder=[3,2,0,1,4]
-# #arr = [ arr[i] for i in myorder]
-# #print(arr)
 
-# #print(bubble_sort(mylist))
+# ex_arr = [2,3,6,5,8,9,7,6,7,7,7,7,7,5,6,2,1,3]
+# mylist=['a','b','c','d','e']
+
+
+#myorder=[3,2,0,1,4]
+#arr = [ arr[i] for i in myorder]
+#print(arr)
+
+#print(bubble_sort(mylist))
 
 # def swap(tupple1, tupple2):
 #     pass
@@ -87,49 +87,4 @@
 
 # print(binary_search_squared(576))
 
-# #rint(round(33/2)))
-
-
-def binary_search(arr, val, start, end): 
-    global counter
-    counter = 0
-    # we need to distinugish whether we should insert 
-    # before or after the left boundary. 
-    # imagine [0] is the last step of the binary search 
-    # and we need to decide where to insert -1 
-    if start == end: 
-        if arr[start] > val: 
-            return start 
-        else: 
-            return start+1
-  
-    # this occurs if we are moving beyond left's boundary 
-    # meaning the left boundary is the least position to 
-    # find a number greater than val 
-    if start > end: 
-        return start 
-  
-    mid = round((start+end)/2)
-
-    if arr[mid] < val: 
-        return binary_search(arr, val, mid+1, end) 
-    elif arr[mid] > val: 
-        return binary_search(arr, val, start, mid-1)
-        
-    else: 
-        return mid 
-        
-  
-
-# Complete the minimumSwaps function below.
-def minimumSwaps(arr):
-    for i in range(1, len(arr)): 
-        val = arr[i] 
-        j = binary_search(arr, val, 0, i-1)
-        print(val)
-        print(j)
-
-        arr = arr[:j] + [val] + arr[j:i] + arr[i+1:] 
-    return arr 
-    
-    print(minimumSwaps([1, 2, 7, 6]))
+#rint(round(33/2)))

@@ -128,6 +128,12 @@ def sell():
         else:
             flash('You will need to log in before you can sell your holdings')    
             return redirect('/login')
+    else:
+        #TODO: add sell logic
+        ticker_symbol = request.form['ticker_symbol'].upper()
+        price = model.apiget(ticker_symbol)
+        flash(f'The Price of {ticker_symbol} is currently ${price}')
+        return redirect('/check_stock_price')
 
 @app.route('/portfolio', methods=['GET', 'POST'])
 def portfolio():
