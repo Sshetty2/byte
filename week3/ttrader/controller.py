@@ -83,7 +83,6 @@ def login_menu(user_login):
             return login_menu(user_login)
         if login_input == "2":
             all_positions = user_login.getpositions()
-            print(all_positions)
             view.check_all_positions(user_login)
             model.print_gettrades(all_positions)
             return login_menu(user_login)
@@ -136,6 +135,7 @@ def login_menu(user_login):
             return login_menu(user_login)
         if login_input == "2":
             all_positions = user_login.getpositions()
+            print(all_positions)
             view.check_all_positions(user_login)
             model.print_gettrades(all_positions)
             return login_menu(user_login)

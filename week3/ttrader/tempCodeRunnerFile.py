@@ -1,2 +1,2 @@
-
- #       exitprogram()
+valid_input()
+            return s

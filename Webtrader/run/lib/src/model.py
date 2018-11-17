@@ -41,6 +41,11 @@ def print_all_accounts(all_accounts):
     for i in all_accounts:
         print(i)
 
+def set_user_object(username):
+    user_object = Account(username)
+    user_object = user_object.set_from_username()
+    return user_object
+
 
 class OpenCursor:
     def __init__(self, *args, **kwargs):

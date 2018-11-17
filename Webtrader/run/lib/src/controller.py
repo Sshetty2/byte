@@ -11,6 +11,12 @@ app.secret_key = 'the session needs this'
 def send_to_login():
         return redirect('/login')
 
+def set_user_object(username):
+    user_object = model.Account(username)
+    user_object = user_object.set_from_username()
+    return user_object
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():    
     if request.method == 'GET':
@@ -21,10 +27,8 @@ def login():
     else:
         username = request.form['username']
         password = request.form['password']
-        new_user = model.Account(username)
-        new_user = new_user.set_from_username()
-        print(new_user.pass_hash)
-        if new_user.check_password(new_user.pass_hash, password):
+        user_object = model.set_user_object(username)
+        if user_object.check_password(user_object.pass_hash, password):
             session['username'] = username
             flash(f'User {username} successfully logged in!')
             return redirect('/login')
@@ -139,7 +143,8 @@ def sell():
 def portfolio():
     if request.method == 'GET':
         if 'username' in session:
-            xs = [['a'], ['b'], ['c'], ['d'], ['e']]
+            user_object = model.set_user_object(session['username'])
+            xs = user_object.getpositions()
             return render_template('portfolio.html', message = xs)
         else:
             flash('You will need to log in before you can sell your holdings')    
@@ -156,4 +161,4 @@ def portfolio():
 
 if __name__=='__main__':
     app.debug = True
-    app.run("0.0.0.0")
+    app.run()

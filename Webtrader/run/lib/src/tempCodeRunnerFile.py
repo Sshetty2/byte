@@ -1,2 +1,2 @@
 
-def buy():
+        username = request.form['userna
