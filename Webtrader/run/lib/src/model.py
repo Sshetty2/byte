@@ -289,7 +289,26 @@ class Account:
                 pos.set_from_row(row)
                 results.append(pos)
             return results
-    
+
+
+    def getpositions_array(self):
+        with OpenCursor() as cur:
+            SQL = """
+            SELECT * FROM positions WHERE account_pk = ?;
+            """
+            cur.execute(SQL, (self.pk,))
+            rows = cur.fetchall()
+            results = []
+            for row in rows:
+                row_place = []
+                row_place.append(row["ticker"]) 
+                row_place.append(row["amount"]) 
+                row_place.append("placeholder") 
+                row_place.append("placeholder") 
+                row_place.append("placeholder") 
+                results.append(row_place)
+            return results
+
     def get_all_accounts(self):
         with OpenCursor() as cur:
             SQL = """
@@ -354,6 +373,24 @@ class Account:
                 trade = Trade()
                 trade.set_from_row(row)
                 results.append(trade)
+            return results
+        
+    def gettrades_array(self):
+        with OpenCursor() as cur:
+            SQL = """
+            SELECT * FROM trades WHERE account_pk = ?;
+            """
+            cur.execute(SQL, (self.pk,))
+            rows = cur.fetchall()
+            results = []
+            for row in rows:
+                row_place = []
+                row_place.append(row["ticker"]) 
+                row_place.append(row["volume"]) 
+                row_place.append("price") 
+                row_place.append("time") 
+                row_place.append("placeholder") 
+                results.append(row_place)
             return results
 
 

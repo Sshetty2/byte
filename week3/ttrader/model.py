@@ -283,9 +283,9 @@ class Account:
                 pos = Position()
                 pos.set_from_row(row)
                 results.append(pos)
-                print(results)
             return results
     
+
     def get_all_accounts(self):
         with OpenCursor() as cur:
             SQL = """
