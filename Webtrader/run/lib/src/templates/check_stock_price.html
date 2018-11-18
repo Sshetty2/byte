@@ -1,12 +1,13 @@
 {% extends "structure.html" %}
 {% block main %}
+
 <form action="/check_stock_price" method="post" class="form-signin">
-    <img src="/static/Pikachu_money.png" img class = "center" alt="Pikachu_money" width="300" height="200">
+    <!-- <img src="/static/Pikachu_money.png" img class = "center" alt="Pikachu_money" width="300" height="200"> -->
     <h1 class="h3 mb-3 font-weight-normal">Check ticker price</h1>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
-                <h5>{{message}}</h5>
+                <h4>{{message}}</h4>
             {% endfor %}
         {% endif %}
     {% endwith %}
@@ -14,4 +15,5 @@
     <input name="ticker_symbol" type="text" id="ticker symbol" class="form-control" placeholder="Ticker Symbol" required autofocus"">
     <button class="btn btn-lg btn-primary btn-block" type="submit">Check Price</button>
 </form>
+
 {% endblock main %}

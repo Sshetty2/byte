@@ -139,7 +139,7 @@ def sell():
         flash(f'The Price of {ticker_symbol} is currently ${price}')
         return redirect('/check_stock_price')
 
-@app.route('/portfolio', methods=['GET', 'POST'])
+@app.route('/portfolio', methods=['GET'])
 def portfolio():
     if request.method == 'GET':
         if 'username' in session:
@@ -151,7 +151,7 @@ def portfolio():
             return redirect('/login')
 
 
-@app.route('/trade_history', methods=['GET', 'POST'])
+@app.route('/trade_history', methods=['GET'])
 def trade_history():
     if request.method == 'GET':
         if 'username' in session:
