@@ -3,18 +3,24 @@
 from flask import Flask, render_template, request, redirect, session, flash
 import model
 import re
-
+import dateutil.parser
+import calendar
 
 
 
 app = Flask(__name__)
 app.secret_key = 'the session needs this'
 
-
-# @app.context_processor
-# def news_processor():
-#     top_headlines = model.return_top_headlines()
-#     return dict(top_headlines=top_headlines)
+def date_format(datestring):
+    date = dateutil.parser.parse(datestring)
+    week_day_index = date.weekday()
+    clock_time = date.strftime("%H:%M:%S")
+    date_string = f"{calendar.day_abbr[week_day_index]} {date.day} {calendar.month_name[date.month]} "+ clock_time
+    return date_string
+    
+@app.context_processor
+def context_processor():
+    return dict(date_format = date_format)
 
 @app.route('/', methods=['GET'])
 def send_to_login():
@@ -173,8 +179,9 @@ def trade_history():
 
 @app.route('/news_scroll', methods=['GET'])
 def news_scroll():
-    top_headlines = model.return_top_headlines()
-    return render_template('news_scroll.html', top_headlines = top_headlines)
+    content = model.return_top_headlines_content()
+    content_len = len(content["articles"])
+    return render_template('news_scroll.html', content = content, content_len = content_len)
 
 
 if __name__=='__main__':

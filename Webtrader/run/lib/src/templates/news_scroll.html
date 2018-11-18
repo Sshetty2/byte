@@ -24,7 +24,6 @@
 		width: 100%;
 		max-width: 100%;
         min-width: 100%;
-        height: 650px;
 		margin: 0px auto 10px auto;
 		border: #000000 1px solid;
 		-moz-box-sizing: border-box;
@@ -35,7 +34,7 @@
 #news_iframe_scroll iframe 
 		{
 		width: 100%;
-		height: 650px; /* IF YOU EDIT HEIGHT EDIT THE SCROLLING SCRIPT HEIGHT!!!! */
+		height: 176px; /* IF YOU EDIT HEIGHT EDIT THE SCROLLING SCRIPT HEIGHT!!!! */
 		display: block;
 		margin: 0px;
 		padding: 0px;
@@ -109,38 +108,19 @@ body.news-scroll {
 <!-- SCROLLER CONTENT STARTS HERE -->
 
 
-
-
-
-
+{% for x in range(0,content_len) %}
+<a href="{{ content['articles'][x]['url'] }}">
 <span class="scroll-title-if">
-News Scroller<br>
+	{{ content["articles"][x]["title"] }}<br>
 </span>
+</a>
+{{ date_format(content["articles"][x]["publishedAt"])}}
+<br>
+{{ content["articles"][x]["description"] }}
 
-Add your news or other current info in this text window. This window uses an HTML IFrame and Javascript for the scrolling animation. 
-
-<a href="news.htm">Sample Link</a>.
 
 <br><br>
-
-
-
-
-
-
-<span class="scroll-title-if">
-Article Title<br>
-</span>
-
-Add your news or other current info in this text window. This window uses an HTML IFrame and Javascript for the scrolling animation. 
-
-<a href="news.htm">Sample Link</a>.
-
-<br><br>
-
-
-
-
+{% endfor %}
 
 
 <!-- END SCROLLER CONTENT -->

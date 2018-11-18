@@ -88,3 +88,15 @@
 # print(binary_search_squared(576))
 
 #rint(round(33/2)))
+import dateutil.parser
+import calendar
+
+def date_format(datestring):
+    date = dateutil.parser.parse(datestring)
+    
+    week_day_index = date.weekday()
+    clock_time = date.strftime("%H:%M:%S")
+    date_string = f"{calendar.day_abbr[week_day_index]} {date.day} {calendar.month_name[date.month]} "+ clock_time
+    return date_string
+    
+print(date_format("2018-11-18T21:07:11Z"))

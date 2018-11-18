@@ -25,10 +25,10 @@ CONFIG = {
 DBNAME = "wtrader.db"
 
 
+def return_top_headlines_content():
+    content = api.get_top_headlines(sources='the-wall-street-journal')
+    return content
 
-def return_top_headlines():
-    top_headlines = api.get_top_headlines(sources='bbc-news')
-    return top_headlines
 
 def apiget(tick, url= "https://api.iextrading.com/1.0/stock/{}/quote"):
     URL = url.format(tick)

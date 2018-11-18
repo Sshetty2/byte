@@ -123,7 +123,7 @@ def login_menu(user_login):
             model.print_all_accounts(all_accounts)
             return login_menu(user_login)
         if login_input == "11":
-            model.print_top_headlines()
+            print(model.return_top_headlines_content("author"))
             return login_menu(user_login)
 
 

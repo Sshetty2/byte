@@ -25,9 +25,26 @@ CONFIG = {
 DBNAME = "ttrader.db"
 
 
-def print_top_headlines():
-    top_headlines = api.get_top_headlines(sources='bbc-news')
-    print(top_headlines)
+# def print_top_headlines():
+#     top_headlines = api.get_top_headlines(sources='the-wall-street-journal')
+#     top_headlines_length = len(top_headlines["articles"])
+#     for x in range(0,top_headlines_length):
+#         print(top_headlines["articles"][x]["author"])
+
+# def return_top_headlines_content(type_of_content):
+#     top_headlines = api.get_top_headlines(sources='the-wall-street-journal')
+#     top_headlines_length = len(top_headlines["articles"])
+#     content = []
+#     for x in range(0,top_headlines_length):
+#         content.append((top_headlines["articles"][x][type_of_content]))
+#     return content
+
+def return_top_headlines_content():
+    content = api.get_top_headlines(sources='the-wall-street-journal')
+    return content
+
+
+
 
 def apiget(tick, url= "https://api.iextrading.com/1.0/stock/{}/quote"):
     URL = url.format(tick)
