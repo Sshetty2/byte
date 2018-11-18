@@ -40,7 +40,7 @@
       .row.content {height:auto;} 
     }
 
-      .center {
+    .center {
       display: block;
       margin-left: auto;
       margin-right: auto;
@@ -50,6 +50,40 @@
       width: 160px;
       height: 160px;
     }
+
+    #myBtn {
+        width: 200px;
+        font-size: 18px;
+        padding: 10px;
+        border: none;
+        background: #000;
+        color: #fff;
+        cursor: pointer;
+    }
+
+     #myBtn:hover {
+        background: #ddd;
+        color: black;
+     }
+    
+    .bg_content {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 95%;
+    padding: 0px;
+    }
+
+    .overlay-desc {
+    background: rgba(0,0,0,.5);
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    }
+
 
   </style>
 </head>
@@ -63,7 +97,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <img src="/static/i-amheart-WT.jpg" alt="logo" width="130" height="50">
+      <!-- <img src="/static/charizard_logo.png" alt="logo" width="130" height="50"> -->
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
