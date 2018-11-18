@@ -75,7 +75,7 @@ def login_menu(user_login):
     if user_login.type == "ADMIN":
         view.login_menu_admin(user_login)
         login_input = input()
-        while login_input not in ["1","2","3","4","5","6","7","8","9","10", "11"]:
+        while login_input not in ["1","2","3","4","5","6","7","8","9","10","11"]:
             view.invalid_input()
             login_input = input()
         if login_input == "1":
@@ -121,6 +121,9 @@ def login_menu(user_login):
             view.see_all_accounts_one()
             all_accounts = user_login.get_all_accounts()
             model.print_all_accounts(all_accounts)
+            return login_menu(user_login)
+        if login_input == "11":
+            model.print_top_headlines()
             return login_menu(user_login)
 
 

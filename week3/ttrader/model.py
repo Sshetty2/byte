@@ -4,11 +4,14 @@ import requests
 import hashlib
 import uuid
 import time
-
+from newsapi import NewsApiClient
 import os.path
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, "ttrader.db")
+
+api = NewsApiClient(api_key='63ff7711014f4180801278336d4873f9')
 
 CONFIG = {
     'SALT': "!$33gl3d33g",
@@ -20,6 +23,11 @@ CONFIG = {
 }
 
 DBNAME = "ttrader.db"
+
+
+def print_top_headlines():
+    top_headlines = api.get_top_headlines(sources='bbc-news')
+    print(top_headlines)
 
 def apiget(tick, url= "https://api.iextrading.com/1.0/stock/{}/quote"):
     URL = url.format(tick)

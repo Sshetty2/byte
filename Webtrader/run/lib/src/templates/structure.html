@@ -15,7 +15,7 @@
     }
     
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
+    .row.content {height: 700px}
     
     /* Set gray background color and 100% height */
     .sidenav {
@@ -51,6 +51,32 @@
       height: 160px;
     }
 
+    #myBtn {
+        width: 200px;
+        font-size: 18px;
+        padding: 10px;
+        border: none;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        cursor: pointer;
+    }
+
+    #myBtn:hover {
+      background: #ddd;
+      color: rgba(0, 0, 0, 0.5);
+    }
+    
+    .bg_content {
+    position: absolute;
+    bottom: 10px;
+    left: 25px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    width: 450px;
+    padding: 0px;
+    border-radius: 10px;
+    }
+      
 
   </style>
 </head>
@@ -68,7 +94,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li><a href="/login">Home</a></li>
         <li><a href="#">About</a></li>
         <li><a href="/portfolio">Portfolio</a></li>
         <li><a href="#">Contact</a></li>
@@ -92,13 +118,13 @@
         {% block main %}
         {% endblock main %}
     </div>
-    <div class="col-sm-2 sidenav">
-      <div class="well">
-        <!-- <img src="/static/down-arrow.jpg" alt="down arrow" img class= "sidebar-image"> -->
-      </div>
-      <div class="well">
-        <!-- <img src="/static/Meowth-money.jpg" alt="Meowth-money" img class = "sidebar-image"> -->
-      </div>
+    <div class="col-sm-2 sidenav" style="padding-left: 5px">
+        <div id="news_iframe_scroll">
+        <div class="news_scroll-title">
+        News and Updates<br>
+        </div>
+        <iframe name="NewsIFrame" src="/news_scroll" frameborder="5" scrolling="no" height= "655px"></iframe>
+        </div>
     </div>
   </div>
 </div>
@@ -109,3 +135,5 @@
 
 </body>
 </html>
+
+

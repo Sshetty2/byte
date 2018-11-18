@@ -4,8 +4,17 @@ from flask import Flask, render_template, request, redirect, session, flash
 import model
 import re
 
+
+
+
 app = Flask(__name__)
 app.secret_key = 'the session needs this'
+
+
+# @app.context_processor
+# def news_processor():
+#     top_headlines = model.return_top_headlines()
+#     return dict(top_headlines=top_headlines)
 
 @app.route('/', methods=['GET'])
 def send_to_login():
@@ -80,8 +89,6 @@ def log_out():
     session.clear()
     flash(f'User logged out')
     return redirect('/login')
-
-
 
 @app.route('/check_stock_price', methods=['GET', 'POST'])
 def check_stock_price():
@@ -163,6 +170,11 @@ def trade_history():
             return redirect('/login')
             
 
+
+@app.route('/news_scroll', methods=['GET'])
+def news_scroll():
+    top_headlines = model.return_top_headlines()
+    return render_template('news_scroll.html', top_headlines = top_headlines)
 
 
 if __name__=='__main__':
