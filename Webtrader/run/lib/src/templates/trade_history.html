@@ -6,11 +6,12 @@
   <table class="table table-striped table-sm">
     <thead>
       <tr>
-        <th>Company Name</th>
+        <th>Time of Trade</th>
         <th>Ticker</th>
-        <th>Number of Shares</th>
-        <th>Last Share Price</th>
-        <th>Position Value</th>
+        <th>Company Name</th>
+        <th>Price</th>
+        <th>No. of Shares</th>
+        <th>Trade Value</th>
       </tr>
     </thead>
     <tbody>
@@ -20,7 +21,8 @@
         <td>{{ x[1] }}</td>
         <td>{{ x[2] }}</td>
         <td>${{ x[3] }}</td>
-        <td>${{ x[4] }}</td>
+        <td>{{ x[4] }}</td>
+        <td>${{ x[5] }}</td>
       </tr>
       {% endfor %}
     </tbody>

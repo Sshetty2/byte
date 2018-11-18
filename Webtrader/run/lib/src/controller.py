@@ -149,13 +149,19 @@ def portfolio():
         else:
             flash('You will need to log in before you can sell your holdings')    
             return redirect('/login')
+
+
+@app.route('/trade_history', methods=['GET', 'POST'])
+def trade_history():
+    if request.method == 'GET':
+        if 'username' in session:
+            user_object = model.set_user_object(session['username'])
+            xs = user_object.gettrades_array()
+            return render_template('trade_history.html', message = xs)
+        else:
+            flash('You will need to log in before you can see your trade history')    
+            return redirect('/login')
             
-    else:
-        #TODO: add sell logic
-        ticker_symbol = request.form['ticker_symbol'].upper()
-        price = model.apiget(ticker_symbol)
-        flash(f'The Price of {ticker_symbol} is currently ${price}')
-        return redirect('/check_stock_price')
 
 
 

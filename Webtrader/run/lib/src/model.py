@@ -30,6 +30,26 @@ def apiget(tick, url= "https://api.iextrading.com/1.0/stock/{}/quote"):
         price = None
     return price
 
+def apiget_companyName(tick, url= "https://api.iextrading.com/1.0/stock/{}/company"):
+    URL = url.format(tick)
+    try:
+        data = requests.get(URL).json()
+        companyName = data.get("companyName")
+    except:
+        companyName = None
+    return companyName
+    
+def apiget_companySector(tick, url= "https://api.iextrading.com/1.0/stock/{}/company"):
+    URL = url.format(tick)
+    try:
+        data = requests.get(URL).json()
+        companySector = data.get("sector")
+    except:
+        companySector = None
+    return companySector
+
+
+
 def getprice(symbol):
     return randint(5000, 20000) / 100
 
@@ -301,11 +321,11 @@ class Account:
             results = []
             for row in rows:
                 row_place = []
+                row_place.append(apiget_companyName((row["ticker"]))) 
                 row_place.append(row["ticker"]) 
                 row_place.append(row["amount"]) 
-                row_place.append("placeholder") 
-                row_place.append("placeholder") 
-                row_place.append("placeholder") 
+                row_place.append(round(apiget(row["ticker"]),2)) 
+                row_place.append(round(apiget(row["ticker"]),2)*row["amount"]) 
                 results.append(row_place)
             return results
 
@@ -385,11 +405,12 @@ class Account:
             results = []
             for row in rows:
                 row_place = []
-                row_place.append(row["ticker"]) 
+                row_place.append(row["time"]) 
+                row_place.append(row["ticker"])
+                row_place.append(apiget_companyName((row["ticker"])))  
+                row_place.append(row["price"]) 
                 row_place.append(row["volume"]) 
-                row_place.append("price") 
-                row_place.append("time") 
-                row_place.append("placeholder") 
+                row_place.append(row["price"]*row["volume"]) 
                 results.append(row_place)
             return results
 
