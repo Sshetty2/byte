@@ -135,11 +135,14 @@ def buy():
             flash('You will need to log in before you can make purchases')    
             return redirect('/login')
     else:
-        #TODO: add buy logic
-        ticker_symbol = request.form['ticker_symbol'].upper()
-        price = model.apiget(ticker_symbol)
-        flash(f'The Price of {ticker_symbol} is currently ${price}')
-        return redirect('/check_stock_price')
+        try:
+            ticker_symbol = request.form['ticker_symbol'].upper()
+            number_of_shares = int(request.form['number_of_shares'])
+            total_price = model.apiget(ticker_symbol)*number_of_shares
+        except:
+            flash('Invalid Entry! Try Again..') 
+        flash(total_price)
+        return redirect('/buy')
 
 @app.route('/sell', methods=['GET', 'POST'])
 def sell():
