@@ -40,9 +40,13 @@ def login():
             return render_template('login_logged.html')
         return render_template('login.html')
     else:
-        username = request.form['username']
-        password = request.form['password']
-        user_object = model.set_user_object(username)
+        try:
+            username = request.form['username']
+            password = request.form['password']
+            user_object = model.set_user_object(username)
+        except:
+            flash("Invalid Login")
+            return redirect('/login')
         if user_object.check_password(user_object.pass_hash, password):
             session['username'] = username
             flash(f'User {username} successfully logged in!')
