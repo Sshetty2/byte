@@ -182,6 +182,14 @@ def trade_history():
             flash('You will need to log in before you can see your trade history')    
             return redirect('/login')
             
+@app.route('/deposit_funds', methods=['GET'])
+def deposit_funds():
+    if request.method == 'GET':
+        if 'username' in session:
+            return render_template('deposit_funds.html')
+        else:
+            flash('You will need to log in before you can deposit funds')    
+            return redirect('/login')
 
 
 @app.route('/news_scroll', methods=['GET'])

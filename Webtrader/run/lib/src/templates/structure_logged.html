@@ -59,12 +59,12 @@
     
     .bg_content {
     position: absolute;
-    bottom: 10px;
-    left: 25px;
+    bottom: 22px;
+    left: 39px;
     background: rgba(0, 0, 0, 0.5);
     color: #f1f1f1;
-    width: 450px;
-    padding: 0px;
+    width: 425px;
+    padding: 10px;
     border-radius: 10px;
     }
 
@@ -86,7 +86,7 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 8px -8px;
+    margin: 12px -8px;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
     cursor: pointer;
@@ -94,13 +94,21 @@
     .button5 {
     background-color: white;
     color: black;
-    border: 2px solid #555555;
+    border: 1px solid #555555;
     }
 
     .button5:hover {
     background-color: #555555;
     color: white;
     }
+
+    .custom_iframe_scroll{
+		height: "695px";
+    }
+    
+
+
+
 
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
@@ -113,7 +121,24 @@
       .bg_content {
         width: 340px;
         padding: 15px;
+        bottom: 0px;
+        left: 17px;
       }
+      .h1, .h2, .h3, .h4 h1, h2, h3, h4 {
+      font-size: 14px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      }
+      .custom_iframe_scroll{
+		  height: "368px";
+		  } 
+
+    }
+
+    .form-control{
+      background-color: rgba(0,0,0,.5);
+      border: 0px solid #ccc;
+      width: 75%;
     }
 
 
@@ -150,19 +175,20 @@
   
 <div class="container-fluid text-center">    
   <div class="row content">
-    <div class="col-sm-2 sidenav">
+    <div class="col-sm-2 sidenav sidenav1">
       <a href="/buy"><button class="button button5"><p>Buy</p></button></a>
       <a href="/sell"><button class="button button5"><p>Sell</p></button></a>
       <a href="/check_stock_price"><button class="button button5"><p>Check Stock Price</p></button></a>
       <a href="/trade_history"><button class="button button5"><p>See Trade History</p></button></a>
+      <a href="/deposit_funds"><button class="button button5"><p>Deposit Funds</p></button></a>
     </div>
     <div class="col-sm-8 text-left"> 
         {% block main %}
         {% endblock main %}
     </div>
-    <div class="col-sm-2 sidenav" style="padding-left: 5px; padding-top: 5px">
+    <div class="col-sm-2 sidenav sidenav2" style="padding-left: 5px; padding-top: 5px">
         <div id="news_iframe_scroll" >
-            <iframe name="NewsIFrame" src="/news_scroll" frameborder="5" scrolling="no" height= "563px" width="100%" padding-right = "5px"></iframe>
+            <iframe name="NewsIFrame" class="custom_iframe_scroll" src="/news_scroll" frameborder="5" scrolling="no" height= "563px" width="100%" padding-right = "5px"></iframe>
         </div>
     </div>
   </div>
