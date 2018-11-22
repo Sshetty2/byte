@@ -1,14 +1,22 @@
 #!/usr/bin/env python3
 
 from flask import Flask, render_template, request, redirect, session, flash
+import connexion
 import model
 import re
 import dateutil.parser
 import calendar
 
 
+def get_ticker_price(ticker='aapl'):
+    return model.apiget(ticker)
 
-app = Flask(__name__)
+app = connexion.App(__name__, specification_dir='./')
+
+#app = Flask(__name__)
+
+app.add_api('swagger.yml')
+
 app.secret_key = 'the session needs this'
 
 def date_format(datestring):
@@ -18,9 +26,12 @@ def date_format(datestring):
     date_string = f"{calendar.day_abbr[week_day_index]} {date.day} {calendar.month_name[date.month]} "+ clock_time
     return date_string
     
-@app.context_processor
-def context_processor():
-    return dict(date_format = date_format)
+# context_processor does not work with connexion
+# @app.context_processor
+# def context_processor():
+#     return dict(date_format = date_format)
+
+
 
 @app.route('/', methods=['GET'])
 def send_to_login():
@@ -199,6 +210,8 @@ def news_scroll():
     return render_template('news_scroll.html', content = content, content_len = content_len)
 
 
+
 if __name__=='__main__':
     app.debug = True
-    app.run()
+    app.run(port=8080)
+    

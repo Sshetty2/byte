@@ -112,10 +112,11 @@ body.news-scroll {
 	{{ content["articles"][x]["title"] }}<br>
 </span>
 </a>
-{{ date_format(content["articles"][x]["publishedAt"])}}
+{{ (content["articles"][x]["publishedAt"])}}
 <br>
 {{ content["articles"][x]["description"] }}
 
+<!-- cant use context processor to insert function  -->
 
 <br><br>
 {% endfor %}
