@@ -91,6 +91,8 @@
     background-color: white;
     color: black;
     border: 1px solid #555555;
+    border-radius: 14px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
     }
 
     .button5:hover {
@@ -133,6 +135,16 @@
       width: 75%;
     }
 
+    @media screen and  (min-width: 768px) {
+      .col-sm-2-left {
+          width: 13.666667%;
+      }
+
+      .col-sm-2-right {
+          width: 19.666667%;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -163,18 +175,18 @@
   
 <div class="container-fluid text-center">    
   <div class="row content">
-    <div class="col-sm-2 sidenav sidenav1">
+    <div class="col-sm-2 sidenav col-sm-2-left">
       <a href="/buy"><button class="button button5"><p>Buy</p></button></a>
       <a href="/sell"><button class="button button5"><p>Sell</p></button></a>
       <a href="/check_stock_price"><button class="button button5"><p>Check Stock Price</p></button></a>
       <a href="/trade_history"><button class="button button5"><p>See Trade History</p></button></a>
       <a href="/deposit_funds"><button class="button button5"><p>Deposit Funds</p></button></a>
     </div>
-    <div class="col-sm-8 text-left"> 
+    <div class="col-sm-8 text-left" style = "box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); padding-right: 5px; padding-left: 5px"> 
         {% block main %}
         {% endblock main %}
     </div>
-    <div class="col-sm-2 sidenav sidenav2" style="padding-left: 5px; padding-top: 5px">
+    <div class="col-sm-2 sidenav col-sm-2-right" style="padding-left: 5px; padding-top: 5px">
         <div id="news_iframe_scroll">
         <iframe name="NewsIFrame" class ="custom_iframe_scroll" src="/news_scroll" frameborder="5" scrolling="no" height= "563px" width="100%" padding-right = "5px"></iframe>
         </div>
