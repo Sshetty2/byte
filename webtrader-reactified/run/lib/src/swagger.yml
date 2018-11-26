@@ -1,0 +1,54 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger REST Article
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/api"
+
+# Paths supported by the server application
+paths:
+  /users:
+    get:
+      operationId: "model.return_top_headlines_content"
+      tags:
+        - "Users"
+      summary: "The users data structure supported by the server application"
+      description: "Read the list of users"
+      responses:
+        200:
+          description: "Successful read users list operation"
+          schema:
+            type: "array"
+            items:
+              properties:
+                fname:
+                  type: "string"
+                lname:
+                  type: "string"
+                timestamp:
+                  type: "string"
+  /ticker_price:
+    get:
+      operationId: controller.get_ticker_price
+      tags:
+        - "Ticker Price"
+      summary: "Gets ticker price from iextrading"
+      description: "Return get request to iextrading api"
+      responses:
+        200:
+          description: "Successful get request to iextrading api"
+          schema:
+            type: "array"
+            items:
+              properties:
+                fname:
+                  type: "string"
+                lname:
+                  type: "string"
+                timestamp:
+                  type: "string"
