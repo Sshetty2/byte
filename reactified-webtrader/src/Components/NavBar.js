@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import { Nav, NavItem, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, NavLink } from 'reactstrap';
 import '../css/App.css';
 
@@ -21,8 +22,8 @@ export default class Example extends React.Component {
   render() {
     return (
       <div>
-        <Nav style = {{backgroundColor: 'darkslategray'}} pills>
-        <a className="navbar-brand" href="/login"><img src={require("../static/home.png")} alt="Home"/></a>
+        <Nav style = {{backgroundColor: '#333'}} pills>
+        <NavLink href= "/login" className="navbar-brand"><img src={require("../static/home.png")} alt="Home"/></NavLink>
           <NavItem>
             <NavLink href="#" active>Link</NavLink>
           </NavItem>
@@ -45,7 +46,7 @@ export default class Example extends React.Component {
             <NavLink href="#">Another Link</NavLink>
           </NavItem>
           <NavItem className = "ml-auto">
-            <NavLink><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></NavLink>
+            <NavLink href= "/login"><span className="glyphicon glyphicon-log-in"></span> Login</NavLink>
           </NavItem>
         </Nav>
       </div>

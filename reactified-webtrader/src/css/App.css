@@ -58,6 +58,7 @@ color: #f1f1f1;
 width: 425px;
 padding: 0px;
 border-radius: 10px;
+z-index: 1;
 }
   
 .button {
@@ -104,6 +105,7 @@ color: white;
     padding: 15px;
     bottom: 0px;
     left: 17px;
+    z-index: 1;
   }
   .h1, .h2, .h3, .h4 h1, h2, h3, h4  {
   font-size: 14px;
@@ -133,6 +135,7 @@ color: white;
 }
 
 
+
 /* change the background color */
 .navbar-custom {
   background-color: darkslategray;
@@ -152,3 +155,23 @@ color: white;
 .navbar-custom .nav-item:hover .nav-link {
   color: #ffffff;
 }
+
+
+
+
+#video-container {
+    top:0%;
+    left:0%;
+    height:100%;
+    width:100%;
+    overflow: hidden;
+    z-index:0;
+    position: relative;
+}
+
+video.fillWidth {
+    width: 100%;
+    position:absolute;
+    z-index: -1;
+}
+

@@ -4,6 +4,7 @@ import '../css/App.css';
 import { Container, Row, Col } from 'reactstrap';
 import BGvid  from './BGvid' 
 import Navbar from './NavBar'
+import CentralBox from '../Components/CentralBox';
 
 
 
@@ -21,8 +22,7 @@ export default class App extends Component {
             <a href="/trade_history"><button className="button button5"><p>See Trade History</p></button></a>
             <a href="/deposit_funds"><button className="button button5"><p>Deposit Funds</p></button></a>
           </div>
-          <div className="col-sm-8 text-left" styles = {{boxShadow: '0 8px 16px 0', paddingRight: '5px', PaddingLeft: '5px'}}> 
-          </div>
+            <CentralBox /> 
           <div className="col-sm-2 sidenav col-sm-2-right" styles = {{paddingLeft: '5px', paddingTop: '5px'}}>
               <div id="news_iframe_scroll">
               <h1>News Scroll PlaceHolder</h1>
