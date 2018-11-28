@@ -2,16 +2,20 @@
 venv
 .vscode
 week5/day1/run/lib/
+
 webtrader/webtrader/lib
 Webtrader/webtrader/bin/python
 Webtrader/webtrader/include/python3.6m
 Webtrader/webtrader/bin/wheel
 Webtrader/webtrader/bin/python3.6
 Webtrader/webtrader/bin/python3
+
 Webtrader/run/lib/src/static/bullebaer6.mp4
 Webtrader/run/lib/src/static/bullbear.mp4
 Webtrader/run/lib/src/static/bullbear-short.mp4
+
 webtrader-reactified/node_modules
+
 reactified-webtrader/node_modules
 
 week8/dapp_twitter/backend/run/lib/
