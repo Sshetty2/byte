@@ -8,7 +8,7 @@ To install it, move the binary somewhere in your `$PATH`:
 
 ```sh
 sudo mv ipfs /usr/local/bin/ipfs
-```
+```../go-ipfs
 
 Or run `sudo ./install.sh` which does this for you.
 

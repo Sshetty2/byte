@@ -1,0 +1,27 @@
+ssh=keygey -t rsa -b 4096
+cat ~/.ssh/id.pub
+
+pip3 install virtualenv
+virtualenv -p python3 --no-site-packages venv
+sudo apt-get -y install virtualenv
+
+changes terminal prompt
+PS1="" 
+
+PS1="" && clear && tree -L 2 --dirsfirst
+
+printf $VIRTUAL_ENV
+try:
+	with open('static/background.png','r') as f:
+		return render_template('index.html', content=f)
+except IOError:
+	print('The file does not exist')
+	pass
+
+wget --user-agent="Mozilla/5.0" "https://dist.ipfs.io/go-ipfs/v0.4.18/go-ipfs_v0.4.18_linux-amd64.tar.gz" -O /tmp/go-ipfs.tar.gz
+
+tar -xvzf go-ipfs.tar.gz
+
+tar -xvzf go-ipfs_v0.4.18_linux-amd64.tar.gz
+
+tar -xvzf go-ipfs.tar.gz
