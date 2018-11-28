@@ -12,43 +12,60 @@ basePath: "/api"
 
 # Paths supported by the server application
 paths:
-  /users:
+  /user:
     get:
-      operationId: "model.return_top_headlines_content"
+      operationId: "model.return_pass_hash"
       tags:
-        - "Users"
-      summary: "The users data structure supported by the server application"
-      description: "Read the list of users"
+        - "Pass Hash" 
+      parameters:
+        - name: username
+          in: query
+          type: string
+          description: "enter the username so that you can get this users pass hash"
+          required: true
+      summary: "returns pass hash from database based on username"
+      description: "Returns a pass hash"
       responses:
         200:
-          description: "Successful read users list operation"
+          description: "Successfully returned pass hash"
           schema:
-            type: "array"
-            items:
-              properties:
-                fname:
-                  type: "string"
-                lname:
-                  type: "string"
-                timestamp:
-                  type: "string"
-  /ticker_price:
+            type: "string"
+            # items:
+            #   properties:
+            #     fname:
+            #       type: "string"
+            #     lname:
+            #       type: "string"
+            #     timestamp:
+            #       type: "string"
+  /validate:
     get:
-      operationId: controller.get_ticker_price
+      operationId: "model.validate_pw"
       tags:
-        - "Ticker Price"
-      summary: "Gets ticker price from iextrading"
-      description: "Return get request to iextrading api"
+        - "Validate PW" 
+      parameters:
+        - name: userid
+          in: query
+          type: string
+          description: "enter the userid so that you can get validate pw with pass hash"
+          required: true
+        - name: password
+          in: query
+          type: string
+          description: "enter the username so that you can get this users pass hash"
+          required: true
+      summary: "validates username based on password and userid"
+      description: "Returns True for valid"
       responses:
         200:
-          description: "Successful get request to iextrading api"
+          description: "Successfully returned pass hash"
           schema:
-            type: "array"
-            items:
-              properties:
-                fname:
-                  type: "string"
-                lname:
-                  type: "string"
-                timestamp:
-                  type: "string"
+            type: "boolean"
+            # items:
+            #   properties:
+            #     fname:
+            #       type: "string"
+            #     lname:
+            #       type: "string"
+            #     timestamp:
+            #       type: "string"
