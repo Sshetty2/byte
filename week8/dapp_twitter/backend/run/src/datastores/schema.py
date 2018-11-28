@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sqlite3
 
 CON = None
@@ -31,6 +33,7 @@ def run():
     SQL = """CREATE TABLE tweets(
         pk INTEGER PRIMARY KEY AUTOINCREMENT,
         users_pk INTEGER,
+        content VARHAR,
         time INTEGER,
         FOREIGN KEY(users_pk) REFERENCES users(pk)
         );"""
