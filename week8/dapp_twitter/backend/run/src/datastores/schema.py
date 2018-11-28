@@ -19,8 +19,8 @@ def run():
         pk INTEGER PRIMARY KEY AUTOINCREMENT,
         username VARCHAR,
         pass_hash VARCHAR(128),
-        type VARCHAR,
-        number_of_tweets INTEGER;"""
+        type VARCHAR
+        );"""
     
     CUR.execute(SQL)
     
@@ -37,19 +37,6 @@ def run():
     
     CUR.execute(SQL)
     
-    SQL = "DROP TABLE IF EXISTS positions;"
-    
-    CUR.execute(SQL)
-    
-    SQL = """CREATE TABLE positions(
-        pk INTEGER PRIMARY KEY AUTOINCREMENT,
-        account_pk INTEGER,
-        ticker VARCHAR,
-        amount INTEGER,
-        FOREIGN KEY(account_pk) REFERENCES accounts(pk)
-        );"""
-    
-    CUR.execute(SQL)
     
     CON.commit()
     CUR.close()

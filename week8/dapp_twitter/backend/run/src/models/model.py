@@ -14,7 +14,7 @@ CONFIG = {
 
 DBNAME = "master.db"
 
-## REST API ENDPOINT FUNCTION CALLS ##
+## ---- REST API ENDPOINT FUNCTION CALLS --- ##
 
 
 def return_pass_hash(username):
