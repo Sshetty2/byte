@@ -22,6 +22,30 @@ CONFIG = {
     }
 }
 
+def return_pass_hash(username):
+    new_account_obj = Account(username=username)
+    account_obj = new_account_obj.set_from_username()
+    return account_obj.pass_hash
+
+def validate_pw(userid, password):
+    user_object = set_user_object(userid)
+    if user_object.check_password(user_object.pass_hash, password):
+        return True
+    return False
+
+
+def return_pass_hash(username):
+    new_account_obj = Account(username=username)
+    account_obj = new_account_obj.set_from_username()
+    return account_obj.pass_hash
+
+def validate_pw(userid, password):
+    user_object = set_user_object(userid)
+    if user_object.check_password(user_object.pass_hash, password):
+        return True
+    return False
+
+
 DBNAME = "wtrader.db"
 
 
@@ -239,7 +263,6 @@ class Account:
             cur.execute(SQL, (self.username, ))
             row=cur.fetchone()  
         self.set_from_row(row)
-        # if the username is found, the attributes are set 
         return self
         
 

@@ -14,6 +14,26 @@ CONFIG = {
 
 DBNAME = "master.db"
 
+## REST API ENDPOINT FUNCTION CALLS ##
+
+
+def return_pass_hash(username):
+    new_account_obj = Account(username=username)
+    account_obj = new_account_obj.set_from_username()
+    return account_obj.pass_hash
+
+def validate_pw(userid, password):
+    user_object = set_user_object(userid)
+    if user_object.check_password(user_object.pass_hash, password):
+        return True
+    return False
+
+##TODO:
+def show_all_tweets(username):
+    pass
+
+
+
 
 class OpenCursor:
     def __init__(self, *args, **kwargs):
@@ -46,6 +66,8 @@ class Account:
         self.type = user_type
         self.number_of_tweets = number_of_tweets
 
+    #def getposition(self, pk):
+
     def save(self):
         with OpenCursor() as cur:
             if not self.pk:
@@ -63,13 +85,23 @@ class Account:
                 """
                 cur.execute(SQL, (self.username, self.pass_hash, self.type,
                                   self.number_of_tweets))
-    
-    def write_tweet(self):
-        pass
 
-    def __repr__(self):
-        display ="Account PK = {}, Username = {}, PW Hash = {}, Balance = {}".format(self.pk, self.username, self.pass_hash, self.balance)
-        return display
+    def calculatehash(self, password):
+        hashobject = hashlib.sha256()
+        salt = CONFIG['SALT']
+        saltedstring = password.encode() + salt.encode()
+        hashobject.update(saltedstring)
+        return hashobject.hexdigest()
+
+    def check_password(self, hashed_password, user_password):
+        hashobject = hashlib.sha256()
+        salt = CONFIG['SALT']
+        new_salted_string = user_password.encode() + salt.encode()
+        hashobject.update(new_salted_string)
+        new_hashed_pw = hashobject.hexdigest()
+        if hashed_password == new_hashed_pw:
+            return True
+        return False
 
     def set_from_row(self, row):
         self.pk = row["pk"]
@@ -77,4 +109,27 @@ class Account:
         self.pass_hash = row["pass_hash"]
         self.number_of_tweets = row["number_of_tweets"]
         self.type = row["type"]
+        return self
+
+    ##TODO:
+    def save_tweet(self, tweet):
+        pass
+
+    ##TODO:
+    def delete_tweet(self, tweet):
+        pass
+
+    ##TODO:
+    def update_tweet(self, tweet):
+        pass
+    
+
+    def set_from_username(self):
+        with OpenCursor() as cur: 
+            SQL = """
+            SELECT * FROM accounts WHERE username = ?;
+            """
+            cur.execute(SQL, (self.username, ))
+            row=cur.fetchone()  
+        self.set_from_row(row)
         return self

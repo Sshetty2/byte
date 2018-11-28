@@ -1,0 +1,71 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger REST Article
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/api"
+
+# Paths supported by the server application
+paths:
+  /user:
+    get:
+      operationId: "model.return_pass_hash"
+      tags:
+        - "Pass Hash" 
+      parameters:
+        - name: username
+          in: query
+          type: string
+          description: "enter the username so that you can get this users pass hash"
+          required: true
+      summary: "returns pass hash from database based on username"
+      description: "Returns a pass hash"
+      responses:
+        200:
+          description: "Successfully returned pass hash"
+          schema:
+            type: "string"
+            # items:
+            #   properties:
+            #     fname:
+            #       type: "string"
+            #     lname:
+            #       type: "string"
+            #     timestamp:
+            #       type: "string"
+  /validate:
+    get:
+      operationId: "model.validate_pw"
+      tags:
+        - "Validate PW" 
+      parameters:
+        - name: userid
+          in: query
+          type: string
+          description: "enter the userid so that you can get validate pw with pass hash"
+          required: true
+        - name: password
+          in: query
+          type: string
+          description: "enter the username so that you can get this users pass hash"
+          required: true
+      summary: "validates username based on password and userid"
+      description: "Returns True for valid"
+      responses:
+        200:
+          description: "Successfully returned pass hash"
+          schema:
+            type: "boolean"
+            # items:
+            #   properties:
+            #     fname:
+            #       type: "string"
+            #     lname:
+            #       type: "string"
+            #     timestamp:
+            #       type: "string"
