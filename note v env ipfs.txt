@@ -25,3 +25,6 @@ tar -xvzf go-ipfs.tar.gz
 tar -xvzf go-ipfs_v0.4.18_linux-amd64.tar.gz
 
 tar -xvzf go-ipfs.tar.gz
+
+ipfs init
+ipfs add -q path
