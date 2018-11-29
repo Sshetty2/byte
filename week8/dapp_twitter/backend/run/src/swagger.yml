@@ -12,32 +12,32 @@ basePath: "/api"
 
 # Paths supported by the server application
 paths:
-  /user:
-    get:
-      operationId: "model.return_pass_hash"
-      tags:
-        - "Pass Hash" 
-      parameters:
-        - name: username
-          in: query
-          type: string
-          description: "enter the username so that you can get this users pass hash"
-          required: true
-      summary: "returns pass hash from database based on username"
-      description: "Returns a pass hash"
-      responses:
-        200:
-          description: "Successfully returned pass hash"
-          schema:
-            type: "string"
-            # items:
-            #   properties:
-            #     fname:
-            #       type: "string"
-            #     lname:
-            #       type: "string"
-            #     timestamp:
-            #       type: "string"
+  # /user:
+  #   get:
+  #     operationId: "model.return_pass_hash"
+  #     tags:
+  #       - "Pass Hash" 
+  #     parameters:
+  #       - name: username
+  #         in: query
+  #         type: string
+  #         description: "enter the username so that you can get this users pass hash"
+  #         required: true
+  #     summary: "returns pass hash from database based on username"
+  #     description: "Returns a pass hash"
+  #     responses:
+  #       200:
+  #         description: "Successfully returned pass hash"
+  #         schema:
+  #           type: "string"
+  #           # items:
+  #           #   properties:
+  #           #     fname:
+  #           #       type: "string"
+  #           #     lname:
+  #           #       type: "string"
+  #           #     timestamp:
+  #           #       type: "string"
   /validate:
     get:
       operationId: "model.validate_pw"
@@ -60,7 +60,7 @@ paths:
         200:
           description: "Successfully returned pass hash"
           schema:
-            type: "boolean"
+            type: "string"
             # items:
             #   properties:
             #     fname:

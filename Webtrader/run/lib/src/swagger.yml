@@ -60,7 +60,7 @@ paths:
         200:
           description: "Successfully returned pass hash"
           schema:
-            type: "boolean"
+            type: "string"
             # items:
             #   properties:
             #     fname:

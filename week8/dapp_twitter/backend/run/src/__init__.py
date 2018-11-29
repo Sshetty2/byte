@@ -2,8 +2,7 @@
 
 from flask import Flask, request, render_template, url_for
 import connexion
-
-from .models import model
+import model
 
 controller = connexion.App(__name__, specification_dir='./')
 

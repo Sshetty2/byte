@@ -4,15 +4,17 @@ import sqlite3
 import time
 import hashlib
 import uuid
-
 import os.path
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-db_path = os.path.join(BASE_DIR, "../datastores/master.db")
+db_path = os.path.join(BASE_DIR, "./datastores/master.db")
+
+
 
 CONFIG = {
     'DBNAME': db_path,
+    'SALT': "!$33gl3d33g"
 }
 
 DBNAME = "master.db"
@@ -20,16 +22,16 @@ DBNAME = "master.db"
 ## ---- REST API ENDPOINT FUNCTION CALLS --- ##
 
 
-def return_pass_hash(username):
-    new_account_obj = Account(username=username)
-    account_obj = new_account_obj.set_from_username()
-    return account_obj.pass_hash
-
 def validate_pw(userid, password):
-    user_object = set_user_object(userid)
-    if user_object.check_password(user_object.pass_hash, password):
-        return True
-    return False
+    
+    try: 
+        user_object = set_user_object(userid)
+    except:
+        return "username error"
+    pass_hash = user_object.pass_hash
+    if user_object.check_password(pass_hash, password):
+        return "success"
+    return "password error"
 
 def set_user_object(username):
     user_object = Account(username=username)
