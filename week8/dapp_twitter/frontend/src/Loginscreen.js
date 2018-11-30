@@ -12,17 +12,17 @@ const style = {
 class Loginscreen extends Component {
   constructor(props){
     super(props);
-    var loginButtons=[];
-    loginButtons.push(
+    var _loginButtons=[];
+    _loginButtons.push(
       <div>
       <MuiThemeProvider>
         <div>
-           <RaisedButton label={"Register as User"} primary={true} style={style} onClick={(event) => this.handleClick(event,'user')}/>
+           <RaisedButton label={"Register as User"} backgroundColor="cornflowerblue" labelColor="white" style={style} onClick={(event) => this.handleClick(event,'user')}/>
        </div>
        </MuiThemeProvider>
        <MuiThemeProvider>
        <div>
-          <RaisedButton label={"Register as Admin"} primary={true} style={style} onClick={(event) => this.handleClick(event,'admin')}/>
+          <RaisedButton backgroundColor="cornflowerblue" labelColor="white" label={"Register as Admin"} style={style} onClick={(event) => this.handleClick(event,'admin')}/>
       </div>
       </MuiThemeProvider>
       </div>
@@ -32,7 +32,7 @@ class Loginscreen extends Component {
       password:'',
       loginscreen:[],
       loginmessage:'',
-      loginButtons: loginButtons,
+      loginButtons: _loginButtons,
       userbuttonLabel:'Register as User',
       adminbuttonLabel:'Register as Admin',
       isLogin:true
@@ -65,7 +65,7 @@ class Loginscreen extends Component {
         <div key="login-button">
         <MuiThemeProvider>
           <div>
-             <RaisedButton label={"Login"} primary={true} style={style} onClick={(event) => this.handleClick(event,userRole)}/>
+             <RaisedButton label={"Login"} backgroundColor="cornflowerblue" labelColor="white" style={style} onClick={(event) => this.handleClick(event,userRole)}/>
          </div>
          </MuiThemeProvider>
         </div>
@@ -83,12 +83,12 @@ class Loginscreen extends Component {
         <div >
         <MuiThemeProvider>
           <div>
-             <RaisedButton label={"Register as User"} primary={true} style={style} onClick={(event) => this.handleClick(event,'user')}/>
+             <RaisedButton label={"Register as User"} backgroundColor="cornflowerblue" labelColor="white" style={style} onClick={(event) => this.handleClick(event,'user')}/>
          </div>
          </MuiThemeProvider>
          <MuiThemeProvider>
          <div>
-            <RaisedButton label={"Register as Admin"} primary={true} style={style} onClick={(event) => this.handleClick(event,'admin')}/>
+            <RaisedButton label={"Register as Admin"} backgroundColor="cornflowerblue" labelColor="white" style={style} onClick={(event) => this.handleClick(event,'admin')}/>
         </div>
         </MuiThemeProvider>
         </div>

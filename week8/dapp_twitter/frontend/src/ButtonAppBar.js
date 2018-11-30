@@ -25,8 +25,8 @@ const styles = {
 function ButtonAppBar(props) {
   const { classes } = props;
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
+    <div className={classes.root} >
+      <AppBar position="static" style={{ backgroundColor: '#6495ed' }}>
         <Toolbar>
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuListComposition />

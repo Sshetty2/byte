@@ -16,8 +16,8 @@ class Login extends Component {
     super(props);
     var localloginComponent=[];
     localloginComponent.push(
-      <MuiThemeProvider>
-        <div>
+      <MuiThemeProvider >
+        <div >
          <TextField
            hintText="Enter your User Name"
            floatingLabelText="User Name"
@@ -31,7 +31,7 @@ class Login extends Component {
              onChange = {(event,newValue) => this.setState({password:newValue})}
              />
            <br/>
-           <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+           <RaisedButton color="black" label="Submit" backgroundColor="cornflowerblue" labelColor="white" style={style} onClick={(event) => this.handleClick(event)}/>
        </div>
        </MuiThemeProvider>
     )
@@ -65,7 +65,7 @@ class Login extends Component {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
              <br/>
-             <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+             <RaisedButton label="Submit" backgroundColor="cornflowerblue" labelColor="white" style={style} onClick={(event) => this.handleClick(event)}/>
          </div>
          </MuiThemeProvider>
       )
@@ -90,7 +90,7 @@ class Login extends Component {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
              <br/>
-             <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+             <RaisedButton label="Submit" backgroundColor="cornflowerblue" labelColor="white" style={style} onClick={(event) => this.handleClick(event)}/>
          </div>
          </MuiThemeProvider>
       )
@@ -152,7 +152,7 @@ class Login extends Component {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
              <br/>
-             <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+             <RaisedButton label="Submit" backgroundColor="cornflowerblue" labelColor="white" style={style} onClick={(event) => this.handleClick(event)}/>
          </div>
          </MuiThemeProvider>
       )
@@ -176,7 +176,7 @@ class Login extends Component {
                onChange = {(event,newValue) => this.setState({password:newValue})}
                />
              <br/>
-             <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+             <RaisedButton label="Submit" backgroundColor="cornflowerblue" labelColor="white" style={style} onClick={(event) => this.handleClick(event)}/>
          </div>
          </MuiThemeProvider>
       )
@@ -192,8 +192,10 @@ class Login extends Component {
         <ButtonAppBar appbartitle= "Login" />
         </MuiThemeProvider>
         <MuiThemeProvider>
-        <div>
-        <p>Login as:</p>
+        <div style= {{paddingRight: '5px'}}>
+          <div>
+          <p>Login as:</p>
+          </div>
         <DropDownMenu value={this.state.menuValue} style = {{paddingLeft:'18px'}} onChange={(event,index,value)=>this.handleMenuChange(value)}>
           <MenuItem value={1} primaryText="User" />
           <MenuItem value={2} primaryText="Admin" />
@@ -208,6 +210,7 @@ class Login extends Component {
 
 const style = {
   margin: 15,
+  backgroundColor: '#6495ed'
 };
 
 export default Login;

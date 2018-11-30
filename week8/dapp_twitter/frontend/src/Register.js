@@ -76,7 +76,7 @@ class Register extends Component {
         <MuiThemeProvider>
           <div>
           
-            <ButtonAppBar appbartitle= "Register"/>
+            <ButtonAppBar appbartitle= "Register" />
            <TextField
              hintText="Enter your First Name"
              floatingLabelText="First Name"
@@ -102,7 +102,7 @@ class Register extends Component {
              onChange = {(event,newValue) => this.setState({password:newValue})}
              />
            <br/>
-           <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event,this.props.role)}/>
+           <RaisedButton label="Submit" backgroundColor="cornflowerblue" labelColor="white" style={style} onClick={(event) => this.handleClick(event,this.props.role)}/>
           </div>
          </MuiThemeProvider>
       </div>

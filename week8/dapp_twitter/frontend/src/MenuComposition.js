@@ -54,7 +54,7 @@ class MenuListComposition extends React.Component {
             aria-haspopup="true"
             onClick={this.handleToggle}
           >
-          <MenuIcon />
+          <MenuIcon style= {{color:'white'}} />
           </Button>
           <Popper open={open} anchorEl={this.anchorEl} transition disablePortal>
             {({ TransitionProps, placement }) => (
