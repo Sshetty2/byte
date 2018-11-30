@@ -32,7 +32,7 @@ class Loginscreen extends Component {
       password:'',
       loginscreen:[],
       loginmessage:'',
-      loginButtons:loginButtons,
+      loginButtons: loginButtons,
       userbuttonLabel:'Register as User',
       adminbuttonLabel:'Register as Admin',
       isLogin:true
@@ -47,12 +47,18 @@ class Loginscreen extends Component {
                   loginmessage:loginmessage
                     })
   }
+
+/// EVENT LISTENER
+
   handleClick(event,userRole){
     console.log("event",userRole);
     var loginmessage;
+
+/// Beginning Loginscreen logic ///
+
     if(this.state.isLogin){
       let loginscreen=[];
-      loginscreen.push(<Register parentContext={this} appContext={this.props.appContext} role={userRole}/>);
+      loginscreen.push(<Register parentContext={this} appContext={this.props.appContext} role={userRole} />);
       loginmessage = "Already registered.Go to Login";
       let loginButtons=[];
       loginButtons.push(
@@ -74,7 +80,7 @@ class Loginscreen extends Component {
     else{
       let loginscreen=[],loginButtons=[];
       loginButtons.push(
-        <div>
+        <div >
         <MuiThemeProvider>
           <div>
              <RaisedButton label={"Register as User"} primary={true} style={style} onClick={(event) => this.handleClick(event,'user')}/>
@@ -97,6 +103,9 @@ class Loginscreen extends Component {
                    })
     }
   }
+
+  // EVENT LISTENER END
+
   render() {
     return (
       <div className="loginscreen" key="loginscreen">

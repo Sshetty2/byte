@@ -8,6 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 var apiBaseUrl = "http://localhost:5000/api/";
 import axios from 'axios';
 import UploadPage from './UploadPage';
+import ButtonAppBar from './ButtonAppBar';
 
 
 class Login extends Component {
@@ -188,7 +189,9 @@ class Login extends Component {
     return (
       <div>
         <MuiThemeProvider>
-        <AppBar title="Login"  style = {{paddingRight:'75px'}}  />
+        <ButtonAppBar  
+
+        />
         </MuiThemeProvider>
         <MuiThemeProvider>
         <div>
