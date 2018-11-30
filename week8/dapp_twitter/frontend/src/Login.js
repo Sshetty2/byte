@@ -189,9 +189,7 @@ class Login extends Component {
     return (
       <div>
         <MuiThemeProvider>
-        <ButtonAppBar  
-
-        />
+        <ButtonAppBar appbartitle= "Login" />
         </MuiThemeProvider>
         <MuiThemeProvider>
         <div>

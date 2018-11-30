@@ -31,8 +31,8 @@ function ButtonAppBar(props) {
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
             <MenuListComposition />
           </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            News
+          <Typography variant="h6" color="inherit" className={classes.grow} style = {{paddingRight:'25px'}}>
+            { props.appbartitle }
           </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>

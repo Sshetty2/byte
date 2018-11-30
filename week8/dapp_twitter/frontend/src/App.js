@@ -16,10 +16,10 @@ class App extends Component {
     }
   }
   componentWillMount(){
-    var loginPage =[];
-    loginPage.push(<LoginScreen appContext={this}/>);
+    var _loginPage =[];
+    _loginPage.push(<LoginScreen appContext={this}/>);
     this.setState({
-                  loginPage:loginPage
+                  loginPage:_loginPage
                     })
   }
   render() {

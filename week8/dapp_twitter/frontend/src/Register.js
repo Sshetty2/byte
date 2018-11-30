@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+import ButtonAppBar from './ButtonAppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
@@ -70,13 +70,13 @@ class Register extends Component {
       userhintText="Enter your Admin Id",
       userLabel="Admin Id"
     }
+    ///pass props to change button app bar title to register
     return (
       <div>
         <MuiThemeProvider>
           <div>
-          <AppBar
-             title="Register" style = {{paddingRight:'75px'}}
-           />
+          
+            <ButtonAppBar appbartitle= "Register"/>
            <TextField
              hintText="Enter your First Name"
              floatingLabelText="First Name"
