@@ -8,58 +8,61 @@ import {blue500, red500, greenA200} from 'material-ui/styles/colors';
 import UploadScreen from './UploadScreen';
 import Pastfiles from './Pastfiles';
 import LoginScreen from './Loginscreen'
+import ButtonAppBar from './ButtonAppBar';
+import './App.css';
+
+import TweetPanels from './TweetPanels';
+import FormDialog from './CreateNewTweet';
+
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {draweropen: false,currentScreen:[]};
+    // this.state = {draweropen: false,currentScreen:[]};
   }
   componentDidMount(){
-    var currentScreen=[];
-    currentScreen.push(<UploadScreen appContext={this.props.appContext} role={this.props.role}/>);
-    this.setState({currentScreen})
+    // var currentScreen=[];
+    // currentScreen.push(<UploadScreen appContext={this.props.appContext} role={this.props.role}/>);
+    // this.setState({currentScreen})
   }
   /**
    * Toggle opening and closing of drawer
    * @param {*} event 
    */ 
-  toggleDrawer(event){
-  // console.log("drawer click");
-  this.setState({draweropen: !this.state.draweropen})
-  }
-  handleMenuClick(event,page){
-    switch(page){
-      case "openprint":
-      // console.log("need to open uploadapge")
-      var currentScreen=[];
-      currentScreen.push(<UploadScreen appContext={this.props.appContext} role={this.props.role}/>);
-      this.setState({currentScreen})
-      break;
-      case "openpast":
-      // console.log("need to open pastfiles")
-      var currentScreen=[];
-      currentScreen.push(<Pastfiles appContext={this.props.appContext} role={this.props.role}/>);
-      this.setState({currentScreen})
-      break;
-      case "logout":
-      var loginPage =[];
-      loginPage.push(<LoginScreen appContext={this.props.appContext}/>);
-      this.props.appContext.setState({loginPage:loginPage,uploadScreen:[]})
-      break;
-    }
-    this.setState({draweropen:false})
-  }
+  // toggleDrawer(event){
+  // // console.log("drawer click");
+  // this.setState({draweropen: !this.state.draweropen})
+  // }
+  // handleMenuClick(event,page){
+  //   switch(page){
+  //     case "openprint":
+  //     // console.log("need to open uploadapge")
+  //     var currentScreen=[];
+  //     currentScreen.push(<UploadScreen appContext={this.props.appContext} role={this.props.role}/>);
+  //     this.setState({currentScreen})
+  //     break;
+  //     case "openpast":
+  //     // console.log("need to open pastfiles")
+  //     var currentScreen=[];
+  //     currentScreen.push(<Pastfiles appContext={this.props.appContext} role={this.props.role}/>);
+  //     this.setState({currentScreen})
+  //     break;
+  //     case "logout":
+  //     var loginPage =[];
+  //     loginPage.push(<LoginScreen appContext={this.props.appContext}/>);
+  //     this.props.appContext.setState({loginPage:loginPage,uploadScreen:[]})
+  //     break;
+  //   }
+  //   this.setState({draweropen:false})
+  // }
   render() {
     return (
       <div className="App">
         <MuiThemeProvider>
-          <AppBar
-            title="Printing Page"
-            onLeftIconButtonTouchTap={(event) => this.toggleDrawer(event)}
-          />
+        <ButtonAppBar appbartitle= "Tweets" />
         </MuiThemeProvider>
-        <MuiThemeProvider>
-          <Drawer open={this.state.draweropen}>
+        {/* <MuiThemeProvider> */}
+          {/* <Drawer open={this.state.draweropen}>
             <MenuItem>
               <div>
               User Profile
@@ -82,11 +85,15 @@ class App extends Component {
                   Logout
               </MenuItem>
               </div> 
-          </Drawer>
-        </MuiThemeProvider>
-        <div>
-          {this.state.currentScreen}
+          </Drawer> */}
+        {/* </MuiThemeProvider> */}
+
+        <FormDialog />
+        <MuiThemeProvider> 
+        <div className="App" style={{ width: '600px', margin: 'auto', alignItems: 'center'}}>
+        <TweetPanels />
         </div>
+        </MuiThemeProvider>
       </div>
     );
   }
