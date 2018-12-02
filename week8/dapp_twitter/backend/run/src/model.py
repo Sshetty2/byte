@@ -33,6 +33,19 @@ def validate_pw(userid, password):
         return "success"
     return "password error"
 
+def create_new_user(userid, password, user_type):
+    try:
+        user_object = set_user_object(userid)
+    except:
+        return "username error"
+    hashed_pw = user_object.calculatehash(password)
+    user_object.pass_hash = hashed_pw
+    user_object.type = user_type
+    user_object.save()
+
+    
+
+
 def set_user_object(username):
     user_object = Account(username=username)
     user_object = user_object.set_from_username()

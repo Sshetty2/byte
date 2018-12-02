@@ -58,7 +58,7 @@ paths:
       description: "Returns True for valid"
       responses:
         200:
-          description: "Successfully returned pass hash"
+          description: "Successfully validated pw"
           schema:
             type: "string"
             # items:
@@ -69,3 +69,31 @@ paths:
             #       type: "string"
             #     timestamp:
             #       type: "string"
+  /create:
+    post:
+      operationId: "model.create_new_user"
+      tags:
+        - "Create new user" 
+      parameters:
+        - in: body
+          name: user
+          description: The user to create.
+          schema:
+            type: object
+            required:
+              - userid
+              - password
+            properties:login
+              userid:
+                type: "string"
+              password:
+                type: "string"
+              user_type:
+                type: "string"
+      summary: "creates new user with new pass hash, username and user type "
+      description: "Returns True for valid"
+      responses:
+        200:
+          description: "Successfully created user"
+          schema:
+            type: "string"
