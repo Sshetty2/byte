@@ -90,7 +90,7 @@ class App extends Component {
 
         <FormDialog />
         <MuiThemeProvider> 
-        <div className="App" style={{ width: '600px', margin: 'auto', alignItems: 'center'}}>
+        <div className="App" style={{ width: '60vw', margin: 'auto', alignItems: 'center'}}>
         <TweetPanels />
         </div>
         </MuiThemeProvider>
