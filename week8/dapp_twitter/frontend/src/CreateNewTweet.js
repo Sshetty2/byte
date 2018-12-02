@@ -7,7 +7,22 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+
+  
+const styles = {
+  header: {
+    // styles go here!
+  },
+  well: {
+    border: '1',
+    boxShadow: '10px 5px 5px black',
+  },
+};
+
+
 export default class FormDialog extends React.Component {
+
+  
   state = {
     open: false,
   };
@@ -20,10 +35,12 @@ export default class FormDialog extends React.Component {
     this.setState({ open: false });
   };
 
+
+
   render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Open form dialog</Button>
+        <Button style={{ boxShadow: '-3px 4px 10px -3px #888888' }} onClick={this.handleClickOpen}>Open form dialog</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

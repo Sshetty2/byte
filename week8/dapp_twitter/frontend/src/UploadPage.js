@@ -57,7 +57,7 @@ class App extends Component {
   // }
   render() {
     return (
-      <div className="App">
+      <div>
         <MuiThemeProvider>
         <ButtonAppBar appbartitle= "Tweets" />
         </MuiThemeProvider>
@@ -87,13 +87,18 @@ class App extends Component {
               </div> 
           </Drawer> */}
         {/* </MuiThemeProvider> */}
-
-        <FormDialog />
+        <div style={{ paddingTop: '25px'}}>
         <MuiThemeProvider> 
-        <div className="App" style={{ width: '60vw', margin: 'auto', alignItems: 'center'}}>
+        <div className="App" style={{ width: '60vw', margin: 'auto', textAlign: 'left'}}>
+        <FormDialog />
+        </div>
+        </MuiThemeProvider>
+        <MuiThemeProvider>
+        <div className="App" style={{ width: '60vw', margin: 'auto', paddingTop: '10px'}}>
         <TweetPanels />
         </div>
         </MuiThemeProvider>
+        </div>
       </div>
     );
   }
