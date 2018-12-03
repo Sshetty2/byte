@@ -73,6 +73,8 @@ sed -i -e '/^#Port/s/^.*$/Port <defined_ssh_port>/' /etc/ssh/sshd_config
 
 firewall-cmd --add-port <defined_ssh_port>/tcp --permanent
 
+firewall-cmd --add-port <defined_http_port>/tcp --permanent
+
 firewall-cmd --reload
 
 systemctl reload sshd
