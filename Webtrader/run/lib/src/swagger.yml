@@ -70,7 +70,7 @@ paths:
             #     timestamp:
             #       type: "string"
   /create:
-    post:
+    get:
       operationId: "model.create_new_user"
       tags:
         - "Create new user" 
@@ -83,7 +83,7 @@ paths:
             required:
               - userid
               - password
-            properties:login
+            properties:
               userid:
                 type: "string"
               password:
@@ -97,3 +97,32 @@ paths:
           description: "Successfully created user"
           schema:
             type: "string"
+  /createquery:
+    get:
+      operationId: "model.create_new_user_query"
+      tags:
+        - "Create new user" 
+      parameters:
+        - name: userid
+          in: query
+          type: string
+          description: "enter the userid so that you can get validate pw with pass hash"
+          required: true
+        - name: password
+          in: query
+          type: string
+          description: "enter the username so that you can get this users pass hash"
+          required: true
+        - name: user_id
+          in: query
+          type: string
+          description: "enter the username so that you can get this users pass hash"
+          required: true      
+      summary: "creates new user with new pass hash, username and user type "
+      description: "Returns True for valid"
+      responses:
+        200:
+          description: "Successfully created user"
+          schema:
+            type: "string"
+

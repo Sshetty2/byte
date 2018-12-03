@@ -34,6 +34,7 @@ class Register extends Component {
       var userid = this.state.username
       var password = this.state.password
       var user_type = this.props.role
+      axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
       axios.post(apiBaseUrl+'create', payload)
      .then(function (response) {
        console.log(response);

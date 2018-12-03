@@ -22,6 +22,30 @@ CONFIG = {
     }
 }
 
+def create_new_user(userid, password, user_type):
+    try:
+        user_object = Account(userid)
+    except:
+        return "username error"
+    if user_object.check_set_username():
+        return "userid already exists"
+    hashed_pw = user_object.calculatehash(password)
+    user_object.pass_hash = hashed_pw
+    user_object.type = user_type
+    user_object.save()
+
+def create_new_user_query(userid, password, user_type):
+    try:
+        user_object = set_user_object(userid)
+    except:
+        return "username error"
+    hashed_pw = user_object.calculatehash(password)
+    user_object.pass_hash = hashed_pw
+    user_object.type = user_type
+    user_object.save()
+
+
+
 def return_pass_hash(username):
     new_account_obj = Account(username=username)
     account_obj = new_account_obj.set_from_username()
