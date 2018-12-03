@@ -24,18 +24,26 @@ class Register extends Component {
     // console.log("values in register handler",role);
     var self = this;
     //To be done:check for empty values before hitting submit
+
     console.log(this.state.user_id, this.state.password, role)
     if(this.state.user_id.length>0 && this.state.password.length>0){
       var payload={
-      "userid": this.state.user_id,
-      "password":this.state.password,
-      "user_type":role
+      "userid" : this.state.user_id,
+      "password" :this.state.password,
+      "user_type" :role
       }
-      var userid = this.state.username
+      console.log(payload)
+      var userid = this.state.user_id
       var password = this.state.password
-      var user_type = this.props.role
-      axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-      axios.post(apiBaseUrl+'create', payload)
+      var user_type = role
+      // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
+      // axios.post(apiBaseUrl+`createquery?userid=${userid}&password=${password}&user_type=${user_type}`, {proxy: {
+      //   host: '127.0.0.1',
+      //   port: 5000,}})
+      axios.post(apiBaseUrl+'create', payload, {proxy: {
+        host: '127.0.0.1',
+        port: 5000}})
      .then(function (response) {
        console.log(response);
        if(response.data.code === 200){
