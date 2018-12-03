@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Web Trader</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ <style>
+
+h2 {
+    margin: 20px 15px
+}
+
+h4 {
+    margin: 0px 3px 30px
+}
+
+
+
+body{
+	font: 12px Arial,Tahoma,Helvetica,FreeSans,sans-serif;
+	text-transform: inherit;
+	color: #333;
+	background: #e7edee;
+	width: 100%;
+}
+.wrap{
+	width: 720px;
+	margin: 15px auto;
+	padding: 15px 10px;
+	background: white;
+	border: 2px solid #DBDBDB;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.title, .userName {
+  font-weight:700;
+}
+
+.post {
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
+}
+
+.post .title{
+  font-style:italic;
+}
+.post .body{
+  margin-top:5px;
+}
+
+
+.form-control {
+    width: 40%;
+}
+
+  
+  </style> 
+
+
+
+
+</head>
+<body>
+<div class="container">	
+	<div class="row">
+	<h2><strong>Twitter Dapp<br/></h2><br/>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <!-- Start form -->
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <h4>{{message}}</h4>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    <form action="/login" method="post" class="form-signin">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">User ID</label>
+                        <input type="username" name="username" class="form-control" id="exampleInputUserID" aria-describedby="userHelp" placeholder="Enter User ID">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" name="password" class="form-control" name="password" id="password" placeholder="Password">
+                      </div>
+                      <div class="form-check">
+                        <button class="btn btn-info" type="button" name="showpassword" id="showpassword" value="Show Password">Show password</button> 
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </div>
+                      
+                    </form>
+
+
+			<!-- End form -->
+		</div>
+		
+	
+		
+	</div>
+</div>
+
+<script>
+jQuery(document).ready(function(){
+
+
+// Show password Button
+$("#showpassword").on('click', function(){
+    
+    var pass = $("#password");
+    var fieldtype = pass.attr('type');
+    if (fieldtype == 'password') {
+        pass.attr('type', 'text');
+        $(this).text("Hide Password");
+    }else{
+        pass.attr('type', 'password');
+        $(this).text("Show Password");
+    }
+
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
