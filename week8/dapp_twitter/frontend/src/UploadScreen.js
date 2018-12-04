@@ -18,7 +18,7 @@ import MenuItem from 'material-ui/MenuItem';
 import FontIcon from 'material-ui/FontIcon';
 import {blue500, red500, greenA200} from 'material-ui/styles/colors';
 
-var apiBaseUrl = "http://localhost:4000/api/";
+var apiBaseUrl = "http://localhost:5000/api/";
 /*
 Module:Dropzone
 Dropzone is used for local file selection
