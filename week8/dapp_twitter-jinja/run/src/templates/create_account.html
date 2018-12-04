@@ -14,7 +14,7 @@
                 {% endfor %}
             {% endif %}
             {% endwith %}
-            <form action="/login" method="post" class="form-signin">
+            <form action="/create_account" method="post" class="form-signin">
               <div class="form-group">
                 <label for="exampleInputEmail1">User ID</label>
                 <input type="username" name="username" class="form-control" id="exampleInputUserID" aria-describedby="userHelp" placeholder="Enter User ID">
@@ -23,26 +23,30 @@
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" name="password" class="form-control" name="password" id="password" placeholder="Password">
               </div>
+              <ul>
+                    <li>Your password must contain at least 8 characters</li>
+                    <li>Your password must contain at least one digit</li>
+                    <li>Your password must contain at least one capital letter</li>
+             </ul>
               <div class="form-check">
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">Register</button>
                 <button class="btn btn-info" type="button" name="showpassword" id="showpassword" value="Show Password">Show password</button> 
                
               </div>
               
             </form>
             <br>
-            <a href="/create_account"><button type="button" class="btn btn-primary">Register</button></a>
-            <!-- <br>
-            <br>
-            <a href="/logout"><button type="button" class="btn btn-info btn btn-default btn-sm">
-              <span class="glyphicon glyphicon-log-out"></span>Logout
-            </button></a> -->
+            <a href="/login"><button type="button" class="btn btn-primary">Back to Login</button></a>
             <br>
             <br>
-            <a href="/"><button type="button" class="btn btn-info btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-home"></span> Back to Dashboard
-            </button></a>
+            <button type="button" class="btn btn-info btn btn-default btn-sm">
+              <span class="glyphicon glyphicon-log-out"></span><a href="/logout">Logout</a>
+            </button>
             <br>
-            
+            <br>
+            <button type="button" class="btn btn-info btn btn-default btn-sm">
+                <a href="/"><span class="glyphicon glyphicon-home"></span> Back to Dashboard</a>
+            </button>
+            <br>
 
 {% endblock main %}

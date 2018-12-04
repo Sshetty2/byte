@@ -75,15 +75,28 @@ def create_tweet(username, tweet):
     return True
 
 ##TODO:
+def get_all_tweets():
+    user_object = Account()
+    all_tweets = user_object.getalltweets_array()
+    return all_tweets
+
 def read_all_tweets(username):
     user_object = Account(username=username)
     user_object = user_object.set_from_username()
     all_tweets = user_object.gettweets_array()
     return all_tweets
 
+def copy_tweet(username, retweet_pk):
+    tweet = read_tweet(retweet_pk)
+    create_tweet(username, tweet)
+    return True
+
+
 ##TODO:
-def update_tweet(self, tweet):
-    pass
+def read_tweet(retweet_pk):
+    tweet_object = Tweet(pk=retweet_pk)
+    tweet_object = tweet_object.set_from_pk()
+    return tweet_object.content
 
 ##TODO:
 def delete_tweet(self, tweet):
@@ -237,6 +250,23 @@ class Account:
                 row_place.append(row["time"]) 
                 results.append(row_place)
             return results
+    
+    def getalltweets_array(self):
+        with OpenCursor() as cur:
+            SQL = """
+            SELECT * FROM tweets;
+            """
+            cur.execute(SQL)
+            rows = cur.fetchall()
+            results = []
+            for row in rows:
+                row_place = []
+                row_place.append(row["pk"]) 
+                row_place.append(row["users_pk"])
+                row_place.append(row["content"])  
+                row_place.append(row["time"]) 
+                results.append(row_place)
+            return results
 
 
 class Tweet:
@@ -274,6 +304,16 @@ class Tweet:
     def __str__(self):
         display =f"PK = {self.pk}, users pk = {self.users_pk}, content = {self.content}, time = {self.time}"
         return display
+    
+    def set_from_pk(self):
+        with OpenCursor() as cur: 
+            SQL = """
+            SELECT * FROM tweets WHERE pk = ?;
+            """
+            cur.execute(SQL, (self.pk, ))
+            row=cur.fetchone()  
+        self.set_from_row(row)
+        return self
 
     def set_from_row(self, row):
         self.pk = row["pk"]

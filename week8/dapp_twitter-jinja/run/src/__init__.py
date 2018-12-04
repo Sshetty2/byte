@@ -11,9 +11,44 @@ app = Flask(__name__)
 
 app.secret_key = b'#5566778'
 
-@app.route('/', methods=['GET'])
-def send_to_login():
-        return redirect('/login')
+
+@app.route('/', methods=['GET','POST'])
+def send_to_dashboard():
+    if request.method == 'GET':
+        content = model.get_all_tweets()
+        content = list(reversed(content))
+        content_len = len(content)
+        print(content)
+        return render_template('dashboard.html', content = content, content_len = content_len)
+    else:
+        if 'username' not in session:
+            flash('You must be logged in to retweet posts')
+            return redirect('/login')
+        else: 
+            retweet_pk = request.form['retweet']
+            username = session['username']
+            if model.copy_tweet(username, retweet_pk):
+                flash('Retweet Successful!')
+                return redirect('/message_board')
+            else: 
+                flash('Something went wrong, try again')
+                return redirect('/message_board')
+
+
+
+# @app.route('/', methods=['GET'])
+# def send_to_login():
+#         return redirect('/login')
+
+
+@app.route('/homepage', methods=['GET','POST'])
+def homepage_redirect():
+    if request.method == 'GET':
+        if 'username' in session:
+            return redirect('/message_board')
+        else:
+            flash("you must login before you can view your homepage!")
+            return redirect('/login')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -43,14 +78,14 @@ def login():
 def create_new_account():
     if request.method == 'GET':
         if 'username' in session:
-            return render_template('create_account_logged.html')
+            session['username'] = username
+            flash(f'User {username} already logged in!')
+            return redirect('/login')
         return render_template('create_account.html')
     else:
         username = request.form['username']
         password = request.form['password']
-        model.Account(username)
-        new_user = model.Account(username)
-        print(new_user)
+        new_user = model.Account(username=username)
         if new_user.check_set_username():
             flash('User Already Exists')
             return redirect('/create_account')
@@ -68,7 +103,6 @@ def create_new_account():
         hashed_pw = new_user.calculatehash(password)
         print(hashed_pw)
         new_user.pass_hash = hashed_pw
-        new_user.balance = 0
         new_user.type = "USER"
         new_user.save()
         flash('User Account Successfully Created')
@@ -83,6 +117,7 @@ def message_board():
             user_id = session['username']
             print(user_id)
             content = model.read_all_tweets(user_id)
+            content = list(reversed(content))
             content_len = len(model.read_all_tweets(user_id))
             print(content)
             return render_template('message-board.html', content = content, content_len = content_len)
@@ -103,7 +138,7 @@ def message_board():
 def log_out():
     session.clear()
     flash(f'User logged out')
-    return redirect('/login')
+    return redirect('/')
 
 
 
