@@ -1,6 +1,12 @@
 {% extends "structure.html" %}
 {% block main %}
             
+          <h2 style= "margin:20px 0px"><strong>Twitter Dapp<br/></h2><br/>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px">
+              
+              
+            </div>
+
             {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in messages %}
@@ -20,11 +26,6 @@
               <div class="form-check">
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <button class="btn btn-info" type="button" name="showpassword" id="showpassword" value="Show Password">Show password</button> 
-                <p style="margin: 15px 0px 10px">
-                <button type="button" class="btn btn-info btn btn-default btn-sm">
-                  <span class="glyphicon glyphicon-log-out"></span> Log out
-                </button>
-                </p>
                
               </div>
               
