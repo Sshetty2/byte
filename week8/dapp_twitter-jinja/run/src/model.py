@@ -68,14 +68,18 @@ def set_user_object(username):
 
 ##TODO:
 def create_tweet(username, tweet):
-    user_object = set_user_object(username=username)
+    user_object = Account(username=username)
+    user_object = user_object.set_from_username()
     comment_obj= Tweet(pk=None, users_pk=user_object.pk, content=tweet, time=None)
     comment_obj.save()
+    return True
 
 ##TODO:
 def read_all_tweets(username):
-    user_object = set_user_object(username=username)
-    return user_object.get_all_tweets()
+    user_object = Account(username=username)
+    user_object = user_object.set_from_username()
+    all_tweets = user_object.gettweets_array()
+    return all_tweets
 
 ##TODO:
 def update_tweet(self, tweet):
@@ -119,6 +123,14 @@ class Account:
         self.username = username
         self.pass_hash = pass_hash
         self.type = user_type
+
+    def __str__(self):
+        display =f"PK = {self.pk}, username = {self.username}, pass hash = {self.pass_hash}, user type = {self.type}"
+        return display
+    
+    def __repr__(self):
+        display =f"PK = {self.pk}, username = {self.username}, pass hash = {self.pass_hash}, user type = {self.type}"
+        return display
 
     #def getposition(self, pk):
 
@@ -195,18 +207,35 @@ class Account:
             SELECT * FROM tweets WHERE users_pk = ?;
             """
 
-    def get_all_tweets(self):
+    # def get_all_tweets(self):
+    #     with OpenCursor() as cur:
+    #         SQL = """
+    #         SELECT * FROM tweets WHERE users_pk = ?;
+    #         """
+    #         cur.execute(SQL, (self.pk, ))
+    #         rows = cur.fetchall()
+    #         results = []
+    #         for row in rows: 
+    #             acc = Tweet()
+    #             acc.set_from_row(row)
+    #             results.append(acc)
+    #         return results
+
+    def gettweets_array(self):
         with OpenCursor() as cur:
             SQL = """
             SELECT * FROM tweets WHERE users_pk = ?;
             """
-            cur.execute(SQL, (self.pk, ))
+            cur.execute(SQL, (self.pk,))
             rows = cur.fetchall()
             results = []
-            for row in rows: 
-                acc = Tweet()
-                acc.set_from_row(row)
-                results.append(acc)
+            for row in rows:
+                row_place = []
+                row_place.append(row["pk"]) 
+                row_place.append(row["users_pk"])
+                row_place.append(row["content"])  
+                row_place.append(row["time"]) 
+                results.append(row_place)
             return results
 
 
@@ -237,6 +266,14 @@ class Tweet:
                 pk=?;
                 """
                 cur.execute(SQL, (self.username, self.content, self.time))
+    
+    def __repr__(self):
+        display =f"PK = {self.pk}, users pk = {self.users_pk}, content = {self.content}, time = {self.time}"
+        return display
+    
+    def __str__(self):
+        display =f"PK = {self.pk}, users pk = {self.users_pk}, content = {self.content}, time = {self.time}"
+        return display
 
     def set_from_row(self, row):
         self.pk = row["pk"]
@@ -244,5 +281,9 @@ class Tweet:
         self.content = row["content"]
         self.time = row["time"]
         return self
+
+
+
+    
 
 

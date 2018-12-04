@@ -21,7 +21,7 @@ def login():
     if request.method == 'GET':
         print(session)
         if 'username' in session:
-            return render_template('message-board.html')
+            return redirect('/message_board')
         return render_template('login.html')
     else:
         try:
@@ -73,6 +73,31 @@ def create_new_account():
         new_user.save()
         flash('User Account Successfully Created')
         return redirect('/login')
+
+
+
+@app.route('/message_board', methods=['GET', 'POST'])
+def message_board():
+    if request.method == 'GET':
+        if 'username' in session:
+            user_id = session['username']
+            print(user_id)
+            content = model.read_all_tweets(user_id)
+            content_len = len(model.read_all_tweets(user_id))
+            print(content)
+            return render_template('message-board.html', content = content, content_len = content_len)
+    if request.method == 'POST':
+        if 'username' in session:
+            user_id = session['username']
+            content = request.form['content']
+            print(content)
+            try:
+                model.create_tweet(user_id,content)
+            except:
+                ValueError
+            flash('Successful Tweet')               
+            return redirect('/message_board')
+            
 
 @app.route('/logout', methods=['GET'])
 def log_out():
