@@ -70,7 +70,7 @@ def set_user_object(username):
 def create_tweet(username, tweet):
     user_object = Account(username=username)
     user_object = user_object.set_from_username()
-    comment_obj= Tweet(pk=None, users_pk=user_object.pk, content=tweet, time=None)
+    comment_obj= Tweet(pk=None, users_pk=user_object.pk, username=username, content=tweet, time=None)
     comment_obj.save()
     return True
 
@@ -246,6 +246,7 @@ class Account:
                 row_place = []
                 row_place.append(row["pk"]) 
                 row_place.append(row["users_pk"])
+                row_place.append(row["username"])
                 row_place.append(row["content"])  
                 row_place.append(row["time"]) 
                 results.append(row_place)
@@ -263,6 +264,7 @@ class Account:
                 row_place = []
                 row_place.append(row["pk"]) 
                 row_place.append(row["users_pk"])
+                row_place.append(row["username"])
                 row_place.append(row["content"])  
                 row_place.append(row["time"]) 
                 results.append(row_place)
@@ -270,9 +272,10 @@ class Account:
 
 
 class Tweet:
-    def __init__(self, users_pk=None, pk=None, content=None, time=None):
+    def __init__(self, users_pk=None, username = None, pk=None, content=None, time=None):
         self.pk = pk
         self.users_pk = users_pk
+        self.username = username
         self.content = content
         self.time = time
 
@@ -284,25 +287,25 @@ class Tweet:
         with OpenCursor() as cur:
             if not self.pk:
                 SQL = """
-                INSERT INTO tweets(users_pk, content, time)
-                VALUES(?, ?, ?);
+                INSERT INTO tweets(users_pk, username, content, time)
+                VALUES(?, ?, ?, ?);
                 """
-                cur.execute(SQL, (self.users_pk, self.content, self.time))
+                cur.execute(SQL, (self.users_pk, self.username, self.content, self.time))
                 self.pk = cur.lastrowid
 
             else:
                 SQL = """
-                UPDATE tweets SET users_pk=?, content=?, time=? WHERE
+                UPDATE tweets SET users_pk=?, username=?, content=?, time=? WHERE
                 pk=?;
                 """
-                cur.execute(SQL, (self.username, self.content, self.time))
+                cur.execute(SQL, (self.users_pk, self.username, self.content, self.time))
     
     def __repr__(self):
-        display =f"PK = {self.pk}, users pk = {self.users_pk}, content = {self.content}, time = {self.time}"
+        display =f"PK = {self.pk}, users pk = {self.users_pk}, username = {self.username}, content = {self.content}, time = {self.time}"
         return display
     
     def __str__(self):
-        display =f"PK = {self.pk}, users pk = {self.users_pk}, content = {self.content}, time = {self.time}"
+        display =f"PK = {self.pk}, user name = {self.username}, content = {self.content}, time = {self.time}"
         return display
     
     def set_from_pk(self):
@@ -318,6 +321,7 @@ class Tweet:
     def set_from_row(self, row):
         self.pk = row["pk"]
         self.users_pk = row["users_pk"]
+        self.username = row["username"]
         self.content = row["content"]
         self.time = row["time"]
         return self

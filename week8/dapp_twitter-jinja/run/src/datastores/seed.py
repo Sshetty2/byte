@@ -44,10 +44,10 @@ def run():
     SQL = "DELETE FROM sqlite_sequence WHERE name = 'tweets';"
     CUR.execute(SQL)
 
-    SQL = """INSERT INTO tweets(users_pk, content, time) 
-    VALUES(?, ?, ?);"""
-    CUR.execute(SQL, (1, "Hello, This is the first tweet", time.asctime(time.localtime(time.time()))))
-    CUR.execute(SQL, (1, "This is the second tweet", time.asctime(time.localtime(time.time()))))
+    SQL = """INSERT INTO tweets(users_pk, username, content, time) 
+    VALUES(?, ?, ?, ?);"""
+    CUR.execute(SQL, (1, "sshetty", "Hello, This is the first tweet", time.asctime(time.localtime(time.time()))))
+    CUR.execute(SQL, (1, "sshetty", "This is the second tweet", time.asctime(time.localtime(time.time()))))
 
 
     CON.commit()

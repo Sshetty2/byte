@@ -33,9 +33,11 @@ def run():
     SQL = """CREATE TABLE tweets(
         pk INTEGER PRIMARY KEY AUTOINCREMENT,
         users_pk INTEGER,
+        username VARCHAR,
         content VARHAR,
         time INTEGER,
-        FOREIGN KEY(users_pk) REFERENCES users(pk)
+        FOREIGN KEY(users_pk) REFERENCES users(pk),
+        FOREIGN KEY(username) REFERENCES users(username)
         );"""
     
     CUR.execute(SQL)
