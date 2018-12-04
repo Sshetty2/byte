@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "C:\\Users\\sachi\\byte\\Webtrader"
+		},
+		{
+			"path": "go-ipfs"
+		},
+		{
+			"path": "dapp_twitter-react"
+		},
+		{
+			"path": "dapp_twitter-jinja"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "dapp_twitter-jinja"
+	}
+}

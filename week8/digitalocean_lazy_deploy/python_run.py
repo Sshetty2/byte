@@ -27,8 +27,9 @@ username = input('Please specify a lowercase username: ')
 password = input('Please specify a SECURE password: ')
 email = input('Please specify an email address: ')
 ip_address = input('Please specify the ip for the server: ')
-ssh_port = input('Please specify a non-default port number: ')
+ssh_port = input('Please specify a non-default port number for your SSH Connection: ')
 vps_name = input('Please specify the server name: ')
+http_port = input('Please specify a non-default port number for your HTTP connection:')
 
 # Make project directory & write config files
 os.system('mkdir {}'.format(vps_name))

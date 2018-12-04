@@ -43,6 +43,7 @@ def set_user_object(username):
     return user_object
 
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():    
     if request.method == 'GET':

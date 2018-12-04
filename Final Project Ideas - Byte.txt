@@ -1,0 +1,13 @@
+1. Mesh networking app that facilitates meetings between strangers. Tech Stack:  React Native + Bridgefy SDK
+
+2. Financial modeling software application that works on top of react to give real time forecasting based on historical financial information and interactive assumptions that can be manipulated based on user input. Tech Stack: Python/Pandas + Front-End pref React
+
+3. Proxy voting application that utilizes a permissioned blockchain and corporate data to help with the proxy voting process. Tech Stack: Quorum + React Native or Mobile App dev framework
+
+4. An Investment Recommendations application that leverages Machine Learning to train models using various financial parameters to pump out forecasts. It could  potentially use historical numbers, leading indicator forecasts by analysts, and macro-based forecasts based on current trade regulations, political atmosphere, and interest rate forecasts. (This Idea is not original but would differ from competitors by the investment criteria and front-end interface). Tensorflow/Keras/Python + Front-End pref React
+
+5. Work with security software company that does AI-based security authentication by tracking user key strokes to do a more sophisticated version of two-factor authentication (Zighra) to implement this system into smart contract technology that will then leverage this same technology into a regulatory use-case in the energy sector to combat cyber security issues (My father's company, WizNucleus). Tech Stack: Solidity/Zighra SDK
+
+6. Decentralized marketplace that combines and compiles the marketplace of goods for less trustworthy vendors into one blockchain-based marketplace so that the execution of sales is intermediated by smart contract technology. Blockchain framework (ie Hyperledger/Ethereum)/Frontent (React/Jinja)
+
+

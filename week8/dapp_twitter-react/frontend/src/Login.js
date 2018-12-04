@@ -100,14 +100,14 @@ class Login extends Component {
   }
   handleClick(event){
     var self = this;
-    var payload={
-      "userid":this.state.username,
-	    "password":this.state.password,
-      "role":this.state.loginRole
-    }
+    // var payload={
+    //   "userid":this.state.username,
+	  //   "password":this.state.password,
+    //   "role":this.state.loginRole
+    // }
     var userid = this.state.username
     var password = this.state.password
-    axios.get(apiBaseUrl+`validate?userid=${userid}&password=${password}`)
+    axios.get(apiBaseUrl+`validate?userid=${userid}&password=${password}`, )
    .then(function (response) {
      console.log(response);
      console.log(response.data)

@@ -33,6 +33,33 @@ def validate_pw(userid, password):
         return "success"
     return "password error"
 
+def create_new_user(userid, password, user_type):
+    try:
+        user_object = Account(username=userid)
+    except:
+        return "username error"
+    if user_object.check_set_username():
+        return "userid already exists"
+    hashed_pw = user_object.calculatehash(password)
+    user_object.pass_hash = hashed_pw
+    user_object.type = user_type
+    user_object.save()
+
+def create_new_user_query(userid, password, user_type):
+    try:
+        user_object = Account(username=userid)
+    except:
+        return "username error"
+    if user_object.check_set_username():
+        return "userid already exists"
+    hashed_pw = user_object.calculatehash(password)
+    user_object.pass_hash = hashed_pw
+    user_object.type = user_type
+    user_object.save()
+
+    
+
+
 def set_user_object(username):
     user_object = Account(username=username)
     user_object = user_object.set_from_username()
@@ -102,7 +129,7 @@ class Account:
                 INSERT INTO users(username, pass_hash, type)
                 VALUES(?, ?, ?);
                 """
-                cur.execute(SQL, (self.username, self.pass_hash, self.user_type))
+                cur.execute(SQL, (self.username, self.pass_hash, self.type))
                 self.pk = cur.lastrowid
 
             else:
@@ -135,6 +162,22 @@ class Account:
         self.pass_hash = row["pass_hash"]
         self.type = row["type"]
         return self
+    
+    def check_set_username(self):
+        try:
+            with OpenCursor() as cur: 
+                SQL = """
+                SELECT * FROM users WHERE username = ?;
+                """
+                cur.execute(SQL, (self.username, ))
+                row=cur.fetchone()   
+            if not row:
+                return False
+            self.set_from_row(row)
+            # if the username is found, the attributes are set 
+            return True
+        except:
+            return False
     
     def set_from_username(self):
         with OpenCursor() as cur: 

@@ -18,14 +18,15 @@ webtrader-reactified/node_modules
 
 reactified-webtrader/node_modules
 
-week8/dapp_twitter/backend/run/lib/
-week8/dapp_twitter/backend/run/src/lib
-week8/dapp_twitter/backend/run/src/bin
-week8/dapp_twitter/backend/run/src/include
+week8/dapp_twitter-react/backend/run/lib/
+week8/dapp_twitter-react/backend/run/src/lib
+week8/dapp_twitter-react/backend/run/src/bin
+week8/dapp_twitter-react/backend/run/src/include
 
-week8/dapp_twitter/run/lib
+week8/dapp_twitter-react/run/lib
 
 week8/react-bulletin-board/node_modules
 
-week8/dapp_twitter/backend/lib/
+week8/dapp_twitter-react/backend/lib/
 
+week8/dapp_twitter-jinja/lib/

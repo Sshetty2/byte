@@ -12,7 +12,7 @@ class Register extends Component {
     this.state={
       first_name:'',
       last_name:'',
-      email:'',
+      user_id:'',
       password:''
     }
   }
@@ -24,15 +24,26 @@ class Register extends Component {
     // console.log("values in register handler",role);
     var self = this;
     //To be done:check for empty values before hitting submit
-    if(this.state.first_name.length>0 && this.state.last_name.length>0 && this.state.email.length>0 && this.state.password.length>0){
+
+    console.log(this.state.user_id, this.state.password, role)
+    if(this.state.user_id.length>0 && this.state.password.length>0){
       var payload={
-      "first_name": this.state.first_name,
-      "last_name":this.state.last_name,
-      "userid":this.state.email,
-      "password":this.state.password,
-      "role":role
+      "userid" : this.state.user_id,
+      "password" :this.state.password,
+      "user_type" :role
       }
-      axios.post(apiBaseUrl+'/register', payload)
+      console.log(payload)
+      var userid = this.state.user_id
+      var password = this.state.password
+      var user_type = role
+      // axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
+      // axios.post(apiBaseUrl+`createquery?userid=${userid}&password=${password}&user_type=${user_type}`, {proxy: {
+      //   host: '127.0.0.1',
+      //   port: 5000,}})
+      axios.post(apiBaseUrl+'create', payload, {proxy: {
+        host: '127.0.0.1',
+        port: 5000}})
      .then(function (response) {
        console.log(response);
        if(response.data.code === 200){
@@ -77,7 +88,7 @@ class Register extends Component {
           <div>
           
             <ButtonAppBar appbartitle= "Register" />
-           <TextField
+           {/* <TextField
              hintText="Enter your First Name"
              floatingLabelText="First Name"
              onChange = {(event,newValue) => this.setState({first_name:newValue})}
@@ -88,11 +99,11 @@ class Register extends Component {
              floatingLabelText="Last Name"
              onChange = {(event,newValue) => this.setState({last_name:newValue})}
              />
-           <br/>
+           <br/> */}
            <TextField
              hintText={userhintText}
              floatingLabelText={userLabel}
-             onChange = {(event,newValue) => this.setState({email:newValue})}
+             onChange = {(event,newValue) => this.setState({user_id:newValue})}
              />
            <br/>
            <TextField
