@@ -1,7 +1,7 @@
 {% extends "structure.html" %}
 
 {% block main %}
-<h2><strong>Twitter Dapp Homepage<br/></h2><br/>
+<h2><strong>Twitter Dapp Users<br/></h2><br/>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px">
     
     
@@ -16,43 +16,17 @@
         {% endfor %}
     {% endif %}
     {% endwith %}
+    
     <div class="byUser">
       <!--Beginning modal create form-->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Create New Post</button>
-      <a href="/"><button type="button" class="btn btn-info btn btn-default btn-sm">
-          <span class="glyphicon glyphicon-home"></span> Back to Dashboard
+      <a href="/homepage"><button type="button" class="btn btn-primary" ><span class="glyphicon glyphicon-home"></span> Homepage</button></a>
+      <a href="/users"><button type="button" class="btn btn-primary">
+        <span class="glyphicon glyphicon-user"></span> See All Tweeters
       </button></a>
-      
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">New Tweet</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form action="/message_board" method="post" class="form-signin">
-                <div class="form-group" >
-                  <label for="message-text" class="col-form-label">Message:</label>
-                  <textarea name= "content" type="content" id="content" class="form-control" style="width: 70%" id="message-text"></textarea>
-                </div>
-              
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Create Post</button>
-            </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="float:right">
-          <a href="/logout"><button type="button" class="btn btn-info btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-log-out"></span>Logout
-          </button></a>
-      </div>
+
+      <!-- <div style="float:right">
+            <a href="/login"><button type="button" class="btn btn-info btn btn-primary" >Login</button></a>
+      </div> -->
 
 <!-- End modal create form-->
 
@@ -63,33 +37,45 @@
   </div>
   
   <div class="wrap">
-    <div><h1 class="title">Posts</h1></div>
+    <div><h1 class="title">Users</h1></div>
     {% for x in content %}
     <span class="scroll-title-if">
     
     <p class="post">
-      <div class="userName">
-          <h6><b>Posted by: {{x[2]}}</b></h6>
-          
-      </div>
+    <div style="float:right">
+            <form action="/users" method="post">
+                <button type="submit" class="btn btn-info btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-thumbs-up"></span> Follow
+                    <input type="hidden" id="retweet_field" name="follow" value= "{{ x[0] }}">
+                </button>
+            </form>
+    </div>
+    <div class="userName">
+        <h6>{{x[1]}}</h6>
+            
+    </div>
+        
 
-      
       <div class="userName">
-          <h6><b>{{x[4]}}</b></h6>
+        <h6><b>{{x[3]}}</b></h6>
+
           
       </div>
 
       <div class="body">
-          <h6>{{x[3]}}</h6>
+        <h6>{{x[4]}}</h6>
       </div>
-    
+
     <!-- cant use context processor to insert function  -->
     
     <br><br>
+    </p>    
+ 
     {% endfor %}
 
     <!-- <p class="reply"> -->
-    </p>
+   
+    
   </div>
 
 

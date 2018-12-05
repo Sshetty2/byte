@@ -1,19 +1,14 @@
 {
 	"folders": [
 		{
-			"path": "C:\\Users\\sachi\\byte\\Webtrader"
+			"path": "C:\\Users\\sachi\\byte\\Phase2-Assessment\\dapp_twitter-jinja"
 		},
 		{
-			"path": "go-ipfs"
-		},
-		{
-			"path": "dapp_twitter-react"
-		},
-		{
-			"path": "dapp_twitter-jinja"
+			"path": "C:\\Users\\sachi\\byte\\Webtrader\\run"
 		}
 	],
 	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "dapp_twitter-jinja"
+		"liveServer.settings.multiRootWorkspaceName": "dapp_twitter-jinja",
+		"python.pythonPath": "C:\\Program Files\\Python37\\python.exe"
 	}
 }

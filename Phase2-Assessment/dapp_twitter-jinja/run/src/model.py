@@ -7,6 +7,7 @@ import uuid
 import os.path
 from datetime import datetime
 from pytz import timezone
+import os.path
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, "./datastores/master.db")
@@ -293,7 +294,7 @@ class Account:
     def gettweets_array(self):
         with OpenCursor() as cur:
             SQL = """
-            SELECT DISTINCT tweets.pk, tweets.users_pk, tweets.username, tweets.content, tweets.time
+            SELECT DISTINCT tweets.pk, tweets.users_pk, tweets.username, tweets.content, image_pathname, ipfs_hash, tweets.time
             FROM tweets
             JOIN users_followed
             ON users_followed.followed_pk =  tweets.users_pk
@@ -310,7 +311,14 @@ class Account:
                 row_place.append(row["pk"]) 
                 row_place.append(row["users_pk"])
                 row_place.append(row["username"])
-                row_place.append(row["content"])  
+                row_place.append(row["content"]) 
+                image_pathname= row["image_pathname"]
+                real_pathname= f"static/{image_pathname}" 
+                if os.path.isfile(real_pathname):
+                    row_place.append(real_pathname)
+                else: 
+                    ipfs_hash = row["ipfs_hash"]
+                    row_place.append(f"https://ipfs.io/ipfs/{ipfs_hash}")   
                 row_place.append(row["time"]) 
                 results.append(row_place)
             return results
@@ -328,7 +336,14 @@ class Account:
                 row_place.append(row["pk"]) 
                 row_place.append(row["users_pk"])
                 row_place.append(row["username"])
-                row_place.append(row["content"])  
+                row_place.append(row["content"])
+                image_pathname= row["image_pathname"]
+                real_pathname= f"static/{image_pathname}" 
+                if os.path.isfile(real_pathname):
+                    row_place.append(real_pathname)
+                else: 
+                    ipfs_hash = row["ipfs_hash"]
+                    row_place.append(f"https://ipfs.io/ipfs/{ipfs_hash}")    
                 row_place.append(row["time"]) 
                 results.append(row_place)
             return results
@@ -351,11 +366,13 @@ class Account:
             return results
 
 class Tweet:
-    def __init__(self, users_pk=None, username = None, pk=None, content=None, time=None):
+    def __init__(self, users_pk=None, username = None, pk=None, content=None, image_pathname= None, ipfs_hash= None,  time=None):
         self.pk = pk
         self.users_pk = users_pk
         self.username = username
         self.content = content
+        self.image_pathname = image_pathname
+        self.ipfs_hash = ipfs_hash
         self.time = time
 
     #def getposition(self, pk):
@@ -366,18 +383,18 @@ class Tweet:
         with OpenCursor() as cur:
             if not self.pk:
                 SQL = """
-                INSERT INTO tweets(users_pk, username, content, time)
-                VALUES(?, ?, ?, ?);
+                INSERT INTO tweets(users_pk, username, image_pathname, ipfs_hash, content, time)
+                VALUES(?, ?, ?, ?, ?, ?);
                 """
-                cur.execute(SQL, (self.users_pk, self.username, self.content, self.time))
+                cur.execute(SQL, (self.users_pk, self.username, self.content, self.image_pathname, self.ipfs_hash, self.time))
                 self.pk = cur.lastrowid
 
             else:
                 SQL = """
-                UPDATE tweets SET users_pk=?, username=?, content=?, time=? WHERE
+                UPDATE tweets SET users_pk=?, username=?, image_pathname=?, ipfs_hash=?, content=?, time=? WHERE
                 pk=?;
                 """
-                cur.execute(SQL, (self.users_pk, self.username, self.content, self.time))
+                cur.execute(SQL, (self.users_pk, self.username, self.content, self.image_pathname, self.ipfs_hash, self.time))
     
     def __repr__(self):
         display =f"PK = {self.pk}, users pk = {self.users_pk}, username = {self.username}, content = {self.content}, time = {self.time}"
@@ -402,6 +419,8 @@ class Tweet:
         self.users_pk = row["users_pk"]
         self.username = row["username"]
         self.content = row["content"]
+        self.image_pathname = row["image_pathname"]
+        self.ipfs_hash = row["ipfs_hash"]
         self.time = row["time"]
         return self
 

@@ -1,4 +1,4 @@
-SELECT DISTINCT tweets.pk, tweets.users_pk, tweets.username, tweets.content, tweets.time
+SELECT DISTINCT tweets.pk, tweets.users_pk, tweets.username, tweets.content, image_pathname, ipfs_hash, tweets.time
 FROM tweets
 JOIN users_followed
 ON users_followed.followed_pk =  tweets.users_pk
