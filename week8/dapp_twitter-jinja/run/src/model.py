@@ -5,12 +5,17 @@ import time
 import hashlib
 import uuid
 import os.path
-
+from datetime import datetime
+from pytz import timezone
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, "./datastores/master.db")
 
-
+fmt = '%I:%M:%S %m-%d-%Y'
+eastern = timezone('US/Eastern')
+naive_dt = datetime.now()
+loc_dt = datetime.now(eastern)
+date_now = naive_dt.strftime(fmt)
 
 CONFIG = {
     'DBNAME': db_path,
@@ -20,7 +25,6 @@ CONFIG = {
 DBNAME = "master.db"
 
 ## ---- REST API ENDPOINT FUNCTION CALLS --- ##
-
 
 def validate_pw(userid, password):
     
@@ -65,6 +69,11 @@ def set_user_object(username):
     user_object = user_object.set_from_username()
     return user_object
 
+def set_user_object_from_pk(pk):
+    user_object = Account(pk=pk)
+    user_object = user_object.set_from_pk()
+    return user_object
+
 
 ##TODO:
 def create_tweet(username, tweet):
@@ -91,19 +100,56 @@ def copy_tweet(username, retweet_pk):
     create_tweet(username, tweet)
     return True
 
+## unreasonably long code because of a lack of a followed class)
 
-##TODO:
+def follow_user(username, user_to_follow_pk):
+    user_to_follow_object = set_user_object(user_to_follow_pk)
+    username_object = set_user_object(username)
+    users_pk = username_object.pk
+    username = username_object.username
+    followed_pk = user_to_follow_object.pk
+    followed_username = user_to_follow_object.username
+    try:
+        with OpenCursor() as cur:
+            SQL = """
+            INSERT INTO users_followed(users_pk, username, followed_pk, followed_username)
+            VALUES(?, ?, ?, ?);
+            """
+            cur.execute(SQL, (users_pk, username, followed_pk, followed_username))
+            pk = cur.lastrowid
+        return True
+    except:
+        return False
+
+def test_followed_object(username, user_to_follow):
+    try:
+        user_to_follow_object = set_user_object(user_to_follow)
+        username_object = set_user_object(username)
+        username_pk = username_object.pk
+        user_to_follow_pk = user_to_follow_object.pk
+        with OpenCursor() as cur:
+            SQL = """
+            SELECT * FROM users_followed WHERE users_pk = ? AND followed_pk = ?;
+            """
+            cur.execute(SQL, (username_pk, user_to_follow_pk))
+            row=cur.fetchone()
+        if row:
+            return True
+        return False
+    except:
+        return False
+        
+
 def read_tweet(retweet_pk):
     tweet_object = Tweet(pk=retweet_pk)
     tweet_object = tweet_object.set_from_pk()
     return tweet_object.content
 
-##TODO:
-def delete_tweet(self, tweet):
-    pass
-    
 
-##TODO:
+def get_all_users():
+    user_object = Account()
+    all_tweets = user_object.getallusers_array()
+    return all_tweets
 
 
 
@@ -213,6 +259,16 @@ class Account:
             row=cur.fetchone()  
         self.set_from_row(row)
         return self
+    
+    def set_from_pk(self):
+        with OpenCursor() as cur: 
+            SQL = """
+            SELECT * FROM users WHERE pk = ?;
+            """
+            cur.execute(SQL, (self.pk, ))
+            row=cur.fetchone()  
+        self.set_from_row(row)
+        return self
 
     def create_tweet(self, username, tweet):
         with OpenCursor() as cur:
@@ -251,7 +307,7 @@ class Account:
                 row_place.append(row["time"]) 
                 results.append(row_place)
             return results
-    
+
     def getalltweets_array(self):
         with OpenCursor() as cur:
             SQL = """
@@ -270,6 +326,22 @@ class Account:
                 results.append(row_place)
             return results
 
+    def getallusers_array(self):
+        with OpenCursor() as cur:
+            SQL = """
+            SELECT * FROM users;
+            """
+            cur.execute(SQL)
+            rows = cur.fetchall()
+            results = []
+            for row in rows:
+                row_place = []
+                row_place.append(row["pk"]) 
+                row_place.append(row["username"])
+                row_place.append(row["pass_hash"])
+                row_place.append(row["type"])   
+                results.append(row_place)
+            return results
 
 class Tweet:
     def __init__(self, users_pk=None, username = None, pk=None, content=None, time=None):
@@ -283,7 +355,7 @@ class Tweet:
 
     def save(self):
         if self.time is None:
-            self.time = time.asctime(time.localtime(time.time()))
+            self.time = date_now
         with OpenCursor() as cur:
             if not self.pk:
                 SQL = """

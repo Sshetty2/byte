@@ -34,6 +34,37 @@ def send_to_dashboard():
                 flash('Something went wrong, try again')
                 return redirect('/message_board')
 
+@app.route('/users', methods=['GET','POST'])
+def see_all_users():
+    if request.method == 'GET':
+        content = model.get_all_users()
+        content_len = len(content)
+        print(content)
+        return render_template('users.html', content = content, content_len = content_len)
+    else:
+        if 'username' not in session:
+            flash('You must be logged in to follow users')
+            return redirect('/login')
+        else: 
+            user_to_follow = request.form['follow']
+            username = session['username']
+            user_to_follow_object = model.set_user_object_from_pk(user_to_follow)
+            user_to_follow_username = user_to_follow_object.username
+            if user_to_follow_username == username:
+                flash(f'You can\'t follow yourself!')
+                return redirect('/users')
+            elif model.test_followed_object(username, user_to_follow_username):
+                flash(f'You are already following that user!')
+                return redirect('/users')
+            else:
+                try: 
+                    model.follow_user(username, user_to_follow_username)
+                    flash(f'You are now following {user_to_follow_username}!')
+                    return redirect('/users')
+                except: 
+                    flash('Something went wrong, try again')
+                    return redirect('/users')
+   
 
 
 # @app.route('/', methods=['GET'])

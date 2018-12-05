@@ -42,6 +42,19 @@ def run():
     
     CUR.execute(SQL)
     
+    SQL = """CREATE TABLE users_followed(
+        pk INTEGER PRIMARY KEY AUTOINCREMENT,
+        users_pk INTEGER,
+        username VARCHAR,
+        followed_pk VARCHAR,
+        followed_username VARCHAR,
+        FOREIGN KEY(users_pk) REFERENCES users(pk),
+        FOREIGN KEY(username) REFERENCES users(username),
+        FOREIGN KEY(followed_pk) REFERENCES users(pk),
+        FOREIGN KEY(followed_username) REFERENCES users(username)
+        );"""
+    
+    CUR.execute(SQL)
     
     CON.commit()
     CUR.close()

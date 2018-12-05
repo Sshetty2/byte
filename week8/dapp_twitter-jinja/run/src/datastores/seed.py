@@ -4,6 +4,16 @@ import sqlite3
 import time
 import hashlib
 import uuid
+from datetime import datetime
+from pytz import timezone
+
+fmt = '%I:%M:%S %m-%d-%Y'
+eastern = timezone('US/Eastern')
+naive_dt = datetime.now()
+loc_dt = datetime.now(eastern)
+date_now = naive_dt.strftime(fmt)
+
+
 
 
 CON = None
@@ -23,6 +33,9 @@ def setup(dbname="master.db"):
     global CUR
     CON = sqlite3.connect(dbname)
     CUR = CON.cursor()
+
+
+
 
 
 def run():
@@ -46,8 +59,8 @@ def run():
 
     SQL = """INSERT INTO tweets(users_pk, username, content, time) 
     VALUES(?, ?, ?, ?);"""
-    CUR.execute(SQL, (1, "sshetty", "Hello, This is the first tweet", time.asctime(time.localtime(time.time()))))
-    CUR.execute(SQL, (1, "sshetty", "This is the second tweet", time.asctime(time.localtime(time.time()))))
+    CUR.execute(SQL, (1, "sshetty", "Hello, This is the first tweet", date_now))
+    CUR.execute(SQL, (1, "sshetty", "This is the second tweet", date_now))
 
 
     CON.commit()

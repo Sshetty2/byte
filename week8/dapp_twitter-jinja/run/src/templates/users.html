@@ -1,7 +1,7 @@
 {% extends "structure.html" %}
 
 {% block main %}
-<h2><strong>Twitter Dapp Dashboard<br/></h2><br/>
+<h2><strong>Twitter Dapp Users<br/></h2><br/>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px">
     
     
@@ -37,26 +37,28 @@
   </div>
   
   <div class="wrap">
-    <div><h1 class="title">Posts</h1></div>
+    <div><h1 class="title">Users</h1></div>
     {% for x in content %}
     <span class="scroll-title-if">
     
     <p class="post">
     <div style="float:right">
-        <form action="/" method="post">
-            <button type="submit" class="btn btn-info btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-repeat"></span> Retweet
-                <input type="hidden" id="retweet_field" name="retweet" value= "{{ x[0] }}">
-            </button>
-        </form>
+            <form action="/users" method="post">
+                <button type="submit" class="btn btn-info btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-thumbs-up"></span> Follow
+                    <input type="hidden" id="retweet_field" name="follow" value= "{{ x[0] }}">
+                </button>
+            </form>
     </div>
     <div class="userName">
-        <h6>Posted By: {{x[2]}}</h6>
+        <h6>{{x[1]}}</h6>
             
     </div>
         
+
       <div class="userName">
         <h6><b>{{x[3]}}</b></h6>
+
           
       </div>
 
