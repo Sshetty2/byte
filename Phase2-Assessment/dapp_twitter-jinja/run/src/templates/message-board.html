@@ -1,7 +1,7 @@
 {% extends "structure.html" %}
 
 {% block main %}
-<h2><strong>Twitter Dapp Homepage<br/></h2><br/>
+<h2><strong>Reactless Twitter Dapp Homepage<br/></h2><br/>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px">
     
     
@@ -66,13 +66,20 @@
     <div><h1 class="title">Posts</h1></div>
     {% for x in content %}
     <span class="scroll-title-if">
-    
+ 
     <p class="post">
-      <div style="float:right; padding-right:25px; padding-top: 10px">
-          <img style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" src="{{x[4]}}" width="110" height="86" title="White flower" alt="Flower">
+      
+      <div style="float:right; padding-right:25px; padding-top: 10px; padding-left: 30px;">
+          {% if x[4] != "N/A"  %}
+          <img style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 8px;" src="{{x[4]}}" width="110" height="86">
+          
+          {% endif %}
+
         </div>  
       <div class="userName">
-          <h6><b>Posted by: {{x[2]}}</b></h6>
+
+      
+          <h6><b>Posted by: {{x[5]}}</b></h6>
           
       </div>
 

@@ -7,7 +7,7 @@ import uuid
 from datetime import datetime
 from pytz import timezone
 
-fmt = '%I:%M:%S %m-%d-%Y'
+fmt = '%H:%M:%S %m-%d-%Y'
 eastern = timezone('US/Eastern')
 naive_dt = datetime.now()
 loc_dt = datetime.now(eastern)

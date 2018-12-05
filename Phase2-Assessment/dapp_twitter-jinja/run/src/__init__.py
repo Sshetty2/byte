@@ -3,7 +3,6 @@
 from flask import Flask, render_template, request, redirect, session, flash
 import model
 import re
-import dateutil.parser
 import calendar
 
 
@@ -38,7 +37,6 @@ def see_all_users():
     if request.method == 'GET':
         content = model.get_all_users()
         content_len = len(content)
-        print(content)
         return render_template('users.html', content = content, content_len = content_len)
     else:
         if 'username' not in session:
@@ -156,7 +154,7 @@ def message_board():
             content = request.form['content']
             print(content)
             try:
-                model.create_tweet(user_id,content)
+                model.create_new_tweet(user_id, content)
             except:
                 ValueError
             flash('Successful Tweet')               

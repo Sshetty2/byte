@@ -1,7 +1,7 @@
 {% extends "structure.html" %}
 
 {% block main %}
-<h2><strong>Twitter Dapp Dashboard<br/></h2><br/>
+<h2><strong>Reactless Twitter Dapp Dashboard<br/></h2><br/>
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px">
     
     
@@ -63,12 +63,14 @@
 <!-- 
     IMAGE  -->
  
-    <div style="float:right; padding-right: 15px;" >
-        <img style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" src="{{x[4]}}" width="110" height="70" title="White flower" alt="Flower">
+    <div style="float:right; padding-right: 15px; " >
+        {% if x[4] != "N/A"  %}
+        <img style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); border-radius: 8px;" src="{{x[4]}}" width="110" height="70">
+        {% endif %}
     </div>
     
     <div class="body" style="padding-bottom:25px">
-      <h6>Posted at: {{x[6]}}</h6>
+      <h6>Posted at: {{x[5]}}</h6>
     </div>
     <!-- cant use context processor to insert function  -->
     

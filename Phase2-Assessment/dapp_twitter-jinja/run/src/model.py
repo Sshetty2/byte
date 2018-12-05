@@ -12,11 +12,7 @@ import os.path
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 db_path = os.path.join(BASE_DIR, "./datastores/master.db")
 
-fmt = '%I:%M:%S %m-%d-%Y'
-eastern = timezone('US/Eastern')
-naive_dt = datetime.now()
-loc_dt = datetime.now(eastern)
-date_now = naive_dt.strftime(fmt)
+
 
 CONFIG = {
     'DBNAME': db_path,
@@ -77,10 +73,17 @@ def set_user_object_from_pk(pk):
 
 
 ##TODO:
-def create_tweet(username, tweet):
+def create_tweet(username, tweet_object):
     user_object = Account(username=username)
     user_object = user_object.set_from_username()
-    comment_obj= Tweet(pk=None, users_pk=user_object.pk, username=username, content=tweet, time=None)
+    comment_obj= Tweet(pk=None, users_pk=user_object.pk, username=username, content=tweet_object.content, image_pathname=tweet_object.image_pathname, ipfs_hash=tweet_object.ipfs_hash, time=None)
+    comment_obj.save()
+    return True
+
+def create_new_tweet(username, tweet):
+    user_object = Account(username=username)
+    user_object = user_object.set_from_username()
+    comment_obj= Tweet(pk=None, users_pk=user_object.pk, username=username, content=tweet, image_pathname=None, ipfs_hash=None, time=None)
     comment_obj.save()
     return True
 
@@ -97,8 +100,8 @@ def read_all_tweets(username):
     return all_tweets
 
 def copy_tweet(username, retweet_pk):
-    tweet = read_tweet(retweet_pk)
-    create_tweet(username, tweet)
+    tweet_object = read_tweet(retweet_pk)
+    create_tweet(username, tweet_object)
     return True
 
 ## unreasonably long code because of a lack of a followed class)
@@ -144,7 +147,7 @@ def test_followed_object(username, user_to_follow):
 def read_tweet(retweet_pk):
     tweet_object = Tweet(pk=retweet_pk)
     tweet_object = tweet_object.set_from_pk()
-    return tweet_object.content
+    return tweet_object
 
 
 def get_all_users():
@@ -271,7 +274,7 @@ class Account:
         self.set_from_row(row)
         return self
 
-    def create_tweet(self, username, tweet):
+    def create_tweet(self, username, tweet_object):
         with OpenCursor() as cur:
             SQL = """
             SELECT * FROM tweets WHERE users_pk = ?;
@@ -312,13 +315,16 @@ class Account:
                 row_place.append(row["users_pk"])
                 row_place.append(row["username"])
                 row_place.append(row["content"]) 
-                image_pathname= row["image_pathname"]
-                real_pathname= f"static/{image_pathname}" 
-                if os.path.isfile(real_pathname):
-                    row_place.append(real_pathname)
-                else: 
-                    ipfs_hash = row["ipfs_hash"]
-                    row_place.append(f"https://ipfs.io/ipfs/{ipfs_hash}")   
+                if row["image_pathname"] is None:
+                    row_place.append("N/A")
+                else:
+                    image_pathname= row["image_pathname"]
+                    real_pathname= f"static/{image_pathname}" 
+                    if os.path.isfile(real_pathname):
+                        row_place.append(real_pathname)
+                    else: 
+                        ipfs_hash = row["ipfs_hash"]
+                        row_place.append(f"https://ipfs.io/ipfs/{ipfs_hash}")   
                 row_place.append(row["time"]) 
                 results.append(row_place)
             return results
@@ -337,13 +343,16 @@ class Account:
                 row_place.append(row["users_pk"])
                 row_place.append(row["username"])
                 row_place.append(row["content"])
-                image_pathname= row["image_pathname"]
-                real_pathname= f"static/{image_pathname}" 
-                if os.path.isfile(real_pathname):
-                    row_place.append(real_pathname)
-                else: 
-                    ipfs_hash = row["ipfs_hash"]
-                    row_place.append(f"https://ipfs.io/ipfs/{ipfs_hash}")    
+                if row["image_pathname"] is None:
+                    row_place.append("N/A")
+                else:
+                    image_pathname= row["image_pathname"]
+                    real_pathname= f"static/{image_pathname}" 
+                    if os.path.isfile(real_pathname):
+                        row_place.append(real_pathname)
+                    else: 
+                        ipfs_hash = row["ipfs_hash"]
+                        row_place.append(f"https://ipfs.io/ipfs/{ipfs_hash}")   
                 row_place.append(row["time"]) 
                 results.append(row_place)
             return results
@@ -379,11 +388,16 @@ class Tweet:
 
     def save(self):
         if self.time is None:
+            fmt = '%H:%M:%S %m-%d-%Y'
+            eastern = timezone('US/Eastern')
+            naive_dt = datetime.now()
+            loc_dt = datetime.now(eastern)
+            date_now = naive_dt.strftime(fmt)
             self.time = date_now
         with OpenCursor() as cur:
             if not self.pk:
                 SQL = """
-                INSERT INTO tweets(users_pk, username, image_pathname, ipfs_hash, content, time)
+                INSERT INTO tweets(users_pk, username, content, image_pathname, ipfs_hash, time)
                 VALUES(?, ?, ?, ?, ?, ?);
                 """
                 cur.execute(SQL, (self.users_pk, self.username, self.content, self.image_pathname, self.ipfs_hash, self.time))
@@ -391,7 +405,7 @@ class Tweet:
 
             else:
                 SQL = """
-                UPDATE tweets SET users_pk=?, username=?, image_pathname=?, ipfs_hash=?, content=?, time=? WHERE
+                UPDATE tweets SET users_pk=?, username=?, content=?, image_pathname=?, ipfs_hash=?, time=? WHERE
                 pk=?;
                 """
                 cur.execute(SQL, (self.users_pk, self.username, self.content, self.image_pathname, self.ipfs_hash, self.time))
