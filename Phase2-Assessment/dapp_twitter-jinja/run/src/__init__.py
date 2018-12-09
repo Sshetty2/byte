@@ -17,6 +17,7 @@ def send_to_dashboard():
         content = model.get_all_tweets()
         content = list(reversed(content))
         content_len = len(content)
+        print(content)
         return render_template('dashboard.html', content = content, content_len = content_len)
     else:
         if 'username' not in session:

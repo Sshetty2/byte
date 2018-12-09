@@ -11,11 +11,11 @@ import calendar
 def get_ticker_price(ticker='aapl'):
     return model.apiget(ticker)
 
-app = connexion.App(__name__, specification_dir='./')
+# app = connexion.App(__name__, specification_dir='./')
 
-#app = Flask(__name__)
+app = Flask(__name__)
 
-app.add_api('swagger.yml')
+# app.add_api('swagger.yml')
 
 app.secret_key = 'the session needs this'
 
