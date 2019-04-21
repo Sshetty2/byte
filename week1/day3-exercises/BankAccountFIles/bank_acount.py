@@ -43,7 +43,6 @@ def createAccount():
     #  A new card number is added to the masterUserAccts object generated from randomCC
     # The new credit card number is first referenced with existing credit card numbers before being
     masterUserAccts[userID]["Credit Card Number"] = completed_number(['3', '3'], 16)
-    
     print(masterUserAccts)
     print("new account created! \n ... Porting back to main menu")
     return inputTerminal()
