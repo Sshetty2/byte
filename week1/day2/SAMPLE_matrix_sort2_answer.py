@@ -1,5 +1,9 @@
 
+<<<<<<< HEAD
 # from tabulate import tabulate
+=======
+from tabulate import tabulate
+>>>>>>> 69b0729... updated git repo
 
 def matrix_sort(matrix_doc):
     with open(matrix_doc, 'r') as f:
@@ -57,7 +61,11 @@ def matrix_sort(matrix_doc):
     #return sorted_by_column
 
     print ("Sorted by row: ")
+<<<<<<< HEAD
     print ((sorted_by_row))
+=======
+    print (tabulate(sorted_by_row))
+>>>>>>> 69b0729... updated git repo
     #for i in sorted_by_row:
         #print (i)
 
